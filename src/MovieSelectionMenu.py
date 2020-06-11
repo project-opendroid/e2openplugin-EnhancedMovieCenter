@@ -412,7 +412,7 @@ class MovieMenu(Screen, E2Bookmarks, EMCBookmarks):
 	def delMarker(self, path):
 		f = open(path, 'rb')
 		cutlist = []
-		while 1:
+		while True:
 			data = f.read(cutsParser.size)
 			if len(data) < cutsParser.size:
 				break
