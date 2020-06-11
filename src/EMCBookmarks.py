@@ -18,12 +18,12 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 import os
 
 from Components.config import *
 
-from EMCTasker import emcTasker, emcDebugOut
+from ,EMCTasker import emcTasker, emcDebugOut
 
 global CFG_FILE
 CFG_FILE = "/etc/enigma2/emc-bookmarks.cfg"

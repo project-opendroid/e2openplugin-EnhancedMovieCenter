@@ -1,6 +1,6 @@
 ﻿#!/usr/bin/python
 # encoding: utf-8
-
+from __future__ import absolute_import
 from __future__ import print_function
 import os
 import time
@@ -29,7 +29,7 @@ try:
 except Exception as e:
 	print("[EMCMutagenSupport] new mutagen aac-support is not available:", e)
 
-from EMCTasker import emcDebugOut
+from .EMCTasker import emcDebugOut
 
 
 def getAudioMetaData(service, ext):

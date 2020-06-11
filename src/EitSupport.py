@@ -19,7 +19,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 import os
 import struct
 import time
@@ -29,10 +29,10 @@ from datetime import datetime
 
 from Components.config import config
 from Components.Language import language
-from EMCTasker import emcDebugOut
-from IsoFileSupport import IsoSupport
+from .EMCTasker import emcDebugOut
+from .IsoFileSupport import IsoSupport
 
-from MetaSupport import getInfoFile
+from .MetaSupport import getInfoFile
 
 def parseMJD(MJD):
 	# Parse 16 bit unsigned int containing Modified Julian Date,

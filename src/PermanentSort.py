@@ -19,12 +19,12 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 import os, pickle
 
 from collections import defaultdict
 
-from EMCTasker import emcDebugOut
+from .EMCTasker import emcDebugOut
 
 from Components.config import *
 

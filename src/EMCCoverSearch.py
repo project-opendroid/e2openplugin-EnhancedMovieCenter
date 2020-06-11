@@ -1,7 +1,7 @@
 ﻿# -*- coding: utf-8 -*-
 # mod by einfall (09.11.2014)
 # change to themoviedb.org / thetvdb.com - Api
-
+from __future__ import absolute_import
 from __future__ import print_function
 from __init__ import _
 
@@ -29,15 +29,15 @@ from twisted.web.client import downloadPage, getPage
 from twisted.internet import defer
 
 from Components.config import *
-from configlistext import ConfigListScreenExt
+from .configlistext import ConfigListScreenExt
 
 from enigma import eListboxPythonMultiContent, eListbox, gFont, getDesktop, loadJPG, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, RT_HALIGN_CENTER, RT_VALIGN_CENTER, loadPNG, RT_WRAP, eServiceReference
 
 from Tools.BoundFunction import boundFunction
-from DelayedFunction import DelayedFunction
+from .DelayedFunction import DelayedFunction
 from time import time
 
-from MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, getNoPosterPath
+from .MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, getNoPosterPath
 
 sz_w = getDesktop(0).size().width()
 

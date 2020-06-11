@@ -18,7 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 from __future__ import print_function
 import os
 import struct
@@ -37,15 +37,15 @@ from Tools.BoundFunction import boundFunction
 from Tools.Notifications import AddPopup
 from enigma import getDesktop
 
-from EMCFileCache import movieFileCache
-from EMCTasker import emcTasker, emcDebugOut
-from EnhancedMovieCenter import _
+from .EMCFileCache import movieFileCache
+from .EMCTasker import emcTasker, emcDebugOut
+from .EnhancedMovieCenter import _
 from Plugins.Extensions.EnhancedMovieCenter.plugin import pluginOpen as emcsetup
-from PermanentSort import PermanentSort
-from E2Bookmarks import E2Bookmarks
-from EMCBookmarks import EMCBookmarks
-from RogueFileCheck import RogueFileCheck
-from MovieCenter import extTS, extMedia
+from .PermanentSort import PermanentSort
+from .E2Bookmarks import E2Bookmarks
+from .EMCBookmarks import EMCBookmarks
+from .RogueFileCheck import RogueFileCheck
+from .MovieCenter import extTS, extMedia
 global extTS
 
 cutsParser = struct.Struct('>QI') # big-endian, 64-bit PTS and 32-bit type

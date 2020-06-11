@@ -18,12 +18,12 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 from __future__ import print_function
 import os
 
 from enigma import eServiceReference, eServiceCenter
-from EMCTasker import emcDebugOut
+from .EMCTasker import emcDebugOut
 from Screens.MessageBox import MessageBox
 
 global vlcSrv, vlcDir, vlcFil

@@ -1,6 +1,6 @@
 ﻿#!/usr/bin/python
 # encoding: utf-8
-
+from __future__ import absolute_import
 from __future__ import print_function
 import os
 
@@ -17,15 +17,15 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ActionMap import *
 from Components.Button import Button
 from Components.config import *
-from configlistext import ConfigListScreenExt
+from .configlistext import ConfigListScreenExt
 from Components.FileList import FileList
 from Components.GUIComponent import GUIComponent
 from Tools.Directories import fileExists
 
 from skin import parseColor, parseFont
 
-from MetaSupport import MetaList
-from MovieCenter import plyDVB
+from .MetaSupport import MetaList
+from .MovieCenter import plyDVB
 
 sz_w = getDesktop(0).size().width()
 

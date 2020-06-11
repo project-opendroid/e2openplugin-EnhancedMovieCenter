@@ -18,7 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 from __future__ import print_function
 import os
 
@@ -36,11 +36,11 @@ from Screens.HelpMenu import HelpableScreen
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import fileExists, resolveFilename, SCOPE_LANGUAGE, SCOPE_PLUGINS
 
-from EnhancedMovieCenter import _
-from EMCTasker import emcDebugOut
-from DelayedFunction import DelayedFunction
+from .EnhancedMovieCenter import _
+from .EMCTasker import emcDebugOut
+from .DelayedFunction import DelayedFunction
 
-from MovieCenter import sidDVD, sidDVB
+from .MovieCenter import sidDVD, sidDVB
 
 SeekbarPlg = "%s%s"%(resolveFilename(SCOPE_PLUGINS), "Extensions/Seekbar/plugin.py")
 

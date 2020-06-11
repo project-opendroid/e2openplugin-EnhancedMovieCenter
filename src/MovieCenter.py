@@ -18,6 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
+from __future__ import absolute_import
 from __future__ import print_function
 import math
 import os
@@ -40,22 +41,22 @@ from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, 
 from timer import TimerEntry
 
 from . import _
-from EMCFileCache import movieFileCache
-from EMCMountPoints import mountPoints
-from RecordingsControl import RecordingsControl, getRecording
-from DelayedFunction import DelayedFunction
-from EMCTasker import emcDebugOut
-from VlcPluginInterface import VlcPluginInterfaceList, vlcSrv, vlcDir, vlcFil
-from VlcPluginInterface import DEFAULT_VIDEO_PID, DEFAULT_AUDIO_PID, ENIGMA_SERVICE_ID
+from .EMCFileCache import movieFileCache
+from .EMCMountPoints import mountPoints
+from .RecordingsControl import RecordingsControl, getRecording
+from .DelayedFunction import DelayedFunction
+from .EMCTasker import emcDebugOut
+from .VlcPluginInterface import VlcPluginInterfaceList, vlcSrv, vlcDir, vlcFil
+from .VlcPluginInterface import DEFAULT_VIDEO_PID, DEFAULT_AUDIO_PID, ENIGMA_SERVICE_ID
 from operator import itemgetter
-from CutListSupport import CutList
-from MetaSupport import MetaList
-from EitSupport import EitList
-from PermanentSort import PermanentSort
-from E2Bookmarks import E2Bookmarks
-from EMCBookmarks import EMCBookmarks
-from ServiceSupport import ServiceCenter
-from ThreadQueue import ThreadQueue
+from .CutListSupport import CutList
+from .MetaSupport import MetaList
+from .EitSupport import EitList
+from .PermanentSort import PermanentSort
+from .E2Bookmarks import E2Bookmarks
+from .EMCBookmarks import EMCBookmarks
+from .ServiceSupport import ServiceCenter
+from .ThreadQueue import ThreadQueue
 
 from six.moves import range
 from six.moves import reload_module

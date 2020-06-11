@@ -18,7 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 import pickle, os
 from collections import defaultdict
 
@@ -26,8 +26,8 @@ from Components.config import config
 from RecordTimer import AFTEREVENT
 import NavigationInstance
 
-from EMCTasker import emcTasker, emcDebugOut
-from DelayedFunction import DelayedFunction
+from .EMCTasker import emcTasker, emcDebugOut
+from .DelayedFunction import DelayedFunction
 
 try:
 	from enigma import eMediaDatabase

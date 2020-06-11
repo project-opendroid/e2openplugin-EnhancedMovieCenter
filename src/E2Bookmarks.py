@@ -18,13 +18,13 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 import os
 from operator import isCallable
 
 from Components.config import *
 
-from EMCTasker import emcTasker, emcDebugOut
+from .EMCTasker import emcTasker, emcDebugOut
 
 class E2Bookmarks():
 	def __init__(self):

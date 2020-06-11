@@ -18,7 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 from __future__ import print_function
 import os, re
 import sys, traceback
@@ -37,7 +37,7 @@ from Screens.MessageBox import MessageBox
 from Screens.HelpMenu import HelpableScreen
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import fileExists, resolveFilename, SCOPE_LANGUAGE, SCOPE_PLUGINS
-from ISO639 import LanguageCodes as langC
+from .ISO639 import LanguageCodes as langC
 from Components.Language import language
 
 try:
@@ -51,22 +51,22 @@ from Screens.MessageBox import MessageBox
 from Tools.Notifications import AddPopup
 
 # Plugin internal
-from EnhancedMovieCenter import _
-from EMCTasker import emcDebugOut
-from DelayedFunction import DelayedFunction
-from CutListSupport import CutList
-from InfoBarSupport import InfoBarSupport
+from .EnhancedMovieCenter import _
+from .EMCTasker import emcDebugOut
+from .DelayedFunction import DelayedFunction
+from .CutListSupport import CutList
+from .InfoBarSupport import InfoBarSupport
 from Components.Sources.EMCCurrentService import EMCCurrentService
-from ServiceSupport import ServiceCenter
+from .ServiceSupport import ServiceCenter
 
 # Cover
 from Components.AVSwitch import AVSwitch
 from Components.Pixmap import Pixmap
 from enigma import ePicLoad
 
-from MovieCenter import sidDVD, sidDVB, toggleProgressService, getPosterPath
+from .MovieCenter import sidDVD, sidDVB, toggleProgressService, getPosterPath
 
-from RecordingsControl import getRecording
+from .RecordingsControl import getRecording
 import NavigationInstance
 
 from six.moves import range

@@ -18,11 +18,11 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 import os
 from enigma import eTimer
 from Components.config import config
-from EMCTasker import emcTasker
+from .EMCTasker import emcTasker
 
 class EMCMountPoints:
 	def __init__(self):

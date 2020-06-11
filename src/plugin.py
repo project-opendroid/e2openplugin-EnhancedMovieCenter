@@ -18,7 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 from __future__ import print_function
 from Components.config import *
 from Components.ActionMap import ActionMap
@@ -40,8 +40,8 @@ import six
 
 from __init__ import _
 from Components.Language import language
-from ISO639 import ISO639Language
-from EMCTasker import emcTasker, emcDebugOut
+from .ISO639 import ISO639Language
+from .EMCTasker import emcTasker, emcDebugOut
 import copy
 
 class ConfigTextWOHelp(ConfigText):

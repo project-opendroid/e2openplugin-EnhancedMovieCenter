@@ -19,13 +19,13 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 import os, re
 
 from datetime import datetime
 
-from EMCTasker import emcDebugOut
-from IsoFileSupport import IsoSupport
+from E.MCTasker import emcDebugOut
+from I.soFileSupport import IsoSupport
 
 # Meta File support class
 # Description

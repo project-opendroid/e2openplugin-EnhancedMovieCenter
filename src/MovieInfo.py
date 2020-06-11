@@ -1,5 +1,5 @@
 ﻿# -*- coding: utf-8 -*-
-
+from __future__ import absolute_import
 from __future__ import print_function
 from __init__ import _
 from Components.ActionMap import ActionMap, HelpableActionMap
@@ -11,9 +11,9 @@ from Components.ScrollLabel import ScrollLabel
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.config import *
-from configlistext import ConfigListScreenExt
+from .configlistext import ConfigListScreenExt
 
-from MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, getNoPosterPath
+from .MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, getNoPosterPath
 
 import json, os, re
 from twisted.web.client import downloadPage

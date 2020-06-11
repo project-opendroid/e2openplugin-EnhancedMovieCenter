@@ -21,6 +21,7 @@
 #
 
 from __future__ import print_function
+from __future__ import absolute_import
 import os
 import struct
 from bisect import insort
@@ -28,7 +29,7 @@ from bisect import insort
 from Components.config import *
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport, InfoBarSeek
 
-from EMCTasker import emcDebugOut
+from .EMCTasker import emcDebugOut
 from IsoFileSupport import IsoSupport
 
 from RecordingsControl import getRecording

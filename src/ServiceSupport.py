@@ -18,7 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 import os
 import struct
 from datetime import datetime
@@ -28,12 +28,12 @@ from Components.config import *
 from Components.Element import cached
 from enigma import eServiceCenter, iServiceInformation, eServiceReference
 from ServiceReference import ServiceReference
-from EMCFileCache import movieFileCache
+from .EMCFileCache import movieFileCache
 
-from CutListSupport import CutList
-from MetaSupport import MetaList, getInfoFile
-from EitSupport import EitList
-from RecordingsControl import getRecording
+from .CutListSupport import CutList
+from .MetaSupport import MetaList, getInfoFile
+from .EitSupport import EitList
+from .RecordingsControl import getRecording
 instance = None
 
 class ServiceCenter:

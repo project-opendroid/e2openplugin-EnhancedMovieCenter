@@ -1,4 +1,5 @@
-﻿from __future__ import print_function
+﻿from __future__ import absolute_import
+from __future__ import print_function
 import os
 
 # for localized messages
@@ -7,7 +8,7 @@ from __init__ import _
 from Screens.Screen import Screen
 from Components.config import config, ConfigText, getConfigListEntry
 from Components.ActionMap import ActionMap
-from configlistext import ConfigListScreenExt
+from .configlistext import ConfigListScreenExt
 from Components.Sources.StaticText import StaticText
 from Components.Label import Label
 from Components.Pixmap import Pixmap
@@ -15,7 +16,7 @@ from Components.Pixmap import Pixmap
 from enigma import eServiceReference, iServiceInformation, getDesktop, ePoint
 
 # Plugin internal
-from ServiceSupport import ServiceCenter
+from .ServiceSupport import ServiceCenter
 
 class MovieRetitle(Screen, ConfigListScreenExt):
 	def __init__(self, session, services):

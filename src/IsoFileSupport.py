@@ -19,10 +19,10 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 import os
 
-from EMCTasker import emcDebugOut
+from .EMCTasker import emcDebugOut
 
 class IsoSupport():
 

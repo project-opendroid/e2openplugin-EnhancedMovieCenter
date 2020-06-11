@@ -18,7 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-
+from __future__ import absolute_import
 from __future__ import print_function
 import os
 import chardet
@@ -56,31 +56,31 @@ from enigma import ePicLoad, getDesktop
 #from Tools.LoadPixmap import LoadPixmap
 
 # EMC internal
-from EMCFileCache import movieFileCache
-from EMCMountPoints import mountPoints
-from DelayedFunction import DelayedFunction
-from EnhancedMovieCenter import _
-from EMCTasker import emcTasker, emcDebugOut
-from MovieCenter import MovieCenter, getPlayerService, getProgress, detectBLUStructure, detectBLUISO
-from MovieSelectionMenu import MovieMenu
-from EMCMediaCenter import EMCMediaCenter
-from VlcPluginInterface import VlcPluginInterfaceSel
-from CutListSupport import CutList
-from DirectoryStack import DirectoryStack
-from E2Bookmarks import E2Bookmarks
-from EMCBookmarks import EMCBookmarks
-from ServiceSupport import ServiceCenter
-from EMCCoverSearch import EMCImdbScan
-from MovieRetitle import MovieRetitle
+from .EMCFileCache import movieFileCache
+from .EMCMountPoints import mountPoints
+from .DelayedFunction import DelayedFunction
+from .EnhancedMovieCenter import _
+from .EMCTasker import emcTasker, emcDebugOut
+from .MovieCenter import MovieCenter, getPlayerService, getProgress, detectBLUStructure, detectBLUISO
+from .MovieSelectionMenu import MovieMenu
+from .EMCMediaCenter import EMCMediaCenter
+from .VlcPluginInterface import VlcPluginInterfaceSel
+from .CutListSupport import CutList
+from .DirectoryStack import DirectoryStack
+from .E2Bookmarks import E2Bookmarks
+from .EMCBookmarks import EMCBookmarks
+from .ServiceSupport import ServiceCenter
+from .EMCCoverSearch import EMCImdbScan
+from .MovieRetitle import MovieRetitle
 from Components.Sources.EMCServiceEvent import EMCServiceEvent
-from MovieInfo import MovieInfoTMDb
-from EMCPlayList import emcplaylist, EMCPlaylistScreen, EMCPlaylistSetup
+from .MovieInfo import MovieInfoTMDb
+from .EMCPlayList import emcplaylist, EMCPlaylistScreen, EMCPlaylistSetup
 
 #from MetaSupport import MetaList
-from MetaSupport import getInfoFile
+from .MetaSupport import getInfoFile
 
-from MovieCenter import extList, extVideo, extMedia, extDir, plyAll, plyDVD, cmtBME2, cmtBMEMC, cmtDir, plyDVB, extPlaylist, extAudio
-from MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, getNoPosterPath, getPosterPath
+from .MovieCenter import extList, extVideo, extMedia, extDir, plyAll, plyDVD, cmtBME2, cmtBMEMC, cmtDir, plyDVB, extPlaylist, extAudio
+from .MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, getNoPosterPath, getPosterPath
 
 from six.moves import range
 
