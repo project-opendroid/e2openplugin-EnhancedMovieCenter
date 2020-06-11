@@ -276,7 +276,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 		# Record events
 		try:
 			NavigationInstance.instance.RecordTimer.on_state_change.append(self.recEvent)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCMediaCenter] Record observer add exception:\n" + str(e))
 
 		# Dialog Events
@@ -330,7 +330,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 				f = open("/proc/stb/video/policy", "w")
 				f.write(newChoice)
 				f.close()
-		except Exception, e:
+		except Exception as e:
 			print("[EMCMediaCenter] CoolAVSwitch exception:" + str(e))
 
 	def getCurrentEvent(self):
@@ -348,7 +348,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 			evt = self.getCurrentEvent()
 			if evt:
 				self.session.open(IMDbEventViewSimple, evt, ServiceReference(service))
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCPlayer] showMovies detail exception:\n" + str(e))
 
 	def __onShow(self):
@@ -531,7 +531,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 						#self.recordings.show()
 						reopen = True
 			#self.service = None
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCPlayer] leave exception:\n" + str(e))
 
 		self.session.nav.stopService()
@@ -560,7 +560,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 				# ATTENTION thist won't fix the other situation
 				# If a running record will be played and the player is stopped before the record ends
 				# -> Then E2 will overwrite the existing cuts.
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[spRO] recEvent exception:\n" + str(e))
 
 	def updatePlayer(self):
@@ -574,7 +574,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 		# Record events
 		try:
 			NavigationInstance.instance.RecordTimer.on_state_change.remove(self.recEvent)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCMediaCenter] Record observer remove exception:\n" + str(e))
 
 	##############################################################################
@@ -697,7 +697,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 				if matchedAc3: return
 				tracks.selectTrack(0)		# fallback to track 1(0)
 			print("###############################################audio1")
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCPlayer] audioTrack exception:\n" + str(e))
 
 	def tryAudioTrack(self, tracks, audiolang, trackList, seltrack, useAc3):
@@ -809,7 +809,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 							print(l)
 							for sublang in [config.EMC.sublang1.value, config.EMC.sublang2.value, config.EMC.sublang3.value]:
 								if self.trySubEnable(l, sublang): break
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCPlayer] setSubtitleState exception:\n" + str(e))
 
 	##############################################################################
@@ -835,7 +835,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 	def openExtensions(self):
 		try:
 			InfoBar.instance and InfoBar.instance.showExtensionSelection()
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCPlayer] openExtensions exception:\n" + str(e))
 
 	def nextAudioTrack(self):
@@ -1041,7 +1041,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 			from MovieSelection import EMCSelection
 			#self.session.openWithCallback(showMoviesCallback, EMCSelection)
 			self.session.open(EMCSelection, returnService=self.service, playerInstance=self)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCPlayer] showMovies exception:\n" + str(e))
 
 	##############################################################################

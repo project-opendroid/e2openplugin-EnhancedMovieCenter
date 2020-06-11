@@ -84,7 +84,7 @@ class IsoSupport():
 						# Any ideas do speed up
 						f.seek(0x10019)
 						name = f.readline()
-					except Exception, e:
+					except Exception as e:
 						emcDebugOut("[ISO] Exception in __readISOFile: " + str(e))
 					finally:
 						if f is not None:
@@ -97,5 +97,5 @@ class IsoSupport():
 				# No path or no file clear all
 				self.iso_name = ""
 
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[META] Exception in readMetaFile: " + str(e))

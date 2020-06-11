@@ -287,7 +287,7 @@ class InfoBarSupport(	InfoBarBase, \
 		try:
 			# InfoBarCueSheetSupport
 			return self.cueGetCurrentPosition() or 0
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCMC] getSeekPlayPosition exception:" + str(e))
 			return 0
 
@@ -295,7 +295,7 @@ class InfoBarSupport(	InfoBarBase, \
 		try:
 			# Call private InfoBarCueSheetSupport function
 			seek = InfoBarCueSheetSupport._InfoBarCueSheetSupport__getSeekable(self)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCMC] getSeekLength exception:" + str(e))
 		if seek is None:
 			return None

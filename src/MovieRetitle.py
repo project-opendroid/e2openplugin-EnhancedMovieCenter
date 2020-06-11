@@ -183,7 +183,7 @@ class MovieRetitle(Screen, ConfigListScreenExt):
 			dir = os.path.dirname(self.service.getPath()[0:-1])
 			os.rename(self.service.getPath(), os.path.join(dir, self.input_file.getText() + "/"))
 			self.original_file = self.input_file.getText()
-		except Exception, e:
+		except Exception as e:
 			print(e)
 
 	def renameFile(self, service, new_name):
@@ -195,5 +195,5 @@ class MovieRetitle(Screen, ConfigListScreenExt):
 			import glob
 			for f in glob.glob(os.path.join(path, src + "*")):
 				os.rename(f, f.replace(src, dst))
-		except Exception, e:
+		except Exception as e:
 			print(e)

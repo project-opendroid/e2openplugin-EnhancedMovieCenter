@@ -151,11 +151,11 @@ class CutList():
 				if service and hasCutlistDownloader:
 					try:
 						bestCutlist(service, self.cutlistDownloaded)
-					except Exception, e:
+					except Exception as e:
 						emcDebugOut("[EMC] Plugin CutlistDownloader exception:" + str(e))
 
 			#MAYBE: If the cutlist is empty we can check the EPG NowNext Events
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[CUTS] downloadCutList exception:" + str(e))
 
 	def cutlistDownloaded(self, cutlist=[]):
@@ -196,7 +196,7 @@ class CutList():
 						cue.setCutList(self.cut_list)
 				else:
 					cue.setCutList(self.cut_list)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[CUTS] uploadCuesheet exception:" + str(e))
 
 	def updateFromCuesheet(self):
@@ -219,7 +219,7 @@ class CutList():
 			if savefileexists:
 				emcDebugOut("[Cutlist.Workaround] Delete Backup-File ")
 				os.remove(cutspath + '.save')
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[CUTS] updateCuesheet exception:" + str(e))
 
 	def setCutList(self, cut_list):
@@ -418,7 +418,7 @@ class CutList():
 				try:
 					f = open(path, 'rb')
 					data = f.read()
-				except Exception, e:
+				except Exception as e:
 					emcDebugOut("[CUTS] Exception in __readCutFile: " + str(e))
 				finally:
 					if f is not None:
@@ -455,7 +455,7 @@ class CutList():
 				f = open(path, 'wb')
 				if data:
 					f.write(data)
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[CUTS] Exception in __writeCutFile: " + str(e))
 			finally:
 				if f is not None:
@@ -474,7 +474,7 @@ class CutList():
 						fsave = open(savepath, 'wb')
 						if data:
 							fsave.write(data)
-					except Exception, e:
+					except Exception as e:
 						emcDebugOut("[Cutlist.Workaround] Exception in __writeCutFile: " + str(e))
 					finally:
 						if fsave is not None:

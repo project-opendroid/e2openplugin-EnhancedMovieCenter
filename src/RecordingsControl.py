@@ -49,7 +49,7 @@ def getRecording(filename):
 			if filename == os.path.basename(timer.Filename):
 				return timer.begin, timer.end, timer.service_ref.ref
 
-	except Exception, e:
+	except Exception as e:
 		emcDebugOut("[emcRC] getRecording exception:\n" + str(e))
 	return None
 
@@ -83,13 +83,13 @@ class RecordEventObserver:
 
 		try:
 			NavigationInstance.instance.RecordTimer.on_state_change.append(self.recEvent)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[spRO] Record observer add exception:\n" + str(e))
 
 	def recEvent(self, timer):
 		try:
 			self.callback(timer)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[spRO] recEvent exception:\n" + str(e))
 
 #TODO RecControl should be a separate global instance
@@ -148,13 +148,13 @@ class RecordingsControl:
 				if config.EMC.remote_recordings.value:
 					self.recFileUpdate()
 				self.recStateChange(timer)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcRC] recEvent exception:\n" + str(e))
 
 	def timerCleanup(self):
 		try:
 			NavigationInstance.instance.RecordTimer.cleanup()
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcRC] timerCleanup exception:\n" + str(e))
 
 	def isRecording(self, filename):
@@ -164,7 +164,7 @@ class RecordingsControl:
 				if filename.lower().endswith(".ts"):
 					filename = filename[:-3]
 			return filename in self.recDict
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcRC] isRecording exception:\n" + str(e))
 			return False
 
@@ -175,7 +175,7 @@ class RecordingsControl:
 				if filename.lower().endswith(".ts"):
 					filename = filename[:-3]
 			return filename in self.recRemoteList
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcRC] isRemoteRecording exception:\n" + str(e))
 			return False
 
@@ -203,7 +203,7 @@ class RecordingsControl:
 						return True
 			else:
 				emcDebugOut("[emcRC] OOPS stop REC for nonexistent: " + filename)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcRC] stopRecording exception:\n" + str(e))
 		return False
 
@@ -213,7 +213,7 @@ class RecordingsControl:
 				if not os.path.exists(filename[:-2]+"eit"):
 					return True
 			return False
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcRC] isCutting exception:\n" + str(e))
 			return False
 
@@ -229,7 +229,7 @@ class RecordingsControl:
 					timer.Filename = new
 					emcDebugOut("[emcRC] fixed path: " + new)
 					break
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcRC] fixTimerPath exception:\n" + str(e))
 
 	def remoteInit(self, ip):
@@ -239,7 +239,7 @@ class RecordingsControl:
 			if ip is not None:
 				rec = "/db_%s.rec" %str(ip).replace(", ", ".")[1:-1]
 				self.recFile = os.path.join(config.EMC.folder.value, rec)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcRC] remoteInit exception:\n" + str(e))
 
 	def recFileUpdate(self):
@@ -249,7 +249,7 @@ class RecordingsControl:
 			if self.recFile is None: return	# was not able to get IP
 			recf = open(self.recFile, "wb")
 			pickle.dump(self.recDict.keys(), recf)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcRC] recFileUpdate exception:\n" + str(e))
 		finally:
 			if recf is not None:
@@ -267,7 +267,7 @@ class RecordingsControl:
 					if x.lower().endswith(".rec") and path != self.recFile:
 						recf = open( path, "rb" )
 						self.recRemoteList += pickle.load(recf)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcRC] recFilesRead exception:\n" + str(e))
 		finally:
 			if recf is not None:

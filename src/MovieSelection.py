@@ -89,7 +89,7 @@ isMutagen = False
 try:
 	from mutagen.mp3 import MP3
 	isMutagen = True
-except Exception, e:
+except Exception as e:
 	print("[EMCMS] python-mutagen is not available:", e)
 
 try:
@@ -213,7 +213,7 @@ def purgeExpired(currentPath=None,postFileOp=None,emptyTrash=False):
 						emcDebugOut("[EMCMS] finished movie cleanup: nothing to move...")
 		else:
 			emcDebugOut("[EMCMS] trashcan cleanup: no trashcan...")
-	except Exception, e:
+	except Exception as e:
 		emcDebugOut("[EMCMS] purgeExpired exception:\n" + str(e))
 
 if isDreamOS:
@@ -1339,7 +1339,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			dlg.setTitle(_("Choose script"))
 			dlg["list"].move(0,30)
 
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCMS] openScriptMenu exception:\n" + str(e))
 
 	def imdb(self):
@@ -1699,7 +1699,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 				if evt:
 					self.checkHideMiniTV_beforeFullscreen()
 					self.session.open(IMDbEventViewSimple, evt, ServiceReference(self.getCurrent()))
-		except Exception, e:
+		except Exception as e:
 			print(('[EMC] showEventInformation exception failure: ', str(e)))
 			pass
 
@@ -2287,7 +2287,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 					self.lastPlayed.remove(service)
 				if len(self.lastPlayed) == 0:
 					self.lastPlayed = None
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCMS] lastPlayedCheck exception:\n" + str(e))
 
 	#############################################################################
@@ -2332,7 +2332,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 				filenames += "\n" + e[0].split("/")[-1][:-3]
 			self.checkHideMiniTV_beforeFullscreen()
 			self.session.openWithCallback(self.stopRecordConfirmation, MessageBox, _("Stop ongoing recording?\n") + filenames, MessageBox.TYPE_YESNO)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCMS] stopRecordQ exception:\n" + str(e))
 
 	def moveRecCheck(self, service, targetPath):
@@ -2340,7 +2340,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			path = service.getPath()
 			if self["list"].recControl.isRecording(path):
 				self["list"].recControl.fixTimerPath(path, path.replace(self.currentPath, targetPath))
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCMS] moveRecCheck exception:\n" + str(e))
 
 	#############################################################################
@@ -2531,7 +2531,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 								MessageBox,
 								delStr + _(" all selected video files? The currently playing movie is also one of the selections and its playback will be stopped.") + "\n" + rm_add + movienames,
 								MessageBox.TYPE_YESNO)
-		except Exception, e:
+		except Exception as e:
 			self.checkHideMiniTV_beforeFullscreen()
 			self.session.open(MessageBox, _("Delete error:\n") + str(e), MessageBox.TYPE_ERROR)
 			emcDebugOut("[EMCMS] deleteMovieQ exception:\n" + str(e))
@@ -3033,7 +3033,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			# this we need to get the new position values,
 			# otherwise no select for other files in the same directory after that
 			self["list"].reload(self.currentPath)
-		except Exception, e:
+		except Exception as e:
 			print(('[EMC] postFileOp exception: ', str(e)))
 
 	def moveMovie(self, selection=None):
@@ -3062,7 +3062,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 						editDir = True,
 						inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys", "/usr", "/var"],
 						minFree = 100 )
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[EMCMS] moveMovie exception failure: ", str(e))
 		else:
 			current = self.getCurrent()
@@ -3138,7 +3138,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 						editDir = True,
 						inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys", "/usr", "/var"],
 						minFree = 100 )
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[EMCMS] copyMovie exception failure: ", str(e))
 		else:
 			current = self.getCurrent()
@@ -3207,7 +3207,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 					editDir = True,
 					inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/home", "/lib", "/proc", "/run", "/sbin", "/sys", "/usr", "/var"],
 					minFree = 100 )
-		except Exception, e:
+		except Exception as e:
 			print(('[EMC] moveDirectory get failed: ', str(e)))
 		emcDebugOut("[EMCMS] moveDirectory")
 
@@ -3228,7 +3228,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 				stat = os.statvfs(targetPath)
 				free = (stat.f_bavail if stat.f_bavail!=0 else stat.f_bfree) * stat.f_bsize / 1024 / 1024
 				freeSize += free/1024
-			except Exception, e:
+			except Exception as e:
 				print(('[EMC] mvDirectorySelected get sizes failed: ', str(e)))
 
 			if freeSize >= selSize:
@@ -3244,7 +3244,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 						association.append((self.postDirectoryOp))
 						# Sync = True: Run script for one file do association and continue with next file
 						emcTasker.shellExecute(cmd, association, True)	# first move, then delete if expiration limit is 0
-				except Exception, e:
+				except Exception as e:
 					print(('[EMC] mvDirectorySelected execute get failed: ', str(e)))
 		emcDebugOut("[EMCMS] mvDirectorySelected")
 
@@ -3252,7 +3252,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		self.tmpSelPath = None
 		try:
 				self["list"].reload(self.currentPath)
-		except Exception, e:
+		except Exception as e:
 				print(('[EMC] postDirectoryOp - refreshList get failed!!!', str(e)))
 
 	def trashcanCreate(self, confirmed):
@@ -3261,7 +3261,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			if self.currentPath == os.path.dirname(config.EMC.movie_trashcan_path.value):
 				# reload to show the trashcan only if the current path will contain the trashcan
 				self.reloadListWithoutCache()
-		except Exception, e:
+		except Exception as e:
 			self.checkHideMiniTV_beforeFullscreen()
 			self.session.open(MessageBox, _("Trashcan create failed. Check mounts and permissions."), MessageBox.TYPE_ERROR)
 			emcDebugOut("[EMCMS] trashcanCreate exception:\n" + str(e))

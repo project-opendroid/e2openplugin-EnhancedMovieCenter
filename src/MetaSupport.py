@@ -164,7 +164,7 @@ class MetaList():
 				else:
 					title = desc
 
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMC] getMetaTitle failed !!!\n" + str(e))
 		return title
 
@@ -192,7 +192,7 @@ class MetaList():
 				try:
 					f = open(path, 'r')
 					lines = f.readlines()
-				except Exception, e:
+				except Exception as e:
 					emcDebugOut("[META] Exception in readMetaFile: " + str(e))
 				finally:
 					if f is not None:

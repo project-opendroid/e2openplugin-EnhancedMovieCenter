@@ -191,7 +191,7 @@ class EitList():
 					f = open(path, 'rb')
 					#lines = f.readlines()
 					data = f.read()
-				except Exception, e:
+				except Exception as e:
 					emcDebugOut("[META] Exception in readEitFile: " + str(e))
 				finally:
 					if f is not None:
@@ -253,7 +253,7 @@ class EitList():
 								try:
 									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
 										name_event_description += data[i]
-								except IndexError, e:
+								except IndexError as e:
 									emcDebugOut("[META] Exception in readEitFile: " + str(e))
 							if not name_event_codepage:
 								try:
@@ -296,7 +296,7 @@ class EitList():
 								try:
 									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
 										short_event_description += data[i]
-								except IndexError, e:
+								except IndexError as e:
 									emcDebugOut("[META] Exception in readEitFile: " + str(e))
 							if ISO_639_language_code == lang:
 								short_event_descriptor.append(short_event_description)
@@ -336,7 +336,7 @@ class EitList():
 								try:
 									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
 										extended_event_description += data[i]
-								except IndexError, e:
+								except IndexError as e:
 									emcDebugOut("[META] Exception in readEitFile: " + str(e))
 							if ISO_639_language_code == lang:
 								extended_event_descriptor.append(extended_event_description)
@@ -394,7 +394,7 @@ class EitList():
 									name_event_descriptor.decode(enc)
 								else:
 									name_event_descriptor = name_event_descriptor.decode(enc).encode('utf-8')
-						except (UnicodeDecodeError, AttributeError), e:
+						except (UnicodeDecodeError, AttributeError) as e:
 							emcDebugOut("[META] Exception in readEitFile: " + str(e))
 					self.eit['name'] = name_event_descriptor
 
@@ -414,7 +414,7 @@ class EitList():
 									short_event_descriptor.decode(enc)
 								else:
 									short_event_descriptor = short_event_descriptor.decode(enc).encode('utf-8')
-						except (UnicodeDecodeError, AttributeError), e:
+						except (UnicodeDecodeError, AttributeError) as e:
 							emcDebugOut("[META] Exception in readEitFile: " + str(e))
 					self.eit['short_description'] = short_event_descriptor
 
@@ -434,7 +434,7 @@ class EitList():
 									extended_event_descriptor.decode(enc)
 								else:
 									extended_event_descriptor = extended_event_descriptor.decode(enc).encode('utf-8')
-						except (UnicodeDecodeError, AttributeError), e:
+						except (UnicodeDecodeError, AttributeError) as e:
 							emcDebugOut("[META] Exception in readEitFile: " + str(e))
 
 						# This will fix EIT data of RTL group with missing line breaks in extended event description

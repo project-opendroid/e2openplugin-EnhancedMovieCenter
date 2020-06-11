@@ -56,7 +56,7 @@ except:
 		print("[VLC] Checking for existing and usable servicets.so ... ", end=' ')
 		try:
 			import servicets
-		except Exception, e:
+		except Exception as e:
 			print(e)
 			print("[VLC] Checking for usable gstreamer service ... ", end=' ')
 			if isValidServiceId(ENIGMA_SERVICEGS_ID):
@@ -100,7 +100,7 @@ class VlcPluginInterfaceSel():
 				except:	# v2.6
 					self["list"].vlcServer.play(self.session, entry[4], entry[3], VlcFileListWrapper())
 				self.close()
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMC_VLC] vlcMovieSelected exception:\n" + str(e))
 
 class VlcPluginInterfaceList():
@@ -173,7 +173,7 @@ class VlcPluginInterfaceList():
 							vlcfilelist.append( (path, name, vlcFil) )
 						else:
 							emcDebugOut("[EMC_VLC] file = " + str(name))
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[EMC_VLC] reloadVlcFilelist exception:\n" + str(e))
 
 		return vlcdirlist, vlcfilelist

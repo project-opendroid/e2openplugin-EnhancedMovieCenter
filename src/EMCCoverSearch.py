@@ -1152,11 +1152,11 @@ class getCover(Screen):
 				print("EMC iMDB: mv poster to real path - %s %s" % (self.path, self.o_path))
 				self.check = False
 				self.close(True)
-			except Exception, e:
+			except Exception as e:
 				print(('[EMCCoverSearch] save Cover execute get failed: ', str(e)))
 				try:
 					self.session.openWithCallback(self.saveCoverHomepath, MessageBox, _("Can not save " + self.o_path + " !\n Save Cover now in " + movie_homepath + " ?"), MessageBox.TYPE_YESNO, 10)
-				except Exception, e:
+				except Exception as e:
 					print(('[EMCCoverSearch] save Cover in homepath execute get failed: ', str(e)))
 
 	def saveCoverHomepath(self, result):
@@ -1166,11 +1166,11 @@ class getCover(Screen):
 				shutil.move(self.path, movie_homepath + "/" + self.o_path.replace(self.o_path[:-len(self.o_path) + self.o_path.rfind('/') + 1],''))
 				self.check = False
 				self.close(True)
-			except Exception, e:
+			except Exception as e:
 				print(('[EMCCoverSearch] saveCoverHomepath execute get failed: ', str(e)))
 				try:
 					self.session.openWithCallback(self.chooseCallback, MessageBox, _("Can not save Cover in " + movie_homepath + " !\n\n Now you can select another folder to save the Cover."), MessageBox.TYPE_YESNO, 10)
-				except Exception, e:
+				except Exception as e:
 					print(('[EMCCoverSearch] save Cover get failed: ', str(e)))
 		else:
 			self.check = False
@@ -1204,7 +1204,7 @@ class getCover(Screen):
 				shutil.move(self.path, targetPath + "/" + self.o_path.replace(self.o_path[:-len(self.o_path) + self.o_path.rfind('/') + 1],''))
 				self.check = False
 				self.close(True)
-			except Exception, e:
+			except Exception as e:
 				print(('[EMCCoverSearch] moveCoverTo execute get failed: ', str(e)))
 				self.chooseDirectory(targetPath)
 		else:

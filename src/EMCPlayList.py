@@ -254,7 +254,7 @@ class EMCPlaylistScreen(Screen):
 					file.write(str(x[2].toString()).replace(":%s" % x[1], "") + "\n")
 				file.close()
 				self.session.open(MessageBox, (_("Current Playlist saved successfully!")), MessageBox.TYPE_INFO, 5)
-			except Exception, e:
+			except Exception as e:
 				print(('[EMCPlayList] savePlaylist get failed: ', str(e)))
 				self.session.open(MessageBox, (_("Can not save current Playlist!")), MessageBox.TYPE_ERROR, 10)
 
@@ -304,7 +304,7 @@ class PlayList(GUIComponent):
 		for f in self.onSelectionChanged:
 			try:
 				f()
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[EMCPlayList] External observer exception: \n" + str(e))
 
 	def applySkin(self, desktop, parent):
@@ -475,7 +475,7 @@ class EMCPlaylistSetup(Screen, ConfigListScreenExt):
 					editDir = True,
 					inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/home", "/lib", "/proc", "/run", "/sbin", "/sys", "/usr", "/var"],
 					minFree = 15 )
-		except Exception, e:
+		except Exception as e:
 			print(('[EMCPlayList] openDirectoryBrowser get failed: ', str(e)))
 
 	def openDirectoryBrowserCB(self, path):
@@ -485,7 +485,7 @@ class EMCPlaylistSetup(Screen, ConfigListScreenExt):
 	def openVirtualKeyboard(self, name):
 		try:
 			self.session.openWithCallback(lambda x : self.openVirtualKeyboardCB(x, 'playlist_name'), VirtualKeyBoard, title = (_('Enter Name for Playlist')), text = name)
-		except Exception, e:
+		except Exception as e:
 			print(('[EMCPlayList] openVirtualKeyboard get failed: ', str(e)))
 
 	def openVirtualKeyboardCB(self, callback = None, entry = None):

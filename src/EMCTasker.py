@@ -113,7 +113,7 @@ class EMCExecutioner:
 				emcDebugOut("[emcTasker] executing: " + self.executing )
 			else:
 				self.runFinished()
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcTasker] execCurrent exception:\n" + str(e))
 
 	def runFinished(self, retval=None):
@@ -134,7 +134,7 @@ class EMCExecutioner:
 						else:
 							if isinstance(fargs, Callable):
 								fargs()
-					except Exception, e:
+					except Exception as e:
 						#emcDebugOut("[emcTasker] runFinished exception:\n" + str(e))
 						pass
 			self.returnData = ""
@@ -151,7 +151,7 @@ class EMCExecutioner:
 				#del self.container.appClosed[:]
 				#del self.container
 
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcTasker] runFinished exception:\n" + str(e))
 
 	def dataAvail(self, string):
@@ -289,7 +289,7 @@ class EMCTasker:
 					self.minutes = 15
 					self.restartTimer.start(15*60*1000, False)
 					self.timerActive = True
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[emcTasker] RestartTimerStart exception:\n" + str(e))
 
 emcTasker = EMCTasker()

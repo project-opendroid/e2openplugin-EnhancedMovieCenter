@@ -19,14 +19,14 @@ try:
 	from mutagen.mp4 import MP4, MP4Cover
 	from mutagen.apev2 import APEv2File
 	isMutagen = True
-except Exception, e:
+except Exception as e:
 	print("[EMCMutagenSupport] python-mutagen is not available:", e)
 # we try to get new mutagen aac-support - version 1.27 and higher
 isMutagenAAC = False
 try:
 	from mutagen.aac import AAC
 	isMutagenAAC = True
-except Exception, e:
+except Exception as e:
 	print("[EMCMutagenSupport] new mutagen aac-support is not available:", e)
 
 from EMCTasker import emcDebugOut
@@ -105,7 +105,7 @@ def getAudioMetaData(service, ext):
 						try:
 							ext = "." + scovers[0].mime.lower().split("/", -1)[1]
 							writeTmpCover(scovers[0].data, ext)
-						except Exception, e:
+						except Exception as e:
 							emcDebugOut("[EMCMutagenSupport] Exception in Mp3EmbeddedCover: " + str(e))
 			elif ext.lower() == ".flac":
 				try:
@@ -117,7 +117,7 @@ def getAudioMetaData(service, ext):
 						try:
 							ext = "." + scover[0].mime.lower().split("/", -1)[1]
 							writeTmpCover(scover[0].data, ext)
-						except Exception, e:
+						except Exception as e:
 							emcDebugOut("[EMCMutagenSupport] Exception in FlacEmbeddedCover: " + str(e))
 			elif ext.lower() == ".ogg":
 				try:
@@ -138,7 +138,7 @@ def getAudioMetaData(service, ext):
 						try:
 							ext = "." + picture.mime.lower().split("/", -1)[1]
 							writeTmpCover(picture.data, ext)
-						except Exception, e:
+						except Exception as e:
 							emcDebugOut("[EMCMutagenSupport] Exception in OggEmbeddedCover: " + str(e))
 			elif ext.lower() == ".mp4" or ext.lower() == ".m4a":
 				try:
@@ -149,7 +149,7 @@ def getAudioMetaData(service, ext):
 					try:
 						scover = scover.get('covr', [''])[0]
 						writeTmpCover(scover, ".jpg")
-					except Exception, e:
+					except Exception as e:
 						emcDebugOut("[EMCMutagenSupport] Exception in Mp4-M4aEmbeddedCover: " + str(e))
 
 			return title.encode('utf-8'), genre.encode('utf-8'), artist.encode('utf-8'), album.encode('utf-8'), length.encode('utf-8')
@@ -170,7 +170,7 @@ def getAudioFileSize(path):
 		if path:
 			size += os.path.getsize(path)
 			size /= (1024.0 * 1024.0)
-	except Exception, e:
+	except Exception as e:
 		emcDebugOut("[EMCMutagenSupport] Exception in getFileSize: " + str(e))
 	return size
 
@@ -188,6 +188,6 @@ def getAudioFileDate(path):
 			monthstr = _(time.strftime('%B', time.localtime(getdate.st_mtime)))
 			year = _(time.strftime('%Y', time.localtime(getdate.st_mtime)))
 			date = daystr + ", " + daynr + ". " + monthstr + " " + year
-	except Exception, e:
+	except Exception as e:
 		emcDebugOut("[EMCMutagenSupport] Exception in getFileDate: " + str(e))
 	return date

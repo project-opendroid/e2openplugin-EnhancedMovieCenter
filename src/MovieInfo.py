@@ -204,7 +204,7 @@ def getTempTxt(txt):
 		try:
 			txtpath = "/tmp/previewTxt.txt"
 			file(txtpath,'w').write(txt)
-		except Exception, e:
+		except Exception as e:
 			print(('[EMC] MovieInfo getTempTxt exception failure: ', str(e)))
 
 def getTempCover(posterUrl):
@@ -215,7 +215,7 @@ def getTempCover(posterUrl):
 			coverpath = "/tmp/previewCover.jpg"
 			url = "http://image.tmdb.org/t/p/%s%s" % (config.EMC.movieinfo.coversize.value, posterUrl)
 			downloadPage(url, coverpath).addErrback(dataError)
-		except Exception, e:
+		except Exception as e:
 			print(('[EMC] MovieInfo getTempCover exception failure: ', str(e)))
 
 def dataError(error):
@@ -480,7 +480,7 @@ class MovieInfoTMDb(Screen):
 				if fileExists("/tmp/previewTxt.txt"):
 					shutil.copy2("/tmp/previewTxt.txt", txtpath)
 					self.txtsaved = True
-			except Exception, e:
+			except Exception as e:
 				print(('[EMC] MovieInfo saveTxt exception failure: ', str(e)))
 
 			if config.EMC.movieinfo.coversave.value:
@@ -499,7 +499,7 @@ class MovieInfoTMDb(Screen):
 			try:
 				if fileExists(self.mpath + ".jpg"):
 					os.remove(self.mpath + ".jpg")
-			except Exception, e:
+			except Exception as e:
 				print(('[EMC] MovieInfo posterCallback exception failure: ', str(e)))
 			self.savePoster()
 		else:
@@ -512,7 +512,7 @@ class MovieInfoTMDb(Screen):
 			if fileExists("/tmp/previewCover.jpg"):
 				shutil.copy2("/tmp/previewCover.jpg", coverpath)
 				self.jpgsaved = True
-		except Exception, e:
+		except Exception as e:
 			print(('[EMC] MovieInfo savePoster exception failure: ', str(e)))
 
 		self.showMsg()

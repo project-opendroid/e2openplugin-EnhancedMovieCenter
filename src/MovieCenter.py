@@ -263,7 +263,7 @@ def readBasicCfgFile(file):
 			if line[0:1] == "#":				# no comment lines
 				continue
 			data.append( line )
-	except Exception, e:
+	except Exception as e:
 		emcDebugOut("[EMC] Exception in readBasicCfgFile: " + str(e))
 	finally:
 		if f is not None:
@@ -412,7 +412,7 @@ def toggleProgressService(service, preparePlayback, forceProgress=-1, first=Fals
 		# Rename file - to catch all old EMC revisions
 		try:
 			os.rename(cutsr, cuts)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[CUTS] Exception in toggleProgressService: " + str(e))
 	# All calculations are done in seconds
 	cuts = CutList( path )
@@ -595,7 +595,7 @@ class CountSizeWorker(Thread):
 
 			try:
 				result = dirInfo(item, bsize=True)
-			except Exception, e:
+			except Exception as e:
 				print(('[EMC] CountSizeWorker result exception:', str(e)))
 
 				# Exception finish job with error
@@ -1060,7 +1060,7 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 					min = strftime('%M', localtime(getdate[8]))
 				else:
 					date = getdate[8]
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMC] Exception in checkDate: " + str(e))
 		if dirDate:
 			return year, month, day, hour, min
@@ -1321,7 +1321,7 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 						date = int(date[0:8] or 0)
 						try:
 							date = datetime(date/10000, date%10000/100, date%100, dtime/100, dtime%100)
-						except ValueError, e:
+						except ValueError as e:
 							date = datetime.fromtimestamp(0)
 
 				# If the user wants it, extract information from the meta and eit files
@@ -1430,7 +1430,7 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 					sortyear = sdate[0]
 					sortmonth = sdate[1]
 					sortday = sdate[2]
-				except Exception, e:
+				except Exception as e:
 					emcDebugOut("[EMC] Exception in get new date-sort values: " + str(e) + "\n" + "trying with this date: " + str(date))
 
 				# Check config settings
@@ -1983,7 +1983,7 @@ class MovieCenter(GUIComponent):
 		for f in self.onSelectionChanged:
 			try:
 				f()
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[MC] External observer exception: \n" + str(e))
 
 	def buildMovieCenterEntry(self, service, sorttitle, date, title, path, selnum, length, ext, cutnr, sorteventtitle, eventtitle, piconpath, *args):
@@ -2593,7 +2593,7 @@ class MovieCenter(GUIComponent):
 					append(MultiContentEntryText(pos=(posH, self.CoolDateHPos), size=(CoolCSWidth, globalHeight), font=usedDateFont, flags=halign, text=datetext))
 			del append
 			return res
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCMS] build exception:\n" + str(e))
 
 	def getValues_startWorker(self,path,config_EMC_info_value,datetext,datepic,pixmap,isLink,is_trashcan,title):

@@ -96,7 +96,7 @@ class PermanentSort():
 				f = open(XML_FILE, "rb")
 				doc = xml.etree.cElementTree.parse(f)
 				root = doc.getroot()
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[EMC] Exception in __readPermanentSortXmlFile Load: " + str(e))
 			finally:
 				if f is not None:
@@ -110,7 +110,7 @@ class PermanentSort():
 					from Plugins.Extensions.EnhancedMovieCenter.plugin import sort_modes
 					value = sort_modes.get(modestring)[1]
 					data[key] = value
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[EMC] Exception in __readPermanentSortXmlFile Parse: " + str(e))
 
 		return data
@@ -133,7 +133,7 @@ class PermanentSort():
 			f = open(XML_FILE, "wb")
 			for x in list:
 				f.write(x)
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMC] Exception in __writePermanentSortXmlFile: " + str(e))
 		finally:
 			if f is not None:
@@ -148,7 +148,7 @@ class PermanentSort():
 			try:
 				f = open(CFG_FILE, "rb")
 				data = pickle.load(f)
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[EMC] Exception in readPermanentSortCfgFile Load: " + str(e))
 			finally:
 				if f is not None:
@@ -162,7 +162,7 @@ class PermanentSort():
 						#data[key] = (value, config.EMC.moviecenter_sort.value[1])
 						from Plugins.Extensions.EnhancedMovieCenter.plugin import sort_modes
 						data[key] = (value, sort_modes.get( config.EMC.moviecenter_sort.value )[1][1])
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[EMC] Exception in readPermanentSortCfgFile Parse: " + str(e))
 
 		return data

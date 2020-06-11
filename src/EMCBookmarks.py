@@ -48,7 +48,7 @@ class EMCBookmarks():
 			try:
 				f = open(CFG_FILE, "r")
 				bm = f.readlines()
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[EMCBookmarks] Exception in getEMCBookmarks: " + str(e))
 			finally:
 				if f is not None:
@@ -68,7 +68,7 @@ class EMCBookmarks():
 			bmfile.writelines([ p + "\n" for p in bm ])
 			bmfile.close()
 			result = True
-		except Exception, e:
+		except Exception as e:
 			emcDebugOut("[EMCBookmarks] Exception in setEMCBookmarks: " + str(e))
 		finally:
 			if f is not None:

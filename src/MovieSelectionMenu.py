@@ -261,7 +261,7 @@ class MovieMenu(Screen, E2Bookmarks, EMCBookmarks):
 				try:
 					os.mkdir(name)
 					movieFileCache.delPathFromCache(currentPath)
-				except Exception, e:
+				except Exception as e:
 					emcDebugOut("[EMCMM] createDir exception:\n" + str(e))
 				self.close("reload")
 		else:
@@ -318,7 +318,7 @@ class MovieMenu(Screen, E2Bookmarks, EMCBookmarks):
 					association = []
 					association.append((self.mselection.reloadList))	# Force list reload after creating the link
 					emcTasker.shellExecute(cmd, association)
-			except Exception, e:
+			except Exception as e:
 				emcDebugOut("[EMCMM] createLink exception:\n" + str(e))
 			self.close(None)
 
@@ -345,7 +345,7 @@ class MovieMenu(Screen, E2Bookmarks, EMCBookmarks):
 		try:
 			self["menu"].getCurrent()[1]()
 		#except:pass
-		except Exception, e:
+		except Exception as e:
 			import os, sys, traceback
 			print("exception ",str(e))
 			exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -403,7 +403,7 @@ class MovieMenu(Screen, E2Bookmarks, EMCBookmarks):
 						path = self.service.getPath() + ".cuts"
 						self.delMarker(path)
 					self.close()
-			except Exception, e:
+			except Exception as e:
 				print("[EMC] Exception in resMarkerCB: " + str(e))
 				self.close()
 		else:

@@ -410,7 +410,7 @@ nget = False # this is needed for vti-image at the moment
 try:
 	ngettext("%d second", "%d seconds", 30)
 	nget = True
-except Exception, e:
+except Exception as e:
 	print("[EMC] ngettext failed:", e)
 limitreclist = []
 if nget:
@@ -499,7 +499,7 @@ def showMoviesNew(dummy_self = None):
 		global gSession
 		from MovieSelection import EMCSelection
 		gSession.openWithCallback(showMoviesCallback, EMCSelection)
-	except Exception, e:
+	except Exception as e:
 		emcDebugOut("[showMoviesNew] exception:\n" + str(e))
 
 def showMoviesCallback(*args):
@@ -508,7 +508,7 @@ def showMoviesCallback(*args):
 			global gSession
 			from EMCMediaCenter import EMCMediaCenter
 			gSession.openWithCallback(playerCallback, EMCMediaCenter, *args)
-	except Exception, e:
+	except Exception as e:
 		emcDebugOut("[showMoviesCallback] exception:\n" + str(e))
 
 def playerCallback(reopen=False, *args):
@@ -533,7 +533,7 @@ def autostart(reason, **kwargs):
 					elif value == "showRadio":		InfoBar.showRadio = showMoviesNew
 					elif value == "openQuickbutton":	InfoBar.openQuickbutton = showMoviesNew
 					elif value == "timeshiftStart":		InfoBar.startTimeshift = showMoviesNew
-				except Exception, e:
+				except Exception as e:
 					emcDebugOut("[spStartup] MovieCenter launch override exception:\n" + str(e))
 
 				#try:
@@ -546,7 +546,7 @@ def pluginOpen(session, *args, **kwargs):
 	try:
 		from EnhancedMovieCenter import EnhancedMovieCenterMenu
 		session.open(EnhancedMovieCenterMenu)
-	except Exception, e:
+	except Exception as e:
 		emcDebugOut("[pluginOpen] exception:\n" + str(e))
 
 def recordingsOpen(session, *args, **kwargs):
