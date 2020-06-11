@@ -58,7 +58,7 @@ class EMCMountPoints:
 		return device
 
 	def getMountPointDeviceCached(self, path):
-		if self.mountPointDeviceCache.has_key(path):
+		if path in self.mountPointDeviceCache:
 			mountPointDevice = self.mountPointDeviceCache[path]
 		else:
 			mountPoint = self.mountpoint(path)

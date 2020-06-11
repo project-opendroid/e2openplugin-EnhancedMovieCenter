@@ -233,7 +233,7 @@ class ConfigListScreenExt:
 		if self["config"].getCurrent() is not None:
 			if isinstance(self["config"].getCurrent()[1], ConfigText) or isinstance(self["config"].getCurrent()[1], ConfigPassword):
 				self["VirtualKB"].setEnabled(True)
-				if self.has_key("HelpWindow"):
+				if "HelpWindow" in self:
 					if self["config"].getCurrent()[1].help_window.instance is not None:
 						helpwindowpos = self["HelpWindow"].getPosition()
 						from enigma import ePoint

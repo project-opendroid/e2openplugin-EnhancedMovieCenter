@@ -60,7 +60,7 @@ class EMCPlaylist():
 		self.count = 0
 
 	def addToCurrentPlaylist(self, path, name, service):
-		if self.currentPlaylist.has_key(path):
+		if path in self.currentPlaylist:
 			return False
 		else:
 			if self.currentPlaylist == {}:
@@ -71,7 +71,7 @@ class EMCPlaylist():
 			return True
 
 	def getCurrentPlaylistEntry(self, path):
-		if self.currentPlaylist.has_key(path):
+		if path in self.currentPlaylist:
 			return self.currentPlaylist[path]
 
 	def getCurrentPlaylist(self):
@@ -84,7 +84,7 @@ class EMCPlaylist():
 			return True
 
 	def delCurrentPlaylistEntry(self, path):
-		if self.currentPlaylist.has_key(path):
+		if path in self.currentPlaylist:
 			del self.currentPlaylist[path]
 		print("EMC delete currentPlaylistEntry: ", path)
 

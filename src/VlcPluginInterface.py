@@ -167,7 +167,7 @@ class VlcPluginInterfaceList():
 						from Plugins.Extensions.VlcPlayer.VlcFileList import MEDIA_EXTENSIONS
 						ext = os.path.splitext(name)[1].lower()[1:]
 						#TODO all media extensions should be indicated by the vlc player
-						if MEDIA_EXTENSIONS.has_key(ext):
+						if ext in MEDIA_EXTENSIONS:
 							# Maybe later return real file extension
 							emcDebugOut("[EMC_VLC] media file = " + str(name))
 							vlcfilelist.append( (path, name, vlcFil) )

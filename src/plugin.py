@@ -517,7 +517,7 @@ def playerCallback(reopen=False, *args):
 
 def autostart(reason, **kwargs):
 	if reason == 0: # start
-		if kwargs.has_key("session"):
+		if "session" in kwargs:
 			global gSession
 			from EnhancedMovieCenter import EMCStartup
 			gSession = kwargs["session"]

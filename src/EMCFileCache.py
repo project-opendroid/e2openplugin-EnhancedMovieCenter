@@ -45,7 +45,7 @@ class EMCFileCache():
 
 	def addCountSizeToCache(self, path, count, size):
 #		print "EMC addCountSizeToCache", path
-		if self.cacheCountSizeList.has_key(path):
+		if path in self.cacheCountSizeList:
 			lastcount, lastsize = self.cacheCountSizeList[path]
 			if lastcount != count or lastsize != size:
 				del self.cacheCountSizeList[path]
@@ -55,7 +55,7 @@ class EMCFileCache():
 #		print "EMC addCountSizeToCache", self.cacheCountSizeList
 
 	def getCountSizeFromCache(self, path):
-		if self.cacheCountSizeList.has_key(path):
+		if path in self.cacheCountSizeList:
 			return self.cacheCountSizeList[path]
 		else:
 			return None
@@ -79,7 +79,7 @@ class EMCFileCache():
 		return rescanPaths
 
 	def IsPathInCountSizeList(self, path):
-		if self.cacheCountSizeList.has_key(path):
+		if path in self.cacheCountSizeList:
 			return True
 		else:
 			return False
@@ -109,10 +109,10 @@ class EMCFileCache():
 						#AttributeList[idx_realpath] = pathreal(p) #for dirs only
 						self.cacheAttributeList[p] = AttributeList
 			else:
-				if self.cacheDirectoryList.has_key(path):
+				if path in self.cacheDirectoryList:
 					self.deleteAssociatedListEntries(self.cacheDirectoryList[path])
 					del self.cacheDirectoryList[path]
-				if self.cacheFileList.has_key(path):
+				if path in self.cacheFileList:
 					self.deleteAssociatedListEntries(self.cacheFileList[path])
 					del self.cacheFileList[path]
 #		self.debugPrintDirCache()
@@ -121,7 +121,7 @@ class EMCFileCache():
 
 	def addRecToCacheFileList(self, path, rec):
 		if config.EMC.files_cache.value:
-			if self.cacheFileList.has_key(path):
+			if path in self.cacheFileList:
 				filelist = self.cacheFileList[path]
 				filelist.append(rec)
 				del self.cacheFileList[path]
@@ -129,7 +129,7 @@ class EMCFileCache():
 
 	def getCacheForPath(self, path):
 		print("EMC getCacheForPath", path)
-		if config.EMC.files_cache.value and self.cacheDirectoryList.has_key(path) and self.cacheFileList.has_key(path):
+		if config.EMC.files_cache.value and path in self.cacheDirectoryList and path in self.cacheFileList:
 			subdirlist = self.cacheDirectoryList[path]
 			filelist = self.cacheFileList[path]
 #			self.debugPrintDirCache()
@@ -178,33 +178,33 @@ class EMCFileCache():
 			return None
 
 	def getDirsFromCacheForPath(self, path):
-		if config.EMC.files_cache.value and self.cacheDirectoryList.has_key(path):
+		if config.EMC.files_cache.value and path in self.cacheDirectoryList:
 			subdirlist = self.cacheDirectoryList[path]
 			return subdirlist
 		else:
 			return None
 
 	def getFilesFromCacheForPath(self, path):
-		if config.EMC.files_cache.value and self.cacheFileList.has_key(path):
+		if config.EMC.files_cache.value and path in self.cacheFileList:
 			filelist = self.cacheFileList[path]
 			return filelist
 		else:
 			return None
 
 	def IsPathInCache(self, path):
-		if config.EMC.files_cache.value and self.cacheDirectoryList.has_key(path) and self.cacheFileList.has_key(path):
+		if config.EMC.files_cache.value and path in self.cacheDirectoryList and path in self.cacheFileList:
 			return True
 		else:
 			return False
 
 	def IsPathWithDirsInCache(self, path):
-		if config.EMC.files_cache.value and self.cacheDirectoryList.has_key(path):
+		if config.EMC.files_cache.value and path in self.cacheDirectoryList:
 			return True
 		else:
 			return False
 
 	def IsPathWithFilesInCache(self, path):
-		if config.EMC.files_cache.value and self.cacheFileList.has_key(path):
+		if config.EMC.files_cache.value and path in self.cacheFileList:
 			return True
 		else:
 			return False
@@ -213,10 +213,10 @@ class EMCFileCache():
 		if len(path)>1 and path[-1]=="/":
 			path = path[:-1]
 		print("EMC delPathFromCache", path)
-		if self.cacheDirectoryList.has_key(path):
+		if path in self.cacheDirectoryList:
 			self.deleteAssociatedListEntries(self.cacheDirectoryList[path])
 			del self.cacheDirectoryList[path]
-		if self.cacheFileList.has_key(path):
+		if path in self.cacheFileList:
 			self.deleteAssociatedListEntries(self.cacheFileList[path])
 			del self.cacheFileList[path]
 #		self.debugPrintDirCache()
@@ -226,14 +226,14 @@ class EMCFileCache():
 	def delPathFromDirCache(self, path):
 		if len(path)>1 and path[-1]=="/":
 			path = path[:-1]
-		if self.cacheDirectoryList.has_key(path):
+		if path in self.cacheDirectoryList:
 			self.deleteAssociatedListEntries(self.cacheDirectoryList[path])
 			del self.cacheDirectoryList[path]
 
 	def delPathFromFileCache(self, path):
 		if len(path)>1 and path[-1]=="/":
 			path = path[:-1]
-		if self.cacheFileList.has_key(path):
+		if path in self.cacheFileList:
 			self.deleteAssociatedListEntries(self.cacheFileList[path])
 			del self.cacheFileList[path]
 

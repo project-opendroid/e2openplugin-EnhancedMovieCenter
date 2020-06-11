@@ -792,7 +792,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 				if lt:
 					print(lt)
 					for e in lt:
-						l.append((e[0], e[1], langC.has_key(e[2][0]) and langC[e[2][0]][0] or e[2][0]))
+						l.append((e[0], e[1], e[2][0] in langC and langC[e[2][0]][0] or e[2][0]))
 						if l:
 							print(l)
 							for sublang in [config.EMC.sublang1.value, config.EMC.sublang2.value, config.EMC.sublang3.value]:
@@ -804,7 +804,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 					print(subs.getSubtitleList())
 					lt = [ (e, (e[0] == 0 and "DVB" or e[0] == 1 and "TXT" or "???")) for e in (subs and subs.getSubtitleList() or []) ]
 					if lt:
-						l = [ [e[0], e[1], langC.has_key(e[0][4]) and langC[e[0][4]][0] or e[0][4] ] for e in lt ]
+						l = [ [e[0], e[1], e[0][4] in langC and langC[e[0][4]][0] or e[0][4] ] for e in lt ]
 						if l:
 							print(l)
 							for sublang in [config.EMC.sublang1.value, config.EMC.sublang2.value, config.EMC.sublang3.value]:
@@ -990,13 +990,13 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 		#	self.dvdScreen.hide()
 		#	self.dvdScreen.show()
 		self.in_menu = True
-		if self.has_key("ShowHideActions"):
+		if "ShowHideActions" in self:
 			self["ShowHideActions"].setEnabled(False)
-		if self.has_key("MovieListActions"):
+		if "MovieListActions" in self:
 			self["MovieListActions"].setEnabled(False)
-		if self.has_key("SeekActions"):
+		if "SeekActions" in self:
 			self["SeekActions"].setEnabled(False)
-		if self.has_key("DVDMenuActions"):
+		if "DVDMenuActions" in self:
 			self["DVDMenuActions"].setEnabled(True)
 
 	def __menuClosed(self):
@@ -1004,13 +1004,13 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 		#	self.dvdScreen.hide()
 		self.show()
 		self.in_menu = None
-		if self.has_key("DVDMenuActions"):
+		if "DVDMenuActions" in self:
 			self["DVDMenuActions"].setEnabled(False)
-		if self.has_key("ShowHideActions"):
+		if "ShowHideActions" in self:
 			self["ShowHideActions"].setEnabled(True)
-		if self.has_key("MovieListActions"):
+		if "MovieListActions" in self:
 			self["MovieListActions"].setEnabled(True)
-		if self.has_key("SeekActions"):
+		if "SeekActions" in self:
 			self["SeekActions"].setEnabled(True)
 
 	def createSummary(self):
