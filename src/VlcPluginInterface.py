@@ -19,6 +19,7 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
 import os
 
 from enigma import eServiceReference, eServiceCenter
@@ -45,28 +46,28 @@ except:
 
 	ENIGMA_SERVICE_ID = 0
 
-	print "[VLC] Checking for buildin servicets ... ",
+	print("[VLC] Checking for buildin servicets ... ", end=' ')
 	if isValidServiceId(ENIGMA_SERVICETS_ID):
-		print "yes"
+		print("yes")
 		ENIGMA_SERVICE_ID = ENIGMA_SERVICETS_ID
 		STOP_BEFORE_UNPAUSE = False
 	else:
-		print "no"
-		print "[VLC] Checking for existing and usable servicets.so ... ",
+		print("no")
+		print("[VLC] Checking for existing and usable servicets.so ... ", end=' ')
 		try:
 			import servicets
 		except Exception, e:
-			print e
-			print "[VLC] Checking for usable gstreamer service ... ",
+			print(e)
+			print("[VLC] Checking for usable gstreamer service ... ", end=' ')
 			if isValidServiceId(ENIGMA_SERVICEGS_ID):
-				print "yes"
+				print("yes")
 				ENIGMA_SERVICE_ID = ENIGMA_SERVICEGS_ID
 				STOP_BEFORE_UNPAUSE = True
 			else:
-				print "no"
-				print "[VLC] No valid VLC-Service found - VLC-streaming not supported"
+				print("no")
+				print("[VLC] No valid VLC-Service found - VLC-streaming not supported")
 		else:
-			print "yes"
+			print("yes")
 			ENIGMA_SERVICE_ID = ENIGMA_SERVICETS_ID
 			STOP_BEFORE_UNPAUSE = False
 

@@ -1,5 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 
+from __future__ import print_function
 from __init__ import _
 from Components.ActionMap import ActionMap, HelpableActionMap
 from Components.MenuList import MenuList
@@ -204,7 +205,7 @@ def getTempTxt(txt):
 			txtpath = "/tmp/previewTxt.txt"
 			file(txtpath,'w').write(txt)
 		except Exception, e:
-			print('[EMC] MovieInfo getTempTxt exception failure: ', str(e))
+			print(('[EMC] MovieInfo getTempTxt exception failure: ', str(e)))
 
 def getTempCover(posterUrl):
 	if posterUrl is not None:
@@ -215,10 +216,10 @@ def getTempCover(posterUrl):
 			url = "http://image.tmdb.org/t/p/%s%s" % (config.EMC.movieinfo.coversize.value, posterUrl)
 			downloadPage(url, coverpath).addErrback(dataError)
 		except Exception, e:
-			print('[EMC] MovieInfo getTempCover exception failure: ', str(e))
+			print(('[EMC] MovieInfo getTempCover exception failure: ', str(e)))
 
 def dataError(error):
-	print "[EMC] MovieInfo ERROR:", error
+	print("[EMC] MovieInfo ERROR:", error)
 
 class MovieInfoTMDb(Screen):
 	if sz_w == 1920:
@@ -480,7 +481,7 @@ class MovieInfoTMDb(Screen):
 					shutil.copy2("/tmp/previewTxt.txt", txtpath)
 					self.txtsaved = True
 			except Exception, e:
-				print('[EMC] MovieInfo saveTxt exception failure: ', str(e))
+				print(('[EMC] MovieInfo saveTxt exception failure: ', str(e)))
 
 			if config.EMC.movieinfo.coversave.value:
 				self.getPoster()
@@ -499,7 +500,7 @@ class MovieInfoTMDb(Screen):
 				if fileExists(self.mpath + ".jpg"):
 					os.remove(self.mpath + ".jpg")
 			except Exception, e:
-				print('[EMC] MovieInfo posterCallback exception failure: ', str(e))
+				print(('[EMC] MovieInfo posterCallback exception failure: ', str(e)))
 			self.savePoster()
 		else:
 			self.showMsg(True)
@@ -512,7 +513,7 @@ class MovieInfoTMDb(Screen):
 				shutil.copy2("/tmp/previewCover.jpg", coverpath)
 				self.jpgsaved = True
 		except Exception, e:
-			print('[EMC] MovieInfo savePoster exception failure: ', str(e))
+			print(('[EMC] MovieInfo savePoster exception failure: ', str(e)))
 
 		self.showMsg()
 

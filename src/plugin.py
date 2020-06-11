@@ -19,6 +19,7 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
 from Components.config import *
 from Components.ActionMap import ActionMap
 from enigma import eActionMap
@@ -410,7 +411,7 @@ try:
 	ngettext("%d second", "%d seconds", 30)
 	nget = True
 except Exception, e:
-	print "[EMC] ngettext failed:", e
+	print("[EMC] ngettext failed:", e)
 limitreclist = []
 if nget:
 	for i in range(86400,604800,86400):

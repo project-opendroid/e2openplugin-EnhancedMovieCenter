@@ -1,6 +1,7 @@
 ﻿#!/usr/bin/python
 # encoding: utf-8
 
+from __future__ import print_function
 import os
 
 from __init__ import _
@@ -85,11 +86,11 @@ class EMCPlaylist():
 	def delCurrentPlaylistEntry(self, path):
 		if self.currentPlaylist.has_key(path):
 			del self.currentPlaylist[path]
-		print "EMC delete currentPlaylistEntry: ", path
+		print("EMC delete currentPlaylistEntry: ", path)
 
 	def delCurrentPlaylist(self):
 		self.currentPlaylist = {}
-		print "EMC delete currentPlaylist"
+		print("EMC delete currentPlaylist")
 
 emcplaylist = EMCPlaylist()
 
@@ -254,7 +255,7 @@ class EMCPlaylistScreen(Screen):
 				file.close()
 				self.session.open(MessageBox, (_("Current Playlist saved successfully!")), MessageBox.TYPE_INFO, 5)
 			except Exception, e:
-				print('[EMCPlayList] savePlaylist get failed: ', str(e))
+				print(('[EMCPlayList] savePlaylist get failed: ', str(e)))
 				self.session.open(MessageBox, (_("Can not save current Playlist!")), MessageBox.TYPE_ERROR, 10)
 
 	def keyYellow(self):
@@ -475,7 +476,7 @@ class EMCPlaylistSetup(Screen, ConfigListScreenExt):
 					inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/home", "/lib", "/proc", "/run", "/sbin", "/sys", "/usr", "/var"],
 					minFree = 15 )
 		except Exception, e:
-			print('[EMCPlayList] openDirectoryBrowser get failed: ', str(e))
+			print(('[EMCPlayList] openDirectoryBrowser get failed: ', str(e)))
 
 	def openDirectoryBrowserCB(self, path):
 		if path is not None:
@@ -485,7 +486,7 @@ class EMCPlaylistSetup(Screen, ConfigListScreenExt):
 		try:
 			self.session.openWithCallback(lambda x : self.openVirtualKeyboardCB(x, 'playlist_name'), VirtualKeyBoard, title = (_('Enter Name for Playlist')), text = name)
 		except Exception, e:
-			print('[EMCPlayList] openVirtualKeyboard get failed: ', str(e))
+			print(('[EMCPlayList] openVirtualKeyboard get failed: ', str(e)))
 
 	def openVirtualKeyboardCB(self, callback = None, entry = None):
 		if callback is not None and len(callback) and entry is not None and len(entry):

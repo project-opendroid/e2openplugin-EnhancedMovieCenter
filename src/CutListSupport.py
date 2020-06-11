@@ -20,6 +20,7 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
 import os
 import struct
 from bisect import insort
@@ -158,12 +159,12 @@ class CutList():
 			emcDebugOut("[CUTS] downloadCutList exception:" + str(e))
 
 	def cutlistDownloaded(self, cutlist=[]):
-		print "EMC cutlistDownloaded"
-		print self.cut_list
+		print("EMC cutlistDownloaded")
+		print(self.cut_list)
 		if cutlist:
 			for pts, what in cutlist:
 				self.__insort(pts, what)
-		print self.cut_list
+		print(self.cut_list)
 
 	# InfoBarCueSheetSupport
 	def uploadCuesheet(self):
@@ -199,7 +200,7 @@ class CutList():
 			emcDebugOut("[CUTS] uploadCuesheet exception:" + str(e))
 
 	def updateFromCuesheet(self):
-		print "Cutlist updateCuesheet"
+		print("Cutlist updateCuesheet")
 		try:
 			# Use non native cuesheet support
 			# [Cutlist.Workaround] merge with Backup-File if exists

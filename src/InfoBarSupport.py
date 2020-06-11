@@ -19,6 +19,7 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
 import os
 
 from Components.config import *
@@ -151,7 +152,7 @@ class InfoBarSupport(	InfoBarBase, \
 	def __serviceStarted(self):
 		if self.is_closing:
 			return
-		print "new service started! trying to download cuts!"
+		print("new service started! trying to download cuts!")
 		self.downloadCuesheet()
 
 		# From Merlin2 InfoBarCueSheetSupport __serviceStarted

@@ -1,6 +1,7 @@
 ﻿#!/usr/bin/python
 # encoding: utf-8
 
+from __future__ import print_function
 import os
 import time
 import datetime
@@ -19,14 +20,14 @@ try:
 	from mutagen.apev2 import APEv2File
 	isMutagen = True
 except Exception, e:
-	print "[EMCMutagenSupport] python-mutagen is not available:", e
+	print("[EMCMutagenSupport] python-mutagen is not available:", e)
 # we try to get new mutagen aac-support - version 1.27 and higher
 isMutagenAAC = False
 try:
 	from mutagen.aac import AAC
 	isMutagenAAC = True
 except Exception, e:
-	print "[EMCMutagenSupport] new mutagen aac-support is not available:", e
+	print("[EMCMutagenSupport] new mutagen aac-support is not available:", e)
 
 from EMCTasker import emcDebugOut
 

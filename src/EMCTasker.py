@@ -19,6 +19,7 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
 from enigma import eTimer, eConsoleAppContainer
 from Components.config import *
 from Screens.Standby import *
@@ -40,10 +41,10 @@ def emcDebugOut(outtxt, outfile=None, fmode="aw", forced=False):
 				outtxt = headerstr + outtxt
 			deb = open(outfile, fmode)
 			deb.write(outtxt + "\n")
-		print "EMC: %s" %(outtxt)
+		print("EMC: %s" %(outtxt))
 		# Print detailed informationon error
 		if sys.exc_info()[0]:
-			print "Unexpected error:", sys.exc_info()[0]
+			print("Unexpected error:", sys.exc_info()[0])
 			traceback.print_exc(file=sys.stdout)
 			traceback.print_exc(file=deb)
 		deb.close()

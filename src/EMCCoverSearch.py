@@ -2,6 +2,7 @@
 # mod by einfall (09.11.2014)
 # change to themoviedb.org / thetvdb.com - Api
 
+from __future__ import print_function
 from __init__ import _
 
 from Components.ActionMap import *
@@ -272,10 +273,10 @@ class EMCImdbScan(Screen):
 
 	def imdb(self):
 		if self.running:
-			print "EMC iMDB: Search already Running."
+			print("EMC iMDB: Search already Running.")
 
 		elif not self.running:
-			print "EMC iMDB: Search started..."
+			print("EMC iMDB: Search started...")
 			self["done_msg"].show()
 			self.no_cover()
 			self.running = True
@@ -313,7 +314,7 @@ class EMCImdbScan(Screen):
 					self["menulist"].l.setList(self.menulist)
 					self["menulist"].l.setItemHeight(self.itemHeight)
 					self.check = True
-					print "EMC iMDB: Cover vorhanden - %s" % title
+					print("EMC iMDB: Cover vorhanden - %s" % title)
 				else:
 					#title = getMovieNameWithoutPhrases(getMovieNameWithoutExt(title))
 					s_title = getSearchList(title, None)[0]
@@ -426,21 +427,21 @@ class EMCImdbScan(Screen):
 				self.writeTofile(self.decodeHtml(desc), cover_path)
 
 	def writeTofile(self, text, cover_path):
-		print cover_path
+		print(cover_path)
 		if not fileExists(cover_path.replace('.jpg','.txt')):
 			wFile = open(cover_path.replace('.jpg','.txt'),"w")
 			wFile.write(text)
 			wFile.close()
 
 	def dataError(self, error):
-		print "ERROR:", error
+		print("ERROR:", error)
 
 	def dataError2(self, error):
 		self.counting = int(self.counting) + 1
-		print "ERROR:", error
+		print("ERROR:", error)
 
 	def errorLoad(self, error, search_title):
-		print "EMC keine daten zu %s gefunden." % search_title
+		print("EMC keine daten zu %s gefunden." % search_title)
 		#print "Please report: %s" % str(error)
 
 	def exit(self):
@@ -454,7 +455,7 @@ class EMCImdbScan(Screen):
 			m_poster_path = self["menulist"].getCurrent()[0][1]
 			if os.path.exists(m_poster_path):
 				if m_poster_path == self.no_image_poster:
-					print "EMC no_poster.jpg kann nicht geloescht werden."
+					print("EMC no_poster.jpg kann nicht geloescht werden.")
 				else:
 					try:
 						os.remove(m_poster_path)
@@ -499,7 +500,7 @@ class EMCImdbScan(Screen):
 		self.session.openWithCallback(self.setupFinished, imdbSetup)
 
 	def setupFinished(self, result=False):
-		print "EMC iMDB Config Saved."
+		print("EMC iMDB Config Saved.")
 		if result:
 			if self.isFolder:
 				self.verwaltung() #if foldercoverpath settings is changed
@@ -507,7 +508,7 @@ class EMCImdbScan(Screen):
 			self["done_msg"].setText(_("Settings have been Saved."))
 
 	def setupFinished2(self, result):
-		print "EMC iMDB single search done."
+		print("EMC iMDB single search done.")
 		if result:
 			self.verwaltung()
 			#self.showInfo()
@@ -827,12 +828,12 @@ class getCover(Screen):
 				csfd_title = title_s[0]
 			else:
 				csfd_title = title
-			print "EMC csfd: Movie name - %s" % csfd_title
+			print("EMC csfd: Movie name - %s" % csfd_title)
 		else:
 			csfd_title = title
 		bild = re.findall('<img src="(//img.csfd.cz/files/images/film/posters/.*?|//img.csfd.cz/posters/.*?)" alt="poster"', data, re.DOTALL | re.IGNORECASE)
 		if bild:
-			print "EMC csfd: Cover Select - %s" % title
+			print("EMC csfd: Cover Select - %s" % title)
 			self.cover_count += 1
 			csfd_url = "http:" + bild[0].replace('\\','').strip()
 			self.menulist.append(self.showCoverlist(csfd_title, csfd_url, self.o_path, "csfd: "))
@@ -842,21 +843,21 @@ class getCover(Screen):
 				bild1 = re.findall('style=\"background-image\: url\(\'(.*?)\'\)\;', bild[0], re.DOTALL | re.IGNORECASE)
 				if bild1:
 					for each in bild1:
-						print "EMC csfd: Cover Select - %s" % title
+						print("EMC csfd: Cover Select - %s" % title)
 						self.cover_count += 1
 						csfd_url = "http:" + each.replace('\\','').strip()
 						self.menulist.append(self.showCoverlist(csfd_title, csfd_url, self.o_path, "csfd: "))
 						#self["info"].setText((_("found") + " %s " + _("covers")) % (self.cover_count))
 				else:
-					print "EMC csfd 3 : no else covers - %s" % title
+					print("EMC csfd 3 : no else covers - %s" % title)
 			else:
-				print "EMC csfd 2 : no else covers - %s" % title
+				print("EMC csfd 2 : no else covers - %s" % title)
 		else:
-			print "EMC csfd 1 : keine infos gefunden - %s" % title
+			print("EMC csfd 1 : keine infos gefunden - %s" % title)
 
 	@defer.inlineCallbacks
 	def searchcsfd(self, title):
-		print "EMC csfd - searchcsfd: ", title
+		print("EMC csfd - searchcsfd: ", title)
 		part = getSearchList(title, config.EMC.imdb.singlesearch_filter.value)[0]
 		search_title = urllib.quote(part)
 		url = "http://www.csfd.cz/hledat/?q=%s" % search_title
@@ -864,7 +865,7 @@ class getCover(Screen):
 		bild = re.findall('<img src=\"(//img.csfd.cz/files/images/film/posters/.*?|//img.csfd.cz/posters/.*?)\".*?<h3 class="subject"><a href="(.*?)" class="film c.">(.*?)</a>.*?</li>', data, re.DOTALL | re.IGNORECASE)
 		if bild:
 			for each in bild:
-				print "EMC csfd: Cover Select - %s" % title
+				print("EMC csfd: Cover Select - %s" % title)
 				self.cover_count += 1
 				csfd_title = each[2]
 				csfd_detail_url = "http://www.csfd.cz" + each[1]
@@ -880,7 +881,7 @@ class getCover(Screen):
 
 	@defer.inlineCallbacks
 	def searchtmdb(self, title):
-		print "EMC TMDB: Cover Select - %s" % title
+		print("EMC TMDB: Cover Select - %s" % title)
 		templist = []
 		coverlist = []
 		coversize = config.EMC.imdb.preferred_coversize.value
@@ -932,12 +933,12 @@ class getCover(Screen):
 			#self["info"].setText((_("found") + " %s " + _("covers")) % (self.cover_count))
 		if not templist:
 			#self["info"].setText(_("Nothing found for %s") % title)
-			print "EMC TMDB: keine infos gefunden - %s" % title
+			print("EMC TMDB: keine infos gefunden - %s" % title)
 		self.search_done()
 
 	@defer.inlineCallbacks
 	def searchtvdb(self, title):
-		print "EMC TVDB: Cover Select - %s" % title
+		print("EMC TVDB: Cover Select - %s" % title)
 		templist = []
 		coverlist = []
 		standardcover = config.EMC.imdb.thetvdb_standardcover.value
@@ -1009,12 +1010,12 @@ class getCover(Screen):
 			#self["info"].setText((_("found") + " %s " + _("covers")) % (self.cover_count))
 		if not templist:
 			#self["info"].setText(_("Nothing found for %s") % title)
-			print "EMC TVDB: keine infos gefunden - %s" % title
+			print("EMC TVDB: keine infos gefunden - %s" % title)
 		self.search_done()
 
 	@defer.inlineCallbacks
 	def searchimdb(self, title):
-		print "EMC IMDB: Cover Select - %s" % title
+		print("EMC IMDB: Cover Select - %s" % title)
 		templist = []
 		coverlist = []
 		coversize = config.EMC.imdb.preferred_coversize.value.replace('w','SX')
@@ -1066,12 +1067,12 @@ class getCover(Screen):
 			#self["info"].setText((_("found") + " %s " + _("covers")) % (self.cover_count))
 		if not templist:
 			#self["info"].setText(_("Nothing found for %s") % title)
-			print "EMC TMDB: keine infos gefunden - %s" % title
+			print("EMC TMDB: keine infos gefunden - %s" % title)
 		self.search_done()
 
 	def errorLoad(self, error, title):
-		print "EMC keine daten zu %s gefunden." % title
-		print error
+		print("EMC keine daten zu %s gefunden." % title)
+		print(error)
 
 	def search_done(self):
 		self["menulist"].l.setList(self.menulist)
@@ -1088,7 +1089,7 @@ class getCover(Screen):
 				#m_url = re.findall('(.*?)\.', m_url)
 				#extra_imdb_convert = "._V1_SX320.jpg"
 				#m_url = "http://ia.media-imdb.com/images/%s%s" % (m_url[0], extra_imdb_convert)
-				print "EMC iMDB: Download Poster - %s" % m_url
+				print("EMC iMDB: Download Poster - %s" % m_url)
 				try:
 					req = requests.session()
 					r = req.get(m_url, headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.108 Safari/537.36'})
@@ -1107,11 +1108,11 @@ class getCover(Screen):
 						#        self["poster"].instance.setPixmap(ptr)
 						#        print "EMC iMDB: Load Poster - %s" % m_title
 					else:
-						print "EMC iMDB: No url found for - %s" % m_title
+						print("EMC iMDB: No url found for - %s" % m_title)
 				except:
 					pass
 			else:
-				print "EMC iMDB: No url found for - %s" % m_title
+				print("EMC iMDB: No url found for - %s" % m_title)
 
 	def poster_resize(self, poster_path, m_title):
 		self.m_title = m_title
@@ -1131,7 +1132,7 @@ class getCover(Screen):
 				#if picInfo:
 				ptr = self.picload.getData()
 				if ptr != None:
-					print "EMC iMDB: Load Poster - %s" % self.m_title
+					print("EMC iMDB: Load Poster - %s" % self.m_title)
 					self["poster"].instance.setPixmap(ptr)
 					self["poster"].show()
 
@@ -1148,15 +1149,15 @@ class getCover(Screen):
 		if self.check and self.menulist:
 			try:
 				shutil.move(self.path, self.o_path)
-				print "EMC iMDB: mv poster to real path - %s %s" % (self.path, self.o_path)
+				print("EMC iMDB: mv poster to real path - %s %s" % (self.path, self.o_path))
 				self.check = False
 				self.close(True)
 			except Exception, e:
-				print('[EMCCoverSearch] save Cover execute get failed: ', str(e))
+				print(('[EMCCoverSearch] save Cover execute get failed: ', str(e)))
 				try:
 					self.session.openWithCallback(self.saveCoverHomepath, MessageBox, _("Can not save " + self.o_path + " !\n Save Cover now in " + movie_homepath + " ?"), MessageBox.TYPE_YESNO, 10)
 				except Exception, e:
-					print('[EMCCoverSearch] save Cover in homepath execute get failed: ', str(e))
+					print(('[EMCCoverSearch] save Cover in homepath execute get failed: ', str(e)))
 
 	def saveCoverHomepath(self, result):
 		if result:
@@ -1166,11 +1167,11 @@ class getCover(Screen):
 				self.check = False
 				self.close(True)
 			except Exception, e:
-				print('[EMCCoverSearch] saveCoverHomepath execute get failed: ', str(e))
+				print(('[EMCCoverSearch] saveCoverHomepath execute get failed: ', str(e)))
 				try:
 					self.session.openWithCallback(self.chooseCallback, MessageBox, _("Can not save Cover in " + movie_homepath + " !\n\n Now you can select another folder to save the Cover."), MessageBox.TYPE_YESNO, 10)
 				except Exception, e:
-					print('[EMCCoverSearch] save Cover get failed: ', str(e))
+					print(('[EMCCoverSearch] save Cover get failed: ', str(e)))
 		else:
 			self.check = False
 			self.close(False)
@@ -1204,7 +1205,7 @@ class getCover(Screen):
 				self.check = False
 				self.close(True)
 			except Exception, e:
-				print('[EMCCoverSearch] moveCoverTo execute get failed: ', str(e))
+				print(('[EMCCoverSearch] moveCoverTo execute get failed: ', str(e)))
 				self.chooseDirectory(targetPath)
 		else:
 			self.check = False

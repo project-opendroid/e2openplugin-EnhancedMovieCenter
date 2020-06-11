@@ -1,4 +1,5 @@
-﻿import os
+﻿from __future__ import print_function
+import os
 
 # for localized messages
 from __init__ import _
@@ -183,7 +184,7 @@ class MovieRetitle(Screen, ConfigListScreenExt):
 			os.rename(self.service.getPath(), os.path.join(dir, self.input_file.getText() + "/"))
 			self.original_file = self.input_file.getText()
 		except Exception, e:
-			print e
+			print(e)
 
 	def renameFile(self, service, new_name):
 		try:
@@ -195,4 +196,4 @@ class MovieRetitle(Screen, ConfigListScreenExt):
 			for f in glob.glob(os.path.join(path, src + "*")):
 				os.rename(f, f.replace(src, dst))
 		except Exception, e:
-			print e
+			print(e)

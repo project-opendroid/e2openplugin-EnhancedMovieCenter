@@ -19,6 +19,7 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
 import os
 import chardet
 from time import time
@@ -89,7 +90,7 @@ try:
 	from mutagen.mp3 import MP3
 	isMutagen = True
 except Exception, e:
-	print "[EMCMS] python-mutagen is not available:", e
+	print("[EMCMS] python-mutagen is not available:", e)
 
 try:
 	from enigma import eMediaDatabase
@@ -264,7 +265,7 @@ class SelectionEventInfo:
 		try:
 			self.volctrl = eDVBVolumecontrol.getInstance() # volume control # dirty
 		except:
-			print "eDVBVolumecontrol.getInstance() failed"
+			print("eDVBVolumecontrol.getInstance() failed")
 			self.volctrl = None
 		self.preMute_muteState = None
 
@@ -442,7 +443,7 @@ class SelectionEventInfo:
 			if config.EMC.movie_cover_fallback.value and not os.path.exists(jpgpath):
 				jpgpath = getNoPosterPath()
 
-			print "EMC jpgpath", jpgpath
+			print("EMC jpgpath", jpgpath)
 
 			#TODO avoid os.path.exists double check
 			if jpgpath and os.path.exists(jpgpath):
@@ -557,7 +558,7 @@ class SelectionEventInfo:
 
 			#TEST Do not stop preview on cursor move
 			#self.session.nav.stopService()
-			print "EMC: showPreview hide"
+			print("EMC: showPreview hide")
 			#self["Video"].hide()
 
 	def dvdPlayerWorkaround(self):
@@ -778,7 +779,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		try:
 			config.misc.standbyCounter.addNotifier(self._onStandby, initial_call = False)
 		except:
-			print'[EMCMovieSelection] failed in config.misc.standbyCounter.addNotifier(self._onStandby, initial_call = False)'
+			print('[EMCMovieSelection] failed in config.misc.standbyCounter.addNotifier(self._onStandby, initial_call = False)')
 
 	def _onStandby(self, element):
 		if config.EMC.CoolStartHome.value == "after_standby":
@@ -787,7 +788,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 				config.EMC.needsreload.value = True
 
 	def gotThreadMsg(self, msg):
-		print'[EMCMovieSelection] gotThreadMsg'
+		print('[EMCMovieSelection] gotThreadMsg')
 		from MovieCenter import countsizeworker
 		msg = countsizeworker.Message.pop()
 		if msg[0] == 2:
@@ -795,7 +796,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			self.updateInfo(True) # immediately=True
 
 	def cancelThreadMsg(self):
-		print'[EMCMovieSelection] cancelThreadMsg'
+		print('[EMCMovieSelection] cancelThreadMsg')
 		from MovieCenter import countsizeworker
 		countsizeworker.Cancel()
 		try:
@@ -1031,7 +1032,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		self.returnService = service
 		#TODOret
 		if self.returnService:
-			print "EMC ret chnSer " +str(self.returnService.toString())
+			print("EMC ret chnSer " +str(self.returnService.toString()))
 		self.reloadList(path)
 
 	def reloadListWithoutCache(self):
@@ -1454,7 +1455,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			#t.start()
 
 	def resetInfo(self, preview=True):
-		print "EMC: resetInfo"
+		print("EMC: resetInfo")
 		if self.delayTimer.isActive():
 			self.delayTimer.stop()
 		if self.coverTimer.isActive():
@@ -1471,7 +1472,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			if config.EMC.movie_preview.value:
 				# Avoid movie preview if player is running
 				if self.playerInstance is None:
-					print "EMC: reset preview"
+					print("EMC: reset preview")
 					self.showPreview(None)
 
 	def showCoverDelayed(self):
@@ -1699,7 +1700,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 					self.checkHideMiniTV_beforeFullscreen()
 					self.session.open(IMDbEventViewSimple, evt, ServiceReference(self.getCurrent()))
 		except Exception, e:
-			print('[EMC] showEventInformation exception failure: ', str(e))
+			print(('[EMC] showEventInformation exception failure: ', str(e)))
 			pass
 
 	def openBludiscPlayer(self, blupath):
@@ -1721,7 +1722,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			self.returnService = None
 			#TODOret
 			if self.returnService:
-				print "EMC ret retSer " +str(self.returnService.toString())
+				print("EMC ret retSer " +str(self.returnService.toString()))
 
 		elif ifunknown and self.playerInstance:
 			# Get current service from movie player
@@ -1732,7 +1733,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		elif ifunknown:
 			# Select first entry
 			#TODOret
-			print "EMC ret initCursor movetop correct ????"
+			print("EMC ret initCursor movetop correct ????")
 			self.moveTop()
 
 		self.updateInfo()
@@ -1740,7 +1741,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 	def setReturnCursor(self):
 		if self.returnService:
 			#TODOret
-			print "EMC ret setCur " +str(self.returnService.toString())
+			print("EMC ret setCur " +str(self.returnService.toString()))
 			# Move to next or last selected entry
 			self.moveToService(self.returnService)
 
@@ -1987,7 +1988,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		self.returnService = self.getNextSelectedService(self.getCurrent(), self.tmpSelList)
 		#TODOret
 		if self.returnService:
-			print "EMC ret triSer " +str(self.returnService.toString())
+			print("EMC ret triSer " +str(self.returnService.toString()))
 		movieFileCache.delPathFromCache(self.currentPath)
 		self.reloadList()
 
@@ -2773,11 +2774,11 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		self.returnService = self.getNextSelectedService(current, selectedlist)
 		#TODOret
 		if self.returnService:
-			print "EMC ret exeFil " +str(self.returnService.toString())
+			print("EMC ret exeFil " +str(self.returnService.toString()))
 		else:
-			print "EMC ret exeFil - op:", op
-			print "EMC ret exeFil - targetpath:", targetPath
-			print "EMC ret exeFil - selectedlist:", selectedlist
+			print("EMC ret exeFil - op:", op)
+			print("EMC ret exeFil - targetpath:", targetPath)
+			print("EMC ret exeFil - selectedlist:", selectedlist)
 		cmd = []
 		association = []
 		movieFileCache.delPathFromCache(targetPath)
@@ -3033,7 +3034,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			# otherwise no select for other files in the same directory after that
 			self["list"].reload(self.currentPath)
 		except Exception, e:
-			print('[EMC] postFileOp exception: ', str(e))
+			print(('[EMC] postFileOp exception: ', str(e)))
 
 	def moveMovie(self, selection=None):
 		# Avoid starting move and copy at the same time
@@ -3207,7 +3208,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 					inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/home", "/lib", "/proc", "/run", "/sbin", "/sys", "/usr", "/var"],
 					minFree = 100 )
 		except Exception, e:
-			print('[EMC] moveDirectory get failed: ', str(e))
+			print(('[EMC] moveDirectory get failed: ', str(e)))
 		emcDebugOut("[EMCMS] moveDirectory")
 
 	def mvDirectorySelected(self, targetPath):
@@ -3228,7 +3229,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 				free = (stat.f_bavail if stat.f_bavail!=0 else stat.f_bfree) * stat.f_bsize / 1024 / 1024
 				freeSize += free/1024
 			except Exception, e:
-				print('[EMC] mvDirectorySelected get sizes failed: ', str(e))
+				print(('[EMC] mvDirectorySelected get sizes failed: ', str(e)))
 
 			if freeSize >= selSize:
 				cmd = []
@@ -3244,7 +3245,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 						# Sync = True: Run script for one file do association and continue with next file
 						emcTasker.shellExecute(cmd, association, True)	# first move, then delete if expiration limit is 0
 				except Exception, e:
-					print('[EMC] mvDirectorySelected execute get failed: ', str(e))
+					print(('[EMC] mvDirectorySelected execute get failed: ', str(e)))
 		emcDebugOut("[EMCMS] mvDirectorySelected")
 
 	def postDirectoryOp(self):
@@ -3252,7 +3253,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		try:
 				self["list"].reload(self.currentPath)
 		except Exception, e:
-				print('[EMC] postDirectoryOp - refreshList get failed!!!', str(e))
+				print(('[EMC] postDirectoryOp - refreshList get failed!!!', str(e)))
 
 	def trashcanCreate(self, confirmed):
 		try:

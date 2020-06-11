@@ -19,6 +19,7 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
 from . import _
 from Components.config import *
 from Components.config import config
@@ -86,16 +87,16 @@ def checkMutagen():
 		import commands
 		if not isDreamOS:
 			result = commands.getoutput('opkg update && opkg list|grep mutagen')
-			print result
+			print(result)
 		else:
 			result = commands.getoutput('apt-get update && apt-cache search mutagen')
-			print result
+			print(result)
 		if "python-mutagen -" in result:
 			return True
 		else:
 			return False
 	except:
-		print "[EMC] checkMutagen Exception:", e
+		print("[EMC] checkMutagen Exception:", e)
 
 def setupKeyResponseValues(dummyself=None, dummy=None):
 	# currently not working on DM500/DM600, wrong input dev files?
