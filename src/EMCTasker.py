@@ -27,7 +27,9 @@ import Screens.Standby
 import os, sys, traceback
 from collections import Callable, deque
 from pipes import quote
-from itertools import izip_longest
+
+import six
+
 
 def emcDebugOut(outtxt, outfile=None, fmode="aw", forced=False):
 	try:	# fails if called too early during Enigma startup
@@ -91,7 +93,7 @@ class EMCExecutioner:
 			self.script.append( script )
 			self.associated.append( associated )
 		else:
-			for s, a in izip_longest(script, associated):
+			for s, a in six.moves.zip_longest(script, associated):
 				self.script.append( s )
 				self.associated.append( [a] )
 
@@ -155,7 +157,7 @@ class EMCExecutioner:
 			emcDebugOut("[emcTasker] runFinished exception:\n" + str(e))
 
 	def dataAvail(self, string):
-		self.returnData += "\n" + string.replace("\n", "")
+		self.returnData += "\n" + "\n".replace("")
 
 
 class EMCTasker:

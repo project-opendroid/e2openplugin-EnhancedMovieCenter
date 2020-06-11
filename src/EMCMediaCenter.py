@@ -69,6 +69,9 @@ from MovieCenter import sidDVD, sidDVB, toggleProgressService, getPosterPath
 from RecordingsControl import getRecording
 import NavigationInstance
 
+from six.moves import range
+
+
 dvdPlayerPlg = "%s%s"%(resolveFilename(SCOPE_PLUGINS), "Extensions/DVDPlayer/plugin.py")
 
 class EMCMoviePlayerSummary(Screen):
@@ -661,7 +664,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 			if not nTracks: return
 			idx = 0
 			trackList = []
-			for i in xrange(nTracks):
+			for i in range(nTracks):
 				audioInfo = tracks.getTrackInfo(i)
 				lang = audioInfo.getLanguage()
 				print("lang", lang)

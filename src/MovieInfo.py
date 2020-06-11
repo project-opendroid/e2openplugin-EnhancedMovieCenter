@@ -16,8 +16,6 @@ from configlistext import ConfigListScreenExt
 from MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, getNoPosterPath
 
 import json, os, re
-from urllib import quote
-from urllib2 import Request, urlopen
 from twisted.web.client import downloadPage
 
 # Cover
@@ -26,6 +24,10 @@ from Components.AVSwitch import AVSwitch
 from Components.Pixmap import Pixmap
 from enigma import ePicLoad, eTimer, getDesktop
 import shutil
+
+from six.moves.urllib.parse import quote
+from six.moves.urllib.request import Request, urlopen
+
 
 config.EMC.movieinfo = ConfigSubsection()
 config.EMC.movieinfo.language = ConfigSelection(default='en', choices=[('en', _('English')), ('de', _('German')), ('it', _('Italian')), ('es', _('Spanish')), ('fr', _('French')), ('pt', _('Portuguese'))])

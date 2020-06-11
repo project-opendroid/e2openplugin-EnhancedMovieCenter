@@ -172,7 +172,7 @@ class PermanentSort():
 #		try:
 #			f = open(CFG_FILE, "wb")
 #			pickle.dump(data, f)
-#		except Exception, e:
+#		except Exception as e:
 #			emcDebugOut("[EMC] Exception in writePermanentSortCfgFile: " + str(e))
 #		finally:
 #			if f is not None:

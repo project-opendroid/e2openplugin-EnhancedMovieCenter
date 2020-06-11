@@ -57,6 +57,10 @@ from EMCBookmarks import EMCBookmarks
 from ServiceSupport import ServiceCenter
 from ThreadQueue import ThreadQueue
 
+from six.moves import range
+from six.moves import reload_module
+
+
 try:
 	from enigma import eMediaDatabase
 	isDreamOS = True
@@ -1542,7 +1546,7 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 		if self.list[idx][7] in extMedia:
 			# Cursor marks a movie
 			length = len(self.list)
-			for i in xrange(length):
+			for i in range(length):
 				entry = self.list[ (i+idx)%length ]
 				if entry and entry[7] in plyAll:
 					# Entry is no directory
@@ -2785,7 +2789,7 @@ class MovieCenter(GUIComponent):
 		self.startWorker = worker
 		self.l.invalidate()
 
-	def reload(self, currentPath, simulate=False, recursive=False):
+	def reload_module(self, currentPath, simulate=False, recursive=False):
 		list = self.reloadInternal(currentPath, simulate, recursive)
 		self.l.setList( list )
 		return list

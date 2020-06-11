@@ -173,6 +173,10 @@ def EMCStartup(session):
 #                       None stands for not specified, will be ignored
 #			Name (Button),	Column,	ID (Title)
 from collections import OrderedDict
+
+import six
+
+
 predefined_settings = OrderedDict([	(_("Custom"), ( None, "" )),
 					(_("Default"), ( None, "D" )),
 					(_("Performance"), ( 7, "P" )),
@@ -180,10 +184,10 @@ predefined_settings = OrderedDict([	(_("Custom"), ( None, "" )),
 				])
 
 def get_predefined_columns():
-	return [ v[0] for k, v in predefined_settings.iteritems() if v[0] is not None ]
+	return [ v[0] for k, v in six.iteritems(predefined_settings) if v[0] is not None ]
 
 def get_predefined_nameid(column):
-	for k, v in predefined_settings.iteritems():
+	for k, v in six.iteritems(predefined_settings):
 		if v[0] == column:
 			return k, v[1]
 

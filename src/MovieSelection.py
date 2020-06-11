@@ -82,6 +82,9 @@ from MetaSupport import getInfoFile
 from MovieCenter import extList, extVideo, extMedia, extDir, plyAll, plyDVD, cmtBME2, cmtBMEMC, cmtDir, plyDVB, extPlaylist, extAudio
 from MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, getNoPosterPath, getPosterPath
 
+from six.moves import range
+
+
 global extList, extVideo, extMedia, extDir, plyAll, plyDVD, cmtBME2, cmtBMEMC, cmtDir, plyDVB, extPlaylist, extAudio
 
 # we try to get mutagen if is installed
@@ -1177,7 +1180,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 					start = lastIndex
 					end = index
 				# Range from last selected to cursor position (both are included)
-				for i in xrange(start, end, rngStep):
+				for i in range(start, end, rngStep):
 					if self.multiSelectIdx[0] == i:
 						# Never untoggle the first index
 						continue  # pass
@@ -1390,7 +1393,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		self.moveToIndex(0)
 
 	def markAll(self):
-		for i in xrange( len (self["list"]) ):
+		for i in range( len (self["list"]) ):
 			self["list"].toggleSelection( index=i )
 
 	def unUsed(self):
@@ -2021,7 +2024,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			self.initButtons()
 			self.initCursor()
 
-		#except Exception, e:
+		#except Exception as e:
 		#	#MAYBE: Display MessageBox
 		#	emcDebugOut("[EMCMS] reloadList exception:\n" + str(e))
 		#finally:
@@ -2039,7 +2042,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 #	def setPlayerInstance(self, player):
 #		try:
 #			self.playerInstance = player
-#		except Exception, e:
+#		except Exception as e:
 #			emcDebugOut("[EMCMS] setPlayerInstance exception:\n" + str(e))
 
 	def openPlayer(self, playlist, playall=False):

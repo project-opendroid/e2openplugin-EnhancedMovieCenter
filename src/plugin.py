@@ -36,6 +36,7 @@ from Components.Converter import EMCEventName
 from Components.Converter import EMCServicePosition
 from Components.Converter import EMCRecordPosition
 from Components.Converter import EMCServiceTime
+import six
 
 from __init__ import _
 from Components.Language import language
@@ -125,7 +126,7 @@ class Autoselect639Language(ISO639Language):
 		choices_dict = {}
 		choices_list = []
 		defaults = []
-		for lang, id_list in self.idlist_by_name.iteritems():
+		for lang, id_list in six.iteritems(self.idlist_by_name):
 			if syslang not in id_list and 'en' not in id_list:
 				name = _(lang)
 				short_id = sorted(id_list, key=len)[0]
@@ -539,7 +540,7 @@ def autostart(reason, **kwargs):
 				#try:
 				#	from MovieSelection import EMCSelection
 				#	gSession.openWithCallback(showMoviesCallback, EMCSelection)
-				#except Exception, e:
+				#except Exception as e:
 				#	emcDebugOut("[spStartup] instantiateDialog exception:\n" + str(e))
 
 def pluginOpen(session, *args, **kwargs):

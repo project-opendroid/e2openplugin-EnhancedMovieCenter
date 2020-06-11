@@ -495,7 +495,7 @@ UCS2LE_SM_MODEL = {'class_table': UCS2LE_CLS,
                  'class_factor': 6,
                  'state_table': UCS2LE_ST,
                  'char_len_table': UCS2LE_CHAR_LEN_TABLE,
-                 'name': 'UTF-16LE'}
+                 'name': 'UTF-16E'}
 
 # UTF-8
 
