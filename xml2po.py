@@ -3,7 +3,7 @@
 from __future__ import print_function
 import sys
 import os
-import six
+import string
 import re
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler, property_lexical_handler
@@ -12,8 +12,7 @@ try:
 	no_comments = False
 except ImportError:
 	class LexicalHandler:
-		def __init__(self):
-			pass
+		pass
 	no_comments = True
 
 class parseXML(ContentHandler, LexicalHandler):
@@ -30,7 +29,8 @@ class parseXML(ContentHandler, LexicalHandler):
 	def startElement(self, name, attrs):
 		for x in ["text", "title", "value", "caption", "description"]:
 			try:
-				k = six.ensure_str(attrs[x])
+				ktmp = attrs[x].encode('utf-8')
+				k = ktmp.decode()
 				if k.strip() != "" and not self.ishex.match(k):
 					attrlist.add((k, self.last_comment))
 					self.last_comment = None
@@ -52,19 +52,22 @@ for arg in sys.argv[1:]:
 			if file.endswith(".xml"):
 				parser.parse(os.path.join(arg, file))
 	else:
-		parser.parse(arg)
+		try:
+			parser.parse(arg)
+		except:
+			pass
 
 	attrlist = list(attrlist)
 	attrlist.sort(key=lambda a: a[0])
 
-	for (k, c) in attrlist:
-		print()
+	for (k,c) in attrlist:
+		print('')
 		print('#: ' + arg)
 		k.replace("\\n", "\"\n\"")
 		if c:
 			for l in c.split('\n'):
 				print("#. ", l)
-		print('msgid "' + six.ensure_str(k) + '"')
+		print('msgid "' + k + '"')
 		print('msgstr ""')
 
 	attrlist = set()
