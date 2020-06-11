@@ -23,7 +23,7 @@ import os
 
 from Components.config import *
 
-from ,EMCTasker import emcTasker, emcDebugOut
+from .EMCTasker import emcTasker, emcDebugOut
 
 global CFG_FILE
 CFG_FILE = "/etc/enigma2/emc-bookmarks.cfg"

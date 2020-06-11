@@ -228,24 +228,24 @@ def getPosterPath(searchPath):
 # func: getNoPosterPath()
 #-------------------------------------------------
 def getNoPosterPath():
- if sz_w == 1920:
-	if config.EMC.use_orig_skin.value:
-		return "/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/img_fhd/no_poster.png"
-	else:
-		img = resolveFilename(SCOPE_CURRENT_SKIN, 'emc/no_poster.png')
-		if fileExists(img):
-			return img
-		else:
+	if sz_w == 1920:
+		if config.EMC.use_orig_skin.value:
 			return "/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/img_fhd/no_poster.png"
- else:
-	if config.EMC.use_orig_skin.value:
-		return "/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/img/no_poster.png"
-	else:
-		img = resolveFilename(SCOPE_CURRENT_SKIN, 'emc/no_poster.png')
-		if fileExists(img):
-			return img
 		else:
+			img = resolveFilename(SCOPE_CURRENT_SKIN, 'emc/no_poster.png')
+			if fileExists(img):
+				return img
+			else:
+				return "/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/img_fhd/no_poster.png"
+	else:
+		if config.EMC.use_orig_skin.value:
 			return "/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/img/no_poster.png"
+		else:
+			img = resolveFilename(SCOPE_CURRENT_SKIN, 'emc/no_poster.png')
+			if fileExists(img):
+				return img
+			else:
+				return "/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/img/no_poster.png"
 
 #-------------------------------------------------
 # func: readBasicCfgFile( file )
@@ -1726,28 +1726,28 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 					self.highlightsCpy.remove(service)
 
 def loadPix(name):
- if sz_w == 1920:
-	plugindir = '/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/img_fhd/'
-	if config.EMC.use_orig_skin.value:
-		pic = LoadPixmap(cached=True, path=plugindir+name)
-		return pic
-	else:
-		if fileExists(resolveFilename(SCOPE_CURRENT_SKIN, 'emc/'+name)):
-			pic = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, 'emc/'+name))
-		else:
+	if sz_w == 1920:
+		plugindir = '/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/img_fhd/'
+		if config.EMC.use_orig_skin.value:
 			pic = LoadPixmap(cached=True, path=plugindir+name)
-		return pic
- else:
-	plugindir = '/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/img/'
-	if config.EMC.use_orig_skin.value:
-		pic = LoadPixmap(cached=True, path=plugindir+name)
-		return pic
-	else:
-		if fileExists(resolveFilename(SCOPE_CURRENT_SKIN, 'emc/'+name)):
-			pic = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, 'emc/'+name))
+			return pic
 		else:
+			if fileExists(resolveFilename(SCOPE_CURRENT_SKIN, 'emc/'+name)):
+				pic = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, 'emc/'+name))
+			else:
+				pic = LoadPixmap(cached=True, path=plugindir+name)
+			return pic
+	else:
+		plugindir = '/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/img/'
+		if config.EMC.use_orig_skin.value:
 			pic = LoadPixmap(cached=True, path=plugindir+name)
-		return pic
+			return pic
+		else:
+			if fileExists(resolveFilename(SCOPE_CURRENT_SKIN, 'emc/'+name)):
+				pic = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, 'emc/'+name))
+			else:
+				pic = LoadPixmap(cached=True, path=plugindir+name)
+			return pic
 
 moviecenter = None
 

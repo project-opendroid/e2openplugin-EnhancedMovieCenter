@@ -598,7 +598,7 @@ def getSkin():
 		else:
 			skin = "/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/CoolSkin/EMCSelection_bottom_pig_1080.xml"
 	return skin
-
+global last_currentPath
 last_currentPath = ""
 
 class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfaceSel, DirectoryStack, E2Bookmarks, EMCBookmarks, ProtectedScreen):
@@ -645,7 +645,6 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			self.returnService = returnService
 			if last_currentPath != self.currentPath:
 				from MovieCenter import moviecenterdata
-				global last_currentPath
 				last_currentPath = self.currentPath
 				set_currentPath = True
 				if moviecenterdata:

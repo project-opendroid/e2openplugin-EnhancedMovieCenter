@@ -731,7 +731,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 				elif entry == x1val and seltrack != x[0]:
 					if useAc3:
 						print("###############################################audio5")
-					        if x[3] == 1 or x[2].startswith('AC'):
+						if x[3] == 1 or x[2].startswith('AC'):
 							emcDebugOut("[EMCPlayer] audio track match: " + str(x))
 							tracks.selectTrack(x[0])
 							return True
@@ -948,7 +948,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 		subtitleTuple = info and info.getInfoObject(iServiceInformation.sUser+7)
 		if subtitleTuple:
 			subtitleString = ""
-			if subtitleTuple[0] is not 0:
+			if subtitleTuple[0] != 0:
 				subtitleString = "%d: %s" % (subtitleTuple[0], subtitleTuple[1])
 			self["subtitleLabel"].setText(subtitleString)
 			#if subtitleTuple != self.last_subtitleTuple: # and not self.in_menu:

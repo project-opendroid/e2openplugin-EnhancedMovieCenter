@@ -555,9 +555,9 @@ def recordingsOpen(session, *args, **kwargs):
 	session.openWithCallback(showMoviesCallback, EMCSelection)
 
 def menu_recordingsOpen(menuid, **kwargs):
-    if menuid == "mainmenu":
-	return [("Enhanced Movie Center", recordingsOpen, "emc", 20)]
-    return []
+	if menuid == "mainmenu":
+		return [("Enhanced Movie Center", recordingsOpen, "emc", 20)]
+	return []
 
 def Plugins(**kwargs):
 	from EnhancedMovieCenter import EMCVersion

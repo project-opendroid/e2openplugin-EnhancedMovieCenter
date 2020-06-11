@@ -59,7 +59,7 @@ def getMovieList(moviename):
 
 		idx = len(movies) + len(tvshows)
 
-        return movielist, idx
+		return movielist, idx
 
 def fetchdata(url):
 	try:
