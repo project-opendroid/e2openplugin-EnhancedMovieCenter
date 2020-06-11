@@ -93,7 +93,7 @@ class ConfirmBox(MessageBox):
 	def __init__(self, session, text, key1, key2, type):
 		MessageBox.__init__(self, session, text=text, type=type, enable_input=False)
 		self.skinName = "MessageBox"
-		self["actions"] = ActionMap(["OkCancelActions","ColorActions"],
+		self["actions"] = ActionMap(["OkCancelActions", "ColorActions"],
 			{
 				"ok": self.cancel,
 				"cancel": self.cancel,
@@ -266,18 +266,18 @@ bqt_choices = [	("",		_("HomeEnd")),
 
 #Think about using AZ or ("A",False) as dict key / permanent sort store value
 #TODO use an OrderedDict
-sort_modes = {	("D-")	  :	( _("Date sort descending (D-)"),				("D",False),		_("Date sort"),				),
-		("AZ")	  :	( _("Alpha sort ascending (AZ)"),				("A",False),	 	_("Alpha sort"),			),
-		("AZD-")  :	( _("Alpha sort ascending, Date descending (AZD-)"),		("ADN",False),		_("Alpha sort date newest"),		),
-		("AZM")   :	( _("Alpha sort ascending with meta (AZM)"),			("AM",False), 	 	_("Alpha sort meta"),			),
-		("AZMD-") :	( _("Alpha sort ascending with meta, Date descending (AZMD-)"),	("AMDN",False),		_("Alpha sort meta date newest"),	),
-		("P+")	  :	( _("Progress sort ascending (P+)"),				("P",False),		_("Progress sort"),			),
-		("D+")	  :	( _("Date sort ascending (D+)"),				("D",True),		_("Date sort"),				),
-		("ZA")	  :	( _("Alpha sort descending (ZA)"),				("A",True),		_("Alpha sort"),			),
-		("ZAD+")  :	( _("Alpha sort descending, Date ascending (ZAD+)"),		("ADN",True),		_("Alpha sort date newest"),		),
-		("ZAM")	  :	( _("Alpha sort descending with meta (ZAM)"),			("AM",True),		_("Alpha sort meta"),			),
-		("ZAMD+") :	( _("Alpha sort descending with meta, Date ascending (ZAMD+)"),	("AMDN",True),		_("Alpha sort meta date newest"),	),
-		("P-")	  :	( _("Progress sort descending (P-)"),				("P",True),		_("Progress sort"),			),
+sort_modes = {	("D-"):	( _("Date sort descending (D-)"),				("D", False),		_("Date sort"),				),
+		("AZ"):	( _("Alpha sort ascending (AZ)"),				("A", False),	 	_("Alpha sort"),			),
+		("AZD-"):	( _("Alpha sort ascending, Date descending (AZD-)"),		("ADN", False),		_("Alpha sort date newest"),		),
+		("AZM"):	( _("Alpha sort ascending with meta (AZM)"),			("AM", False), 	 	_("Alpha sort meta"),			),
+		("AZMD-"):	( _("Alpha sort ascending with meta, Date descending (AZMD-)"),	("AMDN", False),		_("Alpha sort meta date newest"),	),
+		("P+"):	( _("Progress sort ascending (P+)"),				("P", False),		_("Progress sort"),			),
+		("D+"):	( _("Date sort ascending (D+)"),				("D", True),		_("Date sort"),				),
+		("ZA"):	( _("Alpha sort descending (ZA)"),				("A", True),		_("Alpha sort"),			),
+		("ZAD+"):	( _("Alpha sort descending, Date ascending (ZAD+)"),		("ADN", True),		_("Alpha sort date newest"),		),
+		("ZAM"):	( _("Alpha sort descending with meta (ZAM)"),			("AM", True),		_("Alpha sort meta"),			),
+		("ZAMD+"):	( _("Alpha sort descending with meta, Date ascending (ZAMD+)"),	("AMDN", True),		_("Alpha sort meta date newest"),	),
+		("P-"):	( _("Progress sort descending (P-)"),				("P", True),		_("Progress sort"),			),
 		}
 		# If you add a new sort order, you have to think about
 		# Order false has to be the preferred state
@@ -400,11 +400,11 @@ config.EMC.size_default_text         = ConfigTextWOHelp(default = "( 0 GB )", fi
 config.EMC.count_size_default_icon   = ConfigYesNo(default = False)
 config.EMC.count_size_position       = ConfigSelection(default = '1', choices = [ ('0', _("center")), ('1', _("right")), ('2', _("left")) ])
 config.EMC.latest_recordings         = ConfigYesNo(default = True)
-config.EMC.color_unwatched           = ConfigSelection(default="#ffffff" , choices=[("#ffffff", _("White")), ("#cccccc", _("Light grey")), ("#bababa", _("Grey")), ("#666666", _("Dark grey")), ("#000000", _("Black"))])
-config.EMC.color_watching            = ConfigSelection(default="#ffad33" , choices=[("#ffad33", _("Orange")), ("#ffd699", _("Light orange")), ("#cc7a00", _("Dark orange"))])
-config.EMC.color_finished            = ConfigSelection(default="#38ff48" , choices=[("#38ff48", _("Green")), ("#b3ffb9", _("Light green")), ("#00990d", _("Dark green"))])
-config.EMC.color_recording           = ConfigSelection(default="#ff0000" , choices=[("#ff0000", _("Red")), ("#ff9999", _("Light red")), ("#990000", _("Dark red"))])
-config.EMC.color_highlight           = ConfigSelection(default="#bababa" , choices=[("#ffffff", _("White")), ("#cccccc", _("Light grey")), ("#bababa", _("Grey")), ("#666666", _("Dark grey")), ("#000000", _("Black"))])
+config.EMC.color_unwatched           = ConfigSelection(default="#ffffff", choices=[("#ffffff", _("White")), ("#cccccc", _("Light grey")), ("#bababa", _("Grey")), ("#666666", _("Dark grey")), ("#000000", _("Black"))])
+config.EMC.color_watching            = ConfigSelection(default="#ffad33", choices=[("#ffad33", _("Orange")), ("#ffd699", _("Light orange")), ("#cc7a00", _("Dark orange"))])
+config.EMC.color_finished            = ConfigSelection(default="#38ff48", choices=[("#38ff48", _("Green")), ("#b3ffb9", _("Light green")), ("#00990d", _("Dark green"))])
+config.EMC.color_recording           = ConfigSelection(default="#ff0000", choices=[("#ff0000", _("Red")), ("#ff9999", _("Light red")), ("#990000", _("Dark red"))])
+config.EMC.color_highlight           = ConfigSelection(default="#bababa", choices=[("#ffffff", _("White")), ("#cccccc", _("Light grey")), ("#bababa", _("Grey")), ("#666666", _("Dark grey")), ("#000000", _("Black"))])
 
 nget = False # this is needed for vti-image at the moment
 try:
@@ -414,7 +414,7 @@ except Exception as e:
 	print("[EMC] ngettext failed:", e)
 limitreclist = []
 if nget:
-	for i in range(86400,604800,86400):
+	for i in range(86400, 604800, 86400):
 		d = i / 86400
 		if i == 86400:
 			val = _("Day")
@@ -422,7 +422,7 @@ if nget:
 		else:
 			val = _("Days")
 			limitreclist.append(("%d" % i, ("%d" % d + " " + val)))
-	for i in range(604800,2419200,604800):
+	for i in range(604800, 2419200, 604800):
 		w = i / 604800
 		if i == 604800:
 			val = _("Week")
@@ -430,7 +430,7 @@ if nget:
 		else:
 			val = _("Weeks")
 			limitreclist.append(("%d" % i, ("%d" % w + " " + val)))
-	for i in range(2419200,31449600,2419200):
+	for i in range(2419200, 31449600, 2419200):
 		m = i / 2419200
 		if i == 2419200:
 			val = _("Month")
@@ -439,7 +439,7 @@ if nget:
 			val = _("Months")
 			limitreclist.append(("%d" % i, ("%d" % m + " " + val)))
 else:
-	for i in range(1,365):
+	for i in range(1, 365):
 		limitreclist.append(("%d" % i))
 
 config.EMC.latest_recordings_limit   = ConfigSelection(default = "-1", choices = [("-1", _("No limit"))] + limitreclist)

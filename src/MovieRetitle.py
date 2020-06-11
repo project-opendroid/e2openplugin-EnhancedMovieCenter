@@ -104,7 +104,7 @@ class MovieRetitle(Screen, ConfigListScreenExt):
 							helpwindowposx, helpwindowposy = helpwindowpos
 							if helpwindowposx and helpwindowposy:
 								from enigma import ePoint
-								self["config"].getCurrent()[1].help_window.instance.move(ePoint(helpwindowposx,helpwindowposy))
+								self["config"].getCurrent()[1].help_window.instance.move(ePoint(helpwindowposx, helpwindowposy))
 			else:
 				if "VKeyIcon" in self:
 					self["VirtualKB"].setEnabled(False)

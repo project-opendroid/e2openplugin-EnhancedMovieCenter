@@ -210,9 +210,9 @@ class EitList():
 					free_CA_mode    = e[8] & 0x1000
 					descriptors_len = e[8] & 0x0fff
 
-					if running_status in [1,2]:
+					if running_status in [1, 2]:
 						self.eit['when'] = "NEXT"
-					elif running_status in [3,4]:
+					elif running_status in [3, 4]:
 						self.eit['when'] = "NOW"
 
 					self.eit['startdate'] = date
@@ -249,7 +249,7 @@ class EitList():
 							ISO_639_language_code = str(data[pos+2:pos+5]).upper()
 							event_name_length = ord(data[pos+5])
 							name_event_description = ""
-							for i in range (pos+6,pos+6+event_name_length):
+							for i in range (pos+6, pos+6+event_name_length):
 								try:
 									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
 										name_event_description += data[i]
@@ -292,7 +292,7 @@ class EitList():
 								elif byte1=="21": short_event_codepage = 'utf-8'
 								if short_event_codepage:
 									emcDebugOut("[META] Found short_event encoding-type: " + short_event_codepage)
-							for i in range (pos+7+event_name_length,pos+length):
+							for i in range (pos+7+event_name_length, pos+length):
 								try:
 									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
 										short_event_description += data[i]
@@ -310,7 +310,7 @@ class EitList():
 							prev1_ISO_639_language_code = ISO_639_language_code
 						elif rec == 0x4E:
 							ISO_639_language_code = ""
-							for i in range (pos+3,pos+6):
+							for i in range (pos+3, pos+6):
 								ISO_639_language_code += data[i]
 							ISO_639_language_code = ISO_639_language_code.upper()
 							extended_event_description = ""
@@ -332,7 +332,7 @@ class EitList():
 								elif byte1=="21": extended_event_codepage = 'utf-8'
 								if extended_event_codepage:
 									emcDebugOut("[META] Found extended_event encoding-type: " + extended_event_codepage)
-							for i in range (pos+8,pos+length):
+							for i in range (pos+8, pos+length):
 								try:
 									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
 										extended_event_description += data[i]

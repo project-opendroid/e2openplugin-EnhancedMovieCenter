@@ -46,7 +46,7 @@ def readPlaylist(path):
 				service = plist.readline()
 				if service == "":
 					break
-				service = service.replace('\n','')
+				service = service.replace('\n', '')
 				spos = service.find('/')
 				servicepath = service[spos:]
 				service = servicepath.split('/')[-1]
@@ -193,7 +193,7 @@ class EMCPlaylistScreen(Screen):
 					service = plist.readline()
 					if service == "":
 						break
-					service = service.replace('\n','')
+					service = service.replace('\n', '')
 					spos = service.find('/')
 					servicepath = service[spos:]
 					service = servicepath.split('/')[-1]
@@ -278,12 +278,12 @@ class PlayList(GUIComponent):
 
 		self.screenwidth = getDesktop(0).size().width()
 		if self.screenwidth and self.screenwidth == 1920:
-			self.posFont = parseFont("Regular;30", ((1,1),(1,1)))
-			self.nameFont = parseFont("Regular;30", ((1,1),(1,1)))
+			self.posFont = parseFont("Regular;30", ((1, 1), (1, 1)))
+			self.nameFont = parseFont("Regular;30", ((1, 1), (1, 1)))
 			self.itemHeight = 40
 		else:
-			self.posFont = parseFont("Regular;20", ((1,1),(1,1)))
-			self.nameFont = parseFont("Regular;20", ((1,1),(1,1)))
+			self.posFont = parseFont("Regular;20", ((1, 1), (1, 1)))
+			self.nameFont = parseFont("Regular;20", ((1, 1), (1, 1)))
 			self.itemHeight = 30
 
 		self.posColor = 0xFFFFFF
@@ -312,10 +312,10 @@ class PlayList(GUIComponent):
 		if self.skinAttributes is not None:
 			for (attrib, value) in self.skinAttributes:
 				if attrib == "posFont":
-					self.posFont = parseFont(value, ((1,1),(1,1)))
+					self.posFont = parseFont(value, ((1, 1), (1, 1)))
 					self.l.setFont(0, self.posFont)
 				elif attrib == "nameFont":
-					self.nameFont = parseFont(value, ((1,1),(1,1)))
+					self.nameFont = parseFont(value, ((1, 1), (1, 1)))
 					self.l.setFont(1, self.nameFont)
 				elif attrib == "posWidth":
 					self.posWidth = int(value)
@@ -388,10 +388,10 @@ class PlayList(GUIComponent):
 					name = name + " - " + metastring
 		if self.screenwidth and self.screenwidth == 1920:
 			entrys.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 1, self.posWidth, 34, 0, RT_VALIGN_CENTER|RT_HALIGN_RIGHT, pos, self.posColor, self.posColorSel))
-			entrys.append((eListboxPythonMultiContent.TYPE_TEXT,5 + self.posWidth + 30, 1, self.nameWidth, 34, 1, RT_VALIGN_CENTER, name, self.nameColor, self.nameColorSel))
+			entrys.append((eListboxPythonMultiContent.TYPE_TEXT, 5 + self.posWidth + 30, 1, self.nameWidth, 34, 1, RT_VALIGN_CENTER, name, self.nameColor, self.nameColorSel))
 		else:
 			entrys.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 2, self.posWidth, 26, 0, RT_VALIGN_CENTER|RT_HALIGN_RIGHT, pos, self.posColor, self.posColorSel))
-			entrys.append((eListboxPythonMultiContent.TYPE_TEXT,5 + self.posWidth + 20, 2, self.nameWidth, 26, 1, RT_VALIGN_CENTER, name, self.nameColor, self.nameColorSel))
+			entrys.append((eListboxPythonMultiContent.TYPE_TEXT, 5 + self.posWidth + 20, 2, self.nameWidth, 26, 1, RT_VALIGN_CENTER, name, self.nameColor, self.nameColorSel))
 		return entrys
 
 	def addEntry(self, pos, entry):

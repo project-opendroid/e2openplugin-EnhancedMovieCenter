@@ -51,7 +51,7 @@ config.EMC.imdb.savetotxtfile = ConfigYesNo(default = False)
 #single/manually
 config.EMC.imdb.singlesearch = ConfigSelection(default='6', choices=[('0', _('imdb.com')), ('1', _('thetvdb.com')), ('2', _('csfd.cz')), ('3', _('all')), ('4', _('themoviedb.org')), ('5', _('themoviedb.org + thetvdb.com')), ('6', _('themoviedb.org + thetvdb.com + imdb.com'))])
 config.EMC.imdb.singlesearch_filter = ConfigSelection(default='2', choices=[('0', _('overall')), ('1', _('every single one')), ('2', _('two contiguous')), ('3', _('three contiguous'))])
-config.EMC.imdb.singlesearch_siteresults = ConfigSelection(default='3', choices=[('0', _('no limit')),'3', '5', '10', '25', '50', '100'])
+config.EMC.imdb.singlesearch_siteresults = ConfigSelection(default='3', choices=[('0', _('no limit')), '3', '5', '10', '25', '50', '100'])
 config.EMC.imdb.singlesearch_tvdbcoverrange = ConfigSelection(default='1', choices = [('0', _('no limit')), ('1', _('standard cover')), '3', '5', '10', '25'])
 config.EMC.imdb.singlesearch_foldercoverpath = ConfigSelection(default='0', choices=[('0', _('.../foldername/foldername.jpg')), ('1', _('.../foldername.jpg')), ('2', _('.../foldername/folder.jpg'))])
 #common
@@ -68,7 +68,7 @@ def urlExist(url):
 
 def getSearchList(title, option):
 	slist = []
-	s = title.replace('.',' ').replace('_',' ').replace('-',' ').replace('+', ' ').split()
+	s = title.replace('.', ' ').replace('_', ' ').replace('-', ' ').replace('+', ' ').split()
 	if option == '1':
 		slist = s
 	elif option == '2':
@@ -325,11 +325,11 @@ class EMCImdbScan(Screen):
 						seasonEpisode = re.findall('.*?[Ss]([0-9]+)[Ee]([0-9]+)', s_title, re.S|re.I)
 						if seasonEpisode:
 							(season, episode) = seasonEpisode[0]
-						name2 = re.sub('[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+','', s_title, flags=re.S|re.I)
-						url = 'https://thetvdb.com/api/GetSeries.php?seriesname=%s&language=de' % name2.replace(' ','%20')
+						name2 = re.sub('[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+', '', s_title, flags=re.S|re.I)
+						url = 'https://thetvdb.com/api/GetSeries.php?seriesname=%s&language=de' % name2.replace(' ', '%20')
 						urls.append(("serie", title, url, cover_path, season, episode))
 					else:
-						url = 'http://api.themoviedb.org/3/search/movie?api_key=8789cfd3fbab7dccf1269c3d7d867aff&query=%s&language=de' % m_title.replace(' ','%20')
+						url = 'http://api.themoviedb.org/3/search/movie?api_key=8789cfd3fbab7dccf1269c3d7d867aff&query=%s&language=de' % m_title.replace(' ', '%20')
 						urls.append(("movie", title, url, cover_path, None, None))
 
 			if len(urls) != 0:
@@ -428,8 +428,8 @@ class EMCImdbScan(Screen):
 
 	def writeTofile(self, text, cover_path):
 		print(cover_path)
-		if not fileExists(cover_path.replace('.jpg','.txt')):
-			wFile = open(cover_path.replace('.jpg','.txt'),"w")
+		if not fileExists(cover_path.replace('.jpg', '.txt')):
+			wFile = open(cover_path.replace('.jpg', '.txt'), "w")
 			wFile.write(text)
 			wFile.close()
 
@@ -517,117 +517,117 @@ class EMCImdbScan(Screen):
 			#DelayedFunction(3000, self["done_msg"].hide)
 
 	def decodeHtml(self, text):
-		text = text.replace('&auml;','ä')
-		text = text.replace('\u00e4','ä')
-		text = text.replace('&#228;','ä')
+		text = text.replace('&auml;', 'ä')
+		text = text.replace('\u00e4', 'ä')
+		text = text.replace('&#228;', 'ä')
 
-		text = text.replace('&Auml;','Ä')
-		text = text.replace('\u00c4','Ä')
-		text = text.replace('&#196;','Ä')
+		text = text.replace('&Auml;', 'Ä')
+		text = text.replace('\u00c4', 'Ä')
+		text = text.replace('&#196;', 'Ä')
 
-		text = text.replace('&ouml;','ö')
-		text = text.replace('\u00f6','ö')
-		text = text.replace('&#246;','ö')
+		text = text.replace('&ouml;', 'ö')
+		text = text.replace('\u00f6', 'ö')
+		text = text.replace('&#246;', 'ö')
 
-		text = text.replace('&ouml;','Ö')
-		text = text.replace('&Ouml;','Ö')
-		text = text.replace('\u00d6','Ö')
-		text = text.replace('&#214;','Ö')
+		text = text.replace('&ouml;', 'Ö')
+		text = text.replace('&Ouml;', 'Ö')
+		text = text.replace('\u00d6', 'Ö')
+		text = text.replace('&#214;', 'Ö')
 
-		text = text.replace('&uuml;','ü')
-		text = text.replace('\u00fc','ü')
-		text = text.replace('&#252;','ü')
+		text = text.replace('&uuml;', 'ü')
+		text = text.replace('\u00fc', 'ü')
+		text = text.replace('&#252;', 'ü')
 
-		text = text.replace('&Uuml;','Ü')
-		text = text.replace('\u00dc','Ü')
-		text = text.replace('&#220;','Ü')
+		text = text.replace('&Uuml;', 'Ü')
+		text = text.replace('\u00dc', 'Ü')
+		text = text.replace('&#220;', 'Ü')
 
-		text = text.replace('&szlig;','ß')
-		text = text.replace('\u00df','ß')
-		text = text.replace('&#223;','ß')
+		text = text.replace('&szlig;', 'ß')
+		text = text.replace('\u00df', 'ß')
+		text = text.replace('&#223;', 'ß')
 
-		text = text.replace('&amp;','&')
-		text = text.replace('&quot;','\"')
-		text = text.replace('&gt;','>')
-		text = text.replace('&apos;',"'")
-		text = text.replace('&acute;','\'')
-		text = text.replace('&ndash;','-')
-		text = text.replace('&bdquo;','"')
-		text = text.replace('&rdquo;','"')
-		text = text.replace('&ldquo;','"')
-		text = text.replace('&lsquo;','\'')
-		text = text.replace('&rsquo;','\'')
-		text = text.replace('&#034;','"')
-		text = text.replace('&#34;','"')
-		text = text.replace('&#038;','&')
-		text = text.replace('&#039;','\'')
-		text = text.replace('&#39;','\'')
-		text = text.replace('&#160;',' ')
-		text = text.replace('\u00a0',' ')
-		text = text.replace('\u00b4','\'')
-		text = text.replace('\u003d','=')
-		text = text.replace('\u0026','&')
-		text = text.replace('&#174;','')
-		text = text.replace('&#225;','a')
-		text = text.replace('&#233;','e')
-		text = text.replace('&#243;','o')
-		text = text.replace('&#8211;',"-")
-		text = text.replace('&#8212;',"—")
-		text = text.replace('&mdash;','—')
-		text = text.replace('\u2013',"–")
-		text = text.replace('&#8216;',"'")
-		text = text.replace('&#8217;',"'")
-		text = text.replace('&#8220;',"'")
-		text = text.replace('&#8221;','"')
-		text = text.replace('&#8222;',',')
-		text = text.replace('\u014d','o')
-		text = text.replace('\u016b','u')
-		text = text.replace('\u201a','\"')
-		text = text.replace('\u2018','\"')
-		text = text.replace('\u201e','\"')
-		text = text.replace('\u201c','\"')
-		text = text.replace('\u201d','\'')
-		text = text.replace('\u2019s','’')
-		text = text.replace('\u00e0','à')
-		text = text.replace('\u00e7','ç')
-		text = text.replace('\u00e8','é')
-		text = text.replace('\u00e9','é')
-		text = text.replace('\u00c1','Á')
-		text = text.replace('\u00c6','Æ')
-		text = text.replace('\u00e1','á')
+		text = text.replace('&amp;', '&')
+		text = text.replace('&quot;', '\"')
+		text = text.replace('&gt;', '>')
+		text = text.replace('&apos;', "'")
+		text = text.replace('&acute;', '\'')
+		text = text.replace('&ndash;', '-')
+		text = text.replace('&bdquo;', '"')
+		text = text.replace('&rdquo;', '"')
+		text = text.replace('&ldquo;', '"')
+		text = text.replace('&lsquo;', '\'')
+		text = text.replace('&rsquo;', '\'')
+		text = text.replace('&#034;', '"')
+		text = text.replace('&#34;', '"')
+		text = text.replace('&#038;', '&')
+		text = text.replace('&#039;', '\'')
+		text = text.replace('&#39;', '\'')
+		text = text.replace('&#160;', ' ')
+		text = text.replace('\u00a0', ' ')
+		text = text.replace('\u00b4', '\'')
+		text = text.replace('\u003d', '=')
+		text = text.replace('\u0026', '&')
+		text = text.replace('&#174;', '')
+		text = text.replace('&#225;', 'a')
+		text = text.replace('&#233;', 'e')
+		text = text.replace('&#243;', 'o')
+		text = text.replace('&#8211;', "-")
+		text = text.replace('&#8212;', "—")
+		text = text.replace('&mdash;', '—')
+		text = text.replace('\u2013', "–")
+		text = text.replace('&#8216;', "'")
+		text = text.replace('&#8217;', "'")
+		text = text.replace('&#8220;', "'")
+		text = text.replace('&#8221;', '"')
+		text = text.replace('&#8222;', ',')
+		text = text.replace('\u014d', 'o')
+		text = text.replace('\u016b', 'u')
+		text = text.replace('\u201a', '\"')
+		text = text.replace('\u2018', '\"')
+		text = text.replace('\u201e', '\"')
+		text = text.replace('\u201c', '\"')
+		text = text.replace('\u201d', '\'')
+		text = text.replace('\u2019s', '’')
+		text = text.replace('\u00e0', 'à')
+		text = text.replace('\u00e7', 'ç')
+		text = text.replace('\u00e8', 'é')
+		text = text.replace('\u00e9', 'é')
+		text = text.replace('\u00c1', 'Á')
+		text = text.replace('\u00c6', 'Æ')
+		text = text.replace('\u00e1', 'á')
 
-		text = text.replace('&#xC4;','Ä')
-		text = text.replace('&#xD6;','Ö')
-		text = text.replace('&#xDC;','Ü')
-		text = text.replace('&#xE4;','ä')
-		text = text.replace('&#xF6;','ö')
-		text = text.replace('&#xFC;','ü')
-		text = text.replace('&#xDF;','ß')
-		text = text.replace('&#xE9;','é')
-		text = text.replace('&#xB7;','·')
-		text = text.replace("&#x27;","'")
-		text = text.replace("&#x26;","&")
-		text = text.replace("&#xFB;","û")
-		text = text.replace("&#xF8;","ø")
-		text = text.replace("&#x21;","!")
-		text = text.replace("&#x3f;","?")
+		text = text.replace('&#xC4;', 'Ä')
+		text = text.replace('&#xD6;', 'Ö')
+		text = text.replace('&#xDC;', 'Ü')
+		text = text.replace('&#xE4;', 'ä')
+		text = text.replace('&#xF6;', 'ö')
+		text = text.replace('&#xFC;', 'ü')
+		text = text.replace('&#xDF;', 'ß')
+		text = text.replace('&#xE9;', 'é')
+		text = text.replace('&#xB7;', '·')
+		text = text.replace("&#x27;", "'")
+		text = text.replace("&#x26;", "&")
+		text = text.replace("&#xFB;", "û")
+		text = text.replace("&#xF8;", "ø")
+		text = text.replace("&#x21;", "!")
+		text = text.replace("&#x3f;", "?")
 
-		text = text.replace('&#8230;','...')
-		text = text.replace('\u2026','...')
-		text = text.replace('&hellip;','...')
+		text = text.replace('&#8230;', '...')
+		text = text.replace('\u2026', '...')
+		text = text.replace('&hellip;', '...')
 
-		text = text.replace('&#8234;','')
+		text = text.replace('&#8234;', '')
 		return text
 
 	def cleanFile(text):
-		cutlist = ['x264','720p','1080p','1080i','PAL','GERMAN','ENGLiSH','WS','DVDRiP','UNRATED','RETAIL','Web-DL','DL','LD','MiC','MD','DVDR','BDRiP','BLURAY','DTS','UNCUT','ANiME',
-					'AC3MD','AC3','AC3D','TS','DVDSCR','COMPLETE','INTERNAL','DTSD','XViD','DIVX','DUBBED','LINE.DUBBED','DD51','DVDR9','DVDR5','h264','AVC',
-					'WEBHDTVRiP','WEBHDRiP','WEBRiP','WEBHDTV','WebHD','HDTVRiP','HDRiP','HDTV','ITUNESHD','REPACK','SYNC']
-		text = text.replace('.wmv','').replace('.flv','').replace('.ts','').replace('.m2ts','').replace('.mkv','').replace('.avi','').replace('.mpeg','').replace('.mpg','').replace('.iso','')
+		cutlist = ['x264', '720p', '1080p', '1080i', 'PAL', 'GERMAN', 'ENGLiSH', 'WS', 'DVDRiP', 'UNRATED', 'RETAIL', 'Web-DL', 'DL', 'LD', 'MiC', 'MD', 'DVDR', 'BDRiP', 'BLURAY', 'DTS', 'UNCUT', 'ANiME',
+					'AC3MD', 'AC3', 'AC3D', 'TS', 'DVDSCR', 'COMPLETE', 'INTERNAL', 'DTSD', 'XViD', 'DIVX', 'DUBBED', 'LINE.DUBBED', 'DD51', 'DVDR9', 'DVDR5', 'h264', 'AVC',
+					'WEBHDTVRiP', 'WEBHDRiP', 'WEBRiP', 'WEBHDTV', 'WebHD', 'HDTVRiP', 'HDRiP', 'HDTV', 'ITUNESHD', 'REPACK', 'SYNC']
+		text = text.replace('.wmv', '').replace('.flv', '').replace('.ts', '').replace('.m2ts', '').replace('.mkv', '').replace('.avi', '').replace('.mpeg', '').replace('.mpg', '').replace('.iso', '')
 
 		for word in cutlist:
-			text = re.sub('(\_|\-|\.|\+)'+word+'(\_|\-|\.|\+)','+', text, flags=re.I)
-		text = text.replace('.',' ').replace('-',' ').replace('_',' ').replace('+','')
+			text = re.sub('(\_|\-|\.|\+)'+word+'(\_|\-|\.|\+)', '+', text, flags=re.I)
+		text = text.replace('.', ' ').replace('-', ' ').replace('_', ' ').replace('+', '')
 
 	def imdb_show(self, title, pp, elapsed, genre, search_title):
 		res = [ (title, pp, elapsed, genre, search_title) ]
@@ -715,9 +715,9 @@ class imdbSetup(Screen, ConfigListScreenExt):
 		self.configlist.append(getConfigListEntry(_("Save description to movie.txt file:"), config.EMC.imdb.savetotxtfile, False))
 		self.configlist.append(getConfigListEntry(_("Single Search:"), config.EMC.imdb.singlesearch, True))
 		self.configlist.append(getConfigListEntry(_("Search filter for matching existing terms in the title:"), config.EMC.imdb.singlesearch_filter, False))
-		if config.EMC.imdb.singlesearch.value not in ('2','3'):
+		if config.EMC.imdb.singlesearch.value not in ('2', '3'):
 			itext = ""
-			if config.EMC.imdb.singlesearch.value not in ('0','4'):
+			if config.EMC.imdb.singlesearch.value not in ('0', '4'):
 				itext = _(" (without counting cover range)")
 				self.configlist.append(getConfigListEntry(_("thetvdb cover range per title:"), config.EMC.imdb.singlesearch_tvdbcoverrange, False))
 			self.configlist.append(getConfigListEntry(_("Search Results per Search Site%s:") %itext, config.EMC.imdb.singlesearch_siteresults, False))
@@ -835,7 +835,7 @@ class getCover(Screen):
 		if bild:
 			print("EMC csfd: Cover Select - %s" % title)
 			self.cover_count += 1
-			csfd_url = "http:" + bild[0].replace('\\','').strip()
+			csfd_url = "http:" + bild[0].replace('\\', '').strip()
 			self.menulist.append(self.showCoverlist(csfd_title, csfd_url, self.o_path, "csfd: "))
 			#self["info"].setText((_("found") + " %s " + _("covers")) % (self.cover_count))
 			bild = re.findall('<h3>Plak.*?ty</h3>(.*?)</table>', data, re.S)
@@ -845,7 +845,7 @@ class getCover(Screen):
 					for each in bild1:
 						print("EMC csfd: Cover Select - %s" % title)
 						self.cover_count += 1
-						csfd_url = "http:" + each.replace('\\','').strip()
+						csfd_url = "http:" + each.replace('\\', '').strip()
 						self.menulist.append(self.showCoverlist(csfd_title, csfd_url, self.o_path, "csfd: "))
 						#self["info"].setText((_("found") + " %s " + _("covers")) % (self.cover_count))
 				else:
@@ -892,7 +892,7 @@ class getCover(Screen):
 			for item in part:
 				if finish:
 					break
-				url = 'http://api.themoviedb.org/3/search/movie?api_key=8789cfd3fbab7dccf1269c3d7d867aff&query=%s&language=de' % item.replace(' ','%20')
+				url = 'http://api.themoviedb.org/3/search/movie?api_key=8789cfd3fbab7dccf1269c3d7d867aff&query=%s&language=de' % item.replace(' ', '%20')
 				data = yield getPage(url).addErrback(self.errorLoad, title)
 				if data:
 					bild = re.findall('"poster_path":"\\\(.*?)".*?"original_title":"(.*?)"', data, re.S)
@@ -914,7 +914,7 @@ class getCover(Screen):
 			#self["info"].setText((_("found") + " %s " + _("covers")) % (self.cover_count))
 		else:
 			part = getSearchList(title, config.EMC.imdb.singlesearch_filter.value)[0]
-			url = 'http://api.themoviedb.org/3/search/movie?api_key=8789cfd3fbab7dccf1269c3d7d867aff&query=%s&language=de' % part.replace(' ','%20')
+			url = 'http://api.themoviedb.org/3/search/movie?api_key=8789cfd3fbab7dccf1269c3d7d867aff&query=%s&language=de' % part.replace(' ', '%20')
 			data = yield getPage(url).addErrback(self.errorLoad, title)
 			if data:
 				bild = re.findall('"poster_path":"\\\(.*?)".*?"original_title":"(.*?)"', data, re.S)
@@ -950,7 +950,7 @@ class getCover(Screen):
 			for item in part:
 				if finish:
 					break
-				url = "https://www.thetvdb.com/api/GetSeries.php?seriesname=%s&language=de" % item.replace(' ','%20')
+				url = "https://www.thetvdb.com/api/GetSeries.php?seriesname=%s&language=de" % item.replace(' ', '%20')
 				data = yield getPage(url).addErrback(self.errorLoad, title)
 				if data:
 					id = re.findall('<seriesid>(.*?)</seriesid>.*?<SeriesName>(.*?)</SeriesName>', data, re.S)
@@ -987,7 +987,7 @@ class getCover(Screen):
 			#self["info"].setText((_("found") + " %s " + _("covers")) % (self.cover_count))
 		else:
 			part = getSearchList(title, config.EMC.imdb.singlesearch_filter.value)[0]
-			url = "https://www.thetvdb.com/api/GetSeries.php?seriesname=%s&language=de" % part.replace(' ','%20')
+			url = "https://www.thetvdb.com/api/GetSeries.php?seriesname=%s&language=de" % part.replace(' ', '%20')
 			data = yield getPage(url).addErrback(self.errorLoad, title)
 			if data:
 				id = re.findall('<seriesid>(.*?)</seriesid>.*?<SeriesName>(.*?)</SeriesName>', data, re.S)
@@ -1018,7 +1018,7 @@ class getCover(Screen):
 		print("EMC IMDB: Cover Select - %s" % title)
 		templist = []
 		coverlist = []
-		coversize = config.EMC.imdb.preferred_coversize.value.replace('w','SX')
+		coversize = config.EMC.imdb.preferred_coversize.value.replace('w', 'SX')
 		if config.EMC.imdb.singlesearch.value != '3':
 			finish = False
 			siteresults = int(config.EMC.imdb.singlesearch_siteresults.value)
@@ -1026,7 +1026,7 @@ class getCover(Screen):
 			for item in part:
 				if finish:
 					break
-				url = 'http://m.imdb.com/find?q=%s' % item.replace(' ','%20')
+				url = 'http://m.imdb.com/find?q=%s' % item.replace(' ', '%20')
 				data = yield getPage(url).addErrback(self.errorLoad, title)
 				if data:
 					bild = re.findall('<div class="poster.*?<img src="https://images-na.ssl-images-amazon.com/images(.*?)V1.*?<a href="/title/.*?">(.*?)</a>', data, re.S)
@@ -1048,7 +1048,7 @@ class getCover(Screen):
 			#self["info"].setText((_("found") + " %s " + _("covers")) % (self.cover_count))
 		else:
 			part = getSearchList(title, config.EMC.imdb.singlesearch_filter.value)[0]
-			url = 'http://m.imdb.com/find?q=%s' % part.replace(' ','%20')
+			url = 'http://m.imdb.com/find?q=%s' % part.replace(' ', '%20')
 			data = yield getPage(url).addErrback(self.errorLoad, title)
 			if data:
 				bild = re.findall('<div class="poster.*?<img src="https://images-na.ssl-images-amazon.com/images(.*?)V1.*?<a href="/title/.*?">(.*?)</a>', data, re.S)
@@ -1163,7 +1163,7 @@ class getCover(Screen):
 		if result:
 			movie_homepath = os.path.realpath(config.EMC.movie_homepath.value)
 			try:
-				shutil.move(self.path, movie_homepath + "/" + self.o_path.replace(self.o_path[:-len(self.o_path) + self.o_path.rfind('/') + 1],''))
+				shutil.move(self.path, movie_homepath + "/" + self.o_path.replace(self.o_path[:-len(self.o_path) + self.o_path.rfind('/') + 1], ''))
 				self.check = False
 				self.close(True)
 			except Exception as e:
@@ -1201,7 +1201,7 @@ class getCover(Screen):
 	def moveCoverTo(self, targetPath):
 		if targetPath is not None:
 			try:
-				shutil.move(self.path, targetPath + "/" + self.o_path.replace(self.o_path[:-len(self.o_path) + self.o_path.rfind('/') + 1],''))
+				shutil.move(self.path, targetPath + "/" + self.o_path.replace(self.o_path[:-len(self.o_path) + self.o_path.rfind('/') + 1], ''))
 				self.check = False
 				self.close(True)
 			except Exception as e:

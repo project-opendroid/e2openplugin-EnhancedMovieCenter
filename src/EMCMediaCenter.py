@@ -178,12 +178,12 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 			self["actions"] = HelpableActionMap(self, "CoolPlayerActions",
 				{
 					"leavePlayer":	(self.leavePlayer, 		_("Stop playback")),
-				},-1)
+				}, -1)
 		else:
 			self["actions"] = HelpableActionMap(self, "CoolPlayerActions2",
 				{
 					"leavePlayer":	(self.leavePlayer, 		_("Stop playback")),
-				},-1)
+				}, -1)
 
 		self["DVDPlayerPlaybackActions"] = HelpableActionMap(self, "EMCDVDPlayerActions",
 			{
@@ -664,9 +664,9 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 			for i in xrange(nTracks):
 				audioInfo = tracks.getTrackInfo(i)
 				lang = audioInfo.getLanguage()
-				print("lang",lang)
+				print("lang", lang)
 				desc = audioInfo.getDescription()
-				print("desc",desc)
+				print("desc", desc)
 				if isDreamOS:
 					type = audioInfo.getType()
 				else:
@@ -710,9 +710,9 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 				except:
 					x1val = x[1]
 				print(x1val)
-				print("entry",entry)
+				print("entry", entry)
 				print(x[0])
-				print("seltrack",seltrack)
+				print("seltrack", seltrack)
 				print(x[2])
 				print(x[3])
 				if entry == x1val and seltrack == x[0]:
@@ -741,8 +741,8 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 
 	def trySubEnable(self, slist, match):
 		for e in slist:
-			print("e",e)
-			print("match",langC[match][0])
+			print("e", e)
+			print("match", langC[match][0])
 			if langC[match][0] == e[2]:
 				emcDebugOut("[EMCPlayer] subtitle match: " + str(e))
 				if self.selected_subtitle != e[0]:
@@ -778,15 +778,15 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 				for idx in range(n):
 					info = subs.getSubtitleTrackInfo(idx)
 					languages = info.getLanguage().split('/')
-					print("lang",languages)
+					print("lang", languages)
 					iType = info.getType()
-					print("type",iType)
+					print("type", iType)
 					if iType == iSubtitleType_ENUMS.GST:
 						iType = info.getGstSubtype()
 						codec = iType in self.gstsub_format_dict and self.gstsub_format_dict[iType] or "?"
 					else:
 						codec = iType in self.sub_format_dict and self.sub_format_dict[iType] or "?"
-					print("codec",codec)
+					print("codec", codec)
 
 					lt.append((idx, (iType == 1 and "DVB" or iType == 2 and "TTX" or "???"), languages))
 				if lt:
@@ -881,7 +881,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 					self.showAfterSeek()
 		else:
 			if self.playall:
-				self.evEOF(False,True) # True=previous
+				self.evEOF(False, True) # True=previous
 			elif len(self.playlist) > 1:
 				if self.playcount >= 1:
 					self.playcount -= 2
@@ -934,7 +934,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 		info = self.getServiceInterface("info")
 		audioTuple = info and info.getInfoObject(iServiceInformation.sUser+6)
 		if audioTuple:
-			audioString = "%d: %s (%s)" % (audioTuple[0],audioTuple[1],audioTuple[2])
+			audioString = "%d: %s (%s)" % (audioTuple[0], audioTuple[1], audioTuple[2])
 			self["audioLabel"].setText(audioString)
 			#if audioTuple != self.last_audioTuple: # and not self.in_menu:
 			#	self.doShow()
@@ -946,7 +946,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 		if subtitleTuple:
 			subtitleString = ""
 			if subtitleTuple[0] is not 0:
-				subtitleString = "%d: %s" % (subtitleTuple[0],subtitleTuple[1])
+				subtitleString = "%d: %s" % (subtitleTuple[0], subtitleTuple[1])
 			self["subtitleLabel"].setText(subtitleString)
 			#if subtitleTuple != self.last_subtitleTuple: # and not self.in_menu:
 			#	self.doShow()
@@ -958,7 +958,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 		if angleTuple:
 			angleString = ""
 			if angleTuple[1] > 1:
-				angleString = "%d / %d" % (angleTuple[0],angleTuple[1])
+				angleString = "%d / %d" % (angleTuple[0], angleTuple[1])
 				self["anglePix"].show()
 			else:
 				self["anglePix"].hide()
