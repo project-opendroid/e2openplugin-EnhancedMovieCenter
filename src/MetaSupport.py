@@ -26,6 +26,7 @@ from datetime import datetime
 
 from .EMCTasker import emcDebugOut
 from .IsoFileSupport import IsoSupport
+from . import PY3
 
 # Meta File support class
 # Description
@@ -114,13 +115,14 @@ class MetaList():
 
 	def getMetaDescription(self):
 		#TODO transform during read on init
-		try:
-			self.meta[self.DESC].decode('utf-8')
-		except UnicodeDecodeError:
+		if not PY3:
 			try:
-				self.meta[self.DESC] = self.meta[self.DESC].decode("cp1252").encode("utf-8")
+				self.meta[self.DESC].decode('utf-8')
 			except UnicodeDecodeError:
-				self.meta[self.DESC] = self.meta[self.DESC].decode("iso-8859-1").encode("utf-8")
+				try:
+					self.meta[self.DESC] = self.meta[self.DESC].decode("cp1252").encode("utf-8")
+				except UnicodeDecodeError:
+					self.meta[self.DESC] = self.meta[self.DESC].decode("iso-8859-1").encode("utf-8")
 		return self.meta[self.DESC]
 
 	def getMetaRecordingTime(self):

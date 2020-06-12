@@ -2,6 +2,7 @@
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
 from os import environ as os_environ
 import gettext
+import sys
 
 from skin import loadSkin
 loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/EnhancedMovieCenter/CoolSkin/EMCMediaCenter_LCD.xml")
@@ -15,3 +16,4 @@ _ = lambda txt: gettext.dgettext("EnhancedMovieCenter", txt) if txt else ""
 
 localeInit()
 language.addCallback(localeInit)
+PY3 = sys.version_info[0] == 3

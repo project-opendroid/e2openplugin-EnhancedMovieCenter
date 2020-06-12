@@ -18,7 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-from __future__ import print_function, absolute_import
+from __future__ import print_function, absolute_import, division
 import math
 import os
 import random
@@ -39,7 +39,7 @@ from skin import parseColor, parseFont, parseSize
 from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, RT_HALIGN_CENTER, eServiceReference, eServiceCenter, ePythonMessagePump, loadPNG, getDesktop
 from timer import TimerEntry
 
-from . import _
+from . import _, PY3
 from .EMCFileCache import movieFileCache
 from .EMCMountPoints import mountPoints
 from .RecordingsControl import RecordingsControl, getRecording
@@ -57,8 +57,7 @@ from .EMCBookmarks import EMCBookmarks
 from .ServiceSupport import ServiceCenter
 from .ThreadQueue import ThreadQueue
 
-from six.moves import range, reload_module
-
+from six.moves import range
 
 try:
 	from enigma import eMediaDatabase
@@ -1223,13 +1222,14 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 				# E2 recordings are always in utf8
 				# User files can be in cp1252
 				#TODO Is there no other way?
-				try:
-					title.decode('utf-8')
-				except UnicodeDecodeError:
+				if not PY3:
 					try:
-						title = title.decode("cp1252").encode("utf-8")
+						title.decode('utf-8')
 					except UnicodeDecodeError:
-						title = title.decode("iso-8859-1").encode("utf-8")
+						try:
+							title = title.decode("cp1252").encode("utf-8")
+						except UnicodeDecodeError:
+							title = title.decode("iso-8859-1").encode("utf-8")
 
 				service = getPlayerService(path, title)
 
@@ -1323,7 +1323,7 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 						dtime = int(date[9:13] or 2000)
 						date = int(date[0:8] or 0)
 						try:
-							date = datetime(date/10000, date%10000/100, date%100, dtime/100, dtime%100)
+							date = datetime(date//10000, date%10000//100, date%100, dtime//100, dtime%100)
 						except ValueError as e:
 							date = datetime.fromtimestamp(0)
 
@@ -1382,13 +1382,14 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 				# E2 recordings are always in utf8
 				# User files can be in cp1252
 				#TODO Is there no other way?
-				try:
-					title.decode('utf-8')
-				except UnicodeDecodeError:
+				if not PY3:
 					try:
-						title = title.decode("cp1252").encode("utf-8")
+						title.decode('utf-8')
 					except UnicodeDecodeError:
-						title = title.decode("iso-8859-1").encode("utf-8")
+						try:
+							title = title.decode("cp1252").encode("utf-8")
+						except UnicodeDecodeError:
+							title = title.decode("iso-8859-1").encode("utf-8")
 
 				# Set date priority here
 				# Fallback get date from filesystem, but it is very slow
@@ -2788,7 +2789,7 @@ class MovieCenter(GUIComponent):
 		self.startWorker = worker
 		self.l.invalidate()
 
-	def reload_module(self, currentPath, simulate=False, recursive=False):
+	def reload(self, currentPath, simulate=False, recursive=False):
 		list = self.reloadInternal(currentPath, simulate, recursive)
 		self.l.setList( list )
 		return list

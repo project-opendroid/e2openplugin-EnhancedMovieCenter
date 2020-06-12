@@ -83,6 +83,7 @@ from .MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, get
 
 from six.moves import range
 
+from . import PY3
 
 global extList, extVideo, extMedia, extDir, plyAll, plyDVD, cmtBME2, cmtBMEMC, cmtDir, plyDVB, extPlaylist, extAudio
 
@@ -1502,13 +1503,14 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		# E2 recordings are always in utf8
 		# User files can be in cp1252
 		#TODO Is there no other way?
-		try:
-			path.decode('utf-8')
-		except UnicodeDecodeError:
+		if not PY3:
 			try:
-				path = path.decode("cp1252").encode("utf-8")
+				path.decode('utf-8')
 			except UnicodeDecodeError:
-				path = path.decode("iso-8859-1").encode("utf-8")
+				try:
+					path = path.decode("cp1252").encode("utf-8")
+				except UnicodeDecodeError:
+					path = path.decode("iso-8859-1").encode("utf-8")
 		title += path or "/"
 
 		# Display the free space

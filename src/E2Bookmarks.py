@@ -20,7 +20,6 @@
 #
 from __future__ import absolute_import
 import os
-from operator import isCallable
 
 from Components.config import *
 
