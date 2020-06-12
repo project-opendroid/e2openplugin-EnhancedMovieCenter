@@ -24,7 +24,7 @@ from . import _
 from Components.config import *
 from Components.config import config
 from Components.Button import Button
-from configlistext import ConfigListScreenExt
+from .configlistext import ConfigListScreenExt
 from Components.Language import *
 from Components.ActionMap import ActionMap
 from Components.Label import Label

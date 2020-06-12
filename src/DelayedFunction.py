@@ -19,7 +19,6 @@
 #	<http://www.gnu.org/licenses/>.
 #
 from __future__ import absolute_import
-from operator import isCallable
 
 from enigma import eTimer
 from .EMCTasker import emcDebugOut
@@ -29,7 +28,7 @@ instanceTab = []	# just seems to be required to keep the instances alive long en
 class DelayedFunction:
 	def __init__(self, delay, function, *params):
 		try:
-			if isCallable(function):
+			if callable(function):
 				global instanceTab
 				instanceTab.append(self)
 				self.function = function
