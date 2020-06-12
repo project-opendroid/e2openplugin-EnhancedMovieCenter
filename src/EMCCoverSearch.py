@@ -40,7 +40,9 @@ from .MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, get
 
 sz_w = getDesktop(0).size().width()
 
-import re, urllib, urllib2, os, time, shutil, requests
+import re, os, time, shutil, requests
+from six.moves.urllib.parse import quote
+from six.moves.urllib.request import urlopen, Request
 
 config.EMC.imdb = ConfigSubsection()
 #search/automatic
@@ -60,7 +62,7 @@ config.EMC.imdb.thetvdb_standardcover = ConfigSelectionNumber(default = 1, stepw
 
 def urlExist(url):
 	try:
-		urllib2.urlopen(urllib2.Request(url))
+		urlopen(Request(url))
 		return True
 	except:
 		return False
@@ -858,7 +860,7 @@ class getCover(Screen):
 	def searchcsfd(self, title):
 		print("EMC csfd - searchcsfd: ", title)
 		part = getSearchList(title, config.EMC.imdb.singlesearch_filter.value)[0]
-		search_title = urllib.quote(part)
+		search_title = quote(part)
 		url = "http://www.csfd.cz/hledat/?q=%s" % search_title
 		data = yield getPage(url).addErrback(self.errorLoad, title)
 		bild = re.findall('<img src=\"(//img.csfd.cz/files/images/film/posters/.*?|//img.csfd.cz/posters/.*?)\".*?<h3 class="subject"><a href="(.*?)" class="film c.">(.*?)</a>.*?</li>', data, re.DOTALL | re.IGNORECASE)
