@@ -24,8 +24,8 @@ import os, re
 
 from datetime import datetime
 
-from E.MCTasker import emcDebugOut
-from I.soFileSupport import IsoSupport
+from .EMCTasker import emcDebugOut
+from .IsoFileSupport import IsoSupport
 
 # Meta File support class
 # Description
@@ -214,7 +214,7 @@ class MetaList():
 			self.meta = ["", "", "", "", "", "", ""]
 
 def getInfoFile(path, exts=""):
-	from MovieCenter import extMedia
+	from .MovieCenter import extMedia
 	fpath = p1 = p2 = p3 = ""
 	name, ext = os.path.splitext(path)
 	ext = ext.lower()

@@ -1,7 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import print_function
-from __init__ import _
+from __future__ import print_function, absolute_import
+from . import _
 from Components.ActionMap import ActionMap, HelpableActionMap
 from Components.MenuList import MenuList
 from Components.Button import Button

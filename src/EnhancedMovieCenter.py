@@ -19,7 +19,7 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 from . import _
 from Components.config import *
 from Components.config import config
@@ -55,8 +55,8 @@ try:
 except:
 	isDreamOS = False
 
-from DelayedFunction import DelayedFunction
-from EMCTasker import emcTasker, emcDebugOut
+from .DelayedFunction import DelayedFunction
+from .EMCTasker import emcTasker, emcDebugOut
 
 sz_w = getDesktop(0).size().width()
 
@@ -139,7 +139,7 @@ def cleanupSetup(dummy=None):
 				# Recall setup funktion
 				trashCleanCall = DelayedFunction(1000*seconds, cleanupSetup)
 				# Execute trash cleaning
-				from MovieSelection import purgeExpired
+				from .MovieSelection import purgeExpired
 				DelayedFunction(2000, purgeExpired)
 				emcDebugOut("Next trashcan cleanup in " + str(seconds/60) + " minutes")
 	except Exception as e:

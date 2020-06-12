@@ -1,9 +1,8 @@
 ﻿# -*- coding: utf-8 -*-
 # mod by einfall (09.11.2014)
 # change to themoviedb.org / thetvdb.com - Api
-from __future__ import absolute_import
-from __future__ import print_function
-from __init__ import _
+from __future__ import print_function, absolute_import
+from . import _
 
 from Components.ActionMap import *
 from Components.Label import Label

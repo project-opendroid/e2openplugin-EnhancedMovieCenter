@@ -135,7 +135,7 @@ class Info:
 
 			# read the playlist-entrys to show the list as overview
 			if ext == ".e2pls":
-				from EMCPlayList import readPlaylist
+				from .EMCPlayList import readPlaylist
 				plistdesc = ""
 				plist = readPlaylist(service.getPath())
 				for x in plist:

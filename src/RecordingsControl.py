@@ -120,7 +120,7 @@ class RecordingsControl:
 					realpath = timer.Filename.replace(cutfilename, '')
 					ext = ".ts"
 					recname = timer.Filename + ext, filename + ext, ext
-					from EMCFileCache import movieFileCache
+					from .EMCFileCache import movieFileCache
 					if movieFileCache.IsPathInCache(realpath):
 						movieFileCache.addRecToCacheFileList(realpath, recname)
 				if not filename in self.recDict:

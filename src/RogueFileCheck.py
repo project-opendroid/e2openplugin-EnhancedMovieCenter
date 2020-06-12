@@ -19,12 +19,13 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
+from __future__ import absolute_import
 import os, sys
 
 from glob import glob
 from Components.config import *
 
-from __init__ import _
+from . import _
 
 global extRogue
 
@@ -45,7 +46,7 @@ class RogueFileCheck:
 		return strg
 
 	def checkPath(self, path, avoid=""):
-		from MovieCenter import extMedia
+		from .MovieCenter import extMedia
 		#TODO check performance
 		if not os.path.exists(path) or path is avoid: return
 		for p in os.listdir(path):

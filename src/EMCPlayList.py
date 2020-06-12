@@ -1,10 +1,9 @@
 ﻿#!/usr/bin/python
 # encoding: utf-8
-from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 import os
 
-from __init__ import _
+from . import _
 from enigma import eListboxPythonMultiContent, RT_VALIGN_CENTER, RT_HALIGN_RIGHT, gFont, eListbox, getDesktop
 
 from Screens.Screen import Screen
@@ -186,7 +185,7 @@ class EMCPlaylistScreen(Screen):
 	def openPlaylistCB(self, path):
 		if path:
 			plist = open(path, "r")
-			from MovieCenter import getPlayerService, getMovieNameWithoutExt, getMovieNameWithoutPhrases
+			from .MovieCenter import getPlayerService, getMovieNameWithoutExt, getMovieNameWithoutPhrases
 			emcplaylist.delCurrentPlaylist()
 			if os.path.splitext(path)[1] == ".e2pls":
 				while True:

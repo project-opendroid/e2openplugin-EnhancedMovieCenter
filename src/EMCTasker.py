@@ -19,7 +19,7 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 from enigma import eTimer, eConsoleAppContainer
 from Components.config import *
 from Screens.Standby import *
@@ -187,7 +187,7 @@ class EMCTasker:
 	def Initialize(self, session):
 		self.session = session
 		if config.EMC.restart.value != "":
-			from DelayedFunction import DelayedFunction
+			from .DelayedFunction import DelayedFunction
 			DelayedFunction(60 * 1000, self.RestartTimerStart, True)	# delay auto restart timer to make sure there's time for clock init
 
 	def ShowAutoRestartInfo(self):
@@ -197,7 +197,7 @@ class EMCTasker:
 		else:
 			self.RestartTimerStop()
 
-		from EnhancedMovieCenter import _
+		from . import _
 		if self.timerActive:
 			mints = self.minutes % 60
 			hours = self.minutes / 60

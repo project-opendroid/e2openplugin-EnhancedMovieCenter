@@ -18,8 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 import os, re
 import sys, traceback
 from time import time
@@ -344,7 +343,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 
 	def infoMovie(self):
 		try:
-			from MovieSelection import IMDbEventViewSimple
+			from .MovieSelection import IMDbEventViewSimple
 			from ServiceReference import ServiceReference
 			service = self.currentlyPlayedMovie()
 
@@ -1041,7 +1040,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 	# InfoBarShowMovies
 	def showMovies(self):
 		try:
-			from MovieSelection import EMCSelection
+			from .MovieSelection import EMCSelection
 			#self.session.openWithCallback(showMoviesCallback, EMCSelection)
 			self.session.open(EMCSelection, returnService=self.service, playerInstance=self)
 		except Exception as e:

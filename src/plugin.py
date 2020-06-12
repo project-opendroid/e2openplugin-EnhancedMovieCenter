@@ -18,8 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 from Components.config import *
 from Components.ActionMap import ActionMap
 from enigma import eActionMap
@@ -38,7 +37,7 @@ from Components.Converter import EMCRecordPosition
 from Components.Converter import EMCServiceTime
 import six
 
-from __init__ import _
+from . import _
 from Components.Language import language
 from .ISO639 import ISO639Language
 from .EMCTasker import emcTasker, emcDebugOut
@@ -498,7 +497,7 @@ gSession = None
 def showMoviesNew(dummy_self = None):
 	try:
 		global gSession
-		from MovieSelection import EMCSelection
+		from .MovieSelection import EMCSelection
 		gSession.openWithCallback(showMoviesCallback, EMCSelection)
 	except Exception as e:
 		emcDebugOut("[showMoviesNew] exception:\n" + str(e))
@@ -507,7 +506,7 @@ def showMoviesCallback(*args):
 	try:
 		if args:
 			global gSession
-			from EMCMediaCenter import EMCMediaCenter
+			from .EMCMediaCenter import EMCMediaCenter
 			gSession.openWithCallback(playerCallback, EMCMediaCenter, *args)
 	except Exception as e:
 		emcDebugOut("[showMoviesCallback] exception:\n" + str(e))
@@ -520,7 +519,7 @@ def autostart(reason, **kwargs):
 	if reason == 0: # start
 		if "session" in kwargs:
 			global gSession
-			from EnhancedMovieCenter import EMCStartup
+			from .EnhancedMovieCenter import EMCStartup
 			gSession = kwargs["session"]
 			EMCStartup(gSession)
 			emcTasker.Initialize(gSession)
@@ -545,13 +544,13 @@ def autostart(reason, **kwargs):
 
 def pluginOpen(session, *args, **kwargs):
 	try:
-		from EnhancedMovieCenter import EnhancedMovieCenterMenu
+		from .EnhancedMovieCenter import EnhancedMovieCenterMenu
 		session.open(EnhancedMovieCenterMenu)
 	except Exception as e:
 		emcDebugOut("[pluginOpen] exception:\n" + str(e))
 
 def recordingsOpen(session, *args, **kwargs):
-	from MovieSelection import EMCSelection
+	from .MovieSelection import EMCSelection
 	session.openWithCallback(showMoviesCallback, EMCSelection)
 
 def menu_recordingsOpen(menuid, **kwargs):
@@ -560,7 +559,7 @@ def menu_recordingsOpen(menuid, **kwargs):
 	return []
 
 def Plugins(**kwargs):
-	from EnhancedMovieCenter import EMCVersion
+	from .EnhancedMovieCenter import EMCVersion
 	descriptors = []
 
 	descriptors.append( PluginDescriptor(where = PluginDescriptor.WHERE_SESSIONSTART, fnc = autostart) )

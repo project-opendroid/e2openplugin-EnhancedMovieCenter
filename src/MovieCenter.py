@@ -18,8 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 import math
 import os
 import random
@@ -58,8 +57,7 @@ from .EMCBookmarks import EMCBookmarks
 from .ServiceSupport import ServiceCenter
 from .ThreadQueue import ThreadQueue
 
-from six.moves import range
-from six.moves import reload_module
+from six.moves import range, reload_module
 
 
 try:

@@ -1,9 +1,9 @@
-﻿from __future__ import absolute_import
-from __future__ import print_function
+﻿# -*- coding: utf-8 -*-
+from __future__ import print_function, absolute_import
 import os
 
 # for localized messages
-from __init__ import _
+from . import _
 
 from Screens.Screen import Screen
 from Components.config import config, ConfigText, getConfigListEntry

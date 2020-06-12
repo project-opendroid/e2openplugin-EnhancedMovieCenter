@@ -18,8 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 import os
 import struct
 
@@ -39,7 +38,7 @@ from enigma import getDesktop
 
 from .EMCFileCache import movieFileCache
 from .EMCTasker import emcTasker, emcDebugOut
-from .EnhancedMovieCenter import _
+from . import _
 from Plugins.Extensions.EnhancedMovieCenter.plugin import pluginOpen as emcsetup
 from .PermanentSort import PermanentSort
 from .E2Bookmarks import E2Bookmarks

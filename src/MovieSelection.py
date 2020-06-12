@@ -18,8 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 import os
 import chardet
 from time import time
@@ -383,7 +382,7 @@ class SelectionEventInfo:
 			#=== end BackDrop ===============
 
 	def updateEventInfoAudio(self, service, ext):
-		from MutagenSupport import getAudioMetaData, getAudioFileSize, getAudioFileDate
+		from .MutagenSupport import getAudioMetaData, getAudioFileSize, getAudioFileDate
 		title, genre, artist, album, length = getAudioMetaData(service, ext)
 		size = getAudioFileSize(service.getPath())
 		date = getAudioFileDate(service.getPath())
@@ -644,7 +643,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		if returnService:
 			self.returnService = returnService
 			if last_currentPath != self.currentPath:
-				from MovieCenter import moviecenterdata
+				from .MovieCenter import moviecenterdata
 				last_currentPath = self.currentPath
 				set_currentPath = True
 				if moviecenterdata:
@@ -770,7 +769,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		self.onHide.append(self.onDialogHide)
 		self["list"].onSelectionChanged.append(self.selectionChanged)
 
-		from MovieCenter import countsizeworker
+		from .MovieCenter import countsizeworker
 		try:
 			self.csw_pump_recv_msg_conn = countsizeworker.MessagePump.recv_msg.connect(self.gotThreadMsg)
 		except:
@@ -791,7 +790,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 
 	def gotThreadMsg(self, msg):
 		print('[EMCMovieSelection] gotThreadMsg')
-		from MovieCenter import countsizeworker
+		from .MovieCenter import countsizeworker
 		msg = countsizeworker.Message.pop()
 		if msg[0] == 2:
 			self["list"].refreshList()
@@ -799,7 +798,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 
 	def cancelThreadMsg(self):
 		print('[EMCMovieSelection] cancelThreadMsg')
-		from MovieCenter import countsizeworker
+		from .MovieCenter import countsizeworker
 		countsizeworker.Cancel()
 		try:
 			countsizeworker.MessagePump.recv_msg.get().remove(self.gotThreadMsg)
@@ -1016,7 +1015,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 
 	def postWakeHDD(self, path):
 		mountPoints.postWakeHDDtimerStart(path)
-		from MovieCenter import countsizeworker
+		from .MovieCenter import countsizeworker
 		countsizeworker.add(path)
 		self["list"].refreshList()
 		self.updateInfo(True) # immediately=True (immediately after wake-up)
@@ -1028,7 +1027,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 				mountPoints.wakeHDD(path, self.postWakeHDD) #wake device, then re-scan path and update everything
 			elif config.EMC.dir_info_usenoscan.value:
 				#scan 'no-scan' path when entered
-				from MovieCenter import countsizeworker
+				from .MovieCenter import countsizeworker
 				countsizeworker.add(path)
 		path = os.path.normpath(path)
 		self.returnService = service
@@ -1487,7 +1486,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		self.showPreview( self.getCurrent() )
 
 	def updateTitle(self):
-		from EnhancedMovieCenter import EMCVersion
+		from .EnhancedMovieCenter import EMCVersion
 		if self.multiSelectIdx:
 			self.setTitle(_("*** Multiselection active ***"))
 			return
@@ -3024,7 +3023,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 					if config.EMC.rescan_only_affected_dirs.value:
 						rescanPaths = movieFileCache.delcacheCountSizeListEntriesOnFileOp(path)
 						for p in rescanPaths:
-							from MovieCenter import countsizeworker
+							from .MovieCenter import countsizeworker
 							countsizeworker.add(p)
 					else:
 						# we make now hardreset

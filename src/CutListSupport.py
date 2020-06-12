@@ -20,8 +20,7 @@
 #	<http://www.gnu.org/licenses/>.
 #
 
-from __future__ import print_function
-from __future__ import absolute_import
+from __future__ import print_function, absolute_import
 import os
 import struct
 from bisect import insort
@@ -30,9 +29,9 @@ from Components.config import *
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport, InfoBarSeek
 
 from .EMCTasker import emcDebugOut
-from IsoFileSupport import IsoSupport
+from .IsoFileSupport import IsoSupport
 
-from RecordingsControl import getRecording
+from .RecordingsControl import getRecording
 
 try:
 	from Plugins.Extensions.CutlistDownloader.plugin import bestCutlist

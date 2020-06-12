@@ -18,8 +18,7 @@
 #	For more information on the GNU General Public License see:
 #	<http://www.gnu.org/licenses/>.
 #
-from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import print_function, absolute_import
 import os
 
 from Components.config import *
@@ -36,7 +35,7 @@ from Screens.HelpMenu import HelpableScreen
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import fileExists, resolveFilename, SCOPE_LANGUAGE, SCOPE_PLUGINS
 
-from .EnhancedMovieCenter import _
+from . import _
 from .EMCTasker import emcDebugOut
 from .DelayedFunction import DelayedFunction
 
@@ -72,14 +71,14 @@ def EMCkeyOK(self):
 				pts = newPosition - oldPosition
 			else:
 				pts = -1*(oldPosition - newPosition)
-			from EMCMediaCenter import EMCMediaCenter
+			from .EMCMediaCenter import EMCMediaCenter
 			EMCMediaCenter.doSeekRelative(self.infobarInstance, pts)
 			self.exit()
 	elif sel == self.minuteInput:
 		pts = self.minuteInput.value * 60 * 90000
 		if self.fwd == False:
 			pts = -1*pts
-		from EMCMediaCenter import EMCMediaCenter
+		from .EMCMediaCenter import EMCMediaCenter
 		EMCMediaCenter.doSeekRelative(self.infobarInstance, pts)
 		self.exit()
 
