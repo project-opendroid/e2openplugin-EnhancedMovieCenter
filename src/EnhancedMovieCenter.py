@@ -203,7 +203,7 @@ def next_predefined_settings(key=""):
 	pdvcycle = cycle(predefined_settings.items())
 	for k, v in pdvcycle:
 		if k == key:
-			k, v = pdvcycle.next()
+			k, v = next(pdvcycle)
 			if v[0] is None:
 				key = k
 			else:
@@ -605,11 +605,11 @@ class EnhancedMovieCenterMenu(ConfigListScreenExt, Screen):
 						if len(list) > 1:
 							list.append(getConfigListEntry("", config.EMC.fake_entry, None, None, 0, [], ""))
 						if conf[1] == "":
-							list.append(getConfigListEntry("<DUMMY CONFIGSECTION>", ))
+							list.append(getConfigListEntry("<DUMMY CONFIGSECTION>", NoSave(ConfigNothing())))
 						else:
-							list.append(getConfigListEntry(conf[1], ))
+							list.append(getConfigListEntry(conf[1], NoSave(ConfigNothing())))
 						if not isDreamOS:
-							list.append(getConfigListEntry(conf[0], ))
+							list.append(getConfigListEntry(conf[0], NoSave(ConfigNothing())))
 					else:
 						list.append( getConfigListEntry( conf[0], conf[1], conf[2], conf[3], conf[4], conf[5], conf[6] ) ) # not needed conf[7], conf[8]
 					# Check for predefined config match
