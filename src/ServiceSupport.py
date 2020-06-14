@@ -36,6 +36,8 @@ from .EitSupport import EitList
 from .RecordingsControl import getRecording
 instance = None
 
+from . import PY3
+
 class ServiceCenter:
 	def __init__(self):
 		global instance
@@ -160,13 +162,14 @@ class Info:
 					# E2 recordings are always in utf8
 					# User files can be in cp1252
 					#TODO Is there no other way?
-					try:
-						desc.decode('utf-8')
-					except UnicodeDecodeError:
+					if not PY3: # FIXME
 						try:
-							desc = path.decode("cp1252").encode("utf-8")
+							desc.decode('utf-8')
 						except UnicodeDecodeError:
-							desc = path.decode("iso-8859-1").encode("utf-8")
+							try:
+								desc = path.decode("cp1252").encode("utf-8")
+							except UnicodeDecodeError:
+								desc = path.decode("iso-8859-1").encode("utf-8")
 					self.__extendeddescription = desc
 				else:
 					self.__extendeddescription = ""

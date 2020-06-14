@@ -1222,7 +1222,7 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 				# E2 recordings are always in utf8
 				# User files can be in cp1252
 				#TODO Is there no other way?
-				if not PY3:
+				if not PY3: # FIXME
 					try:
 						title.decode('utf-8')
 					except UnicodeDecodeError:
@@ -1382,7 +1382,7 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 				# E2 recordings are always in utf8
 				# User files can be in cp1252
 				#TODO Is there no other way?
-				if not PY3:
+				if not PY3: # FIXME
 					try:
 						title.decode('utf-8')
 					except UnicodeDecodeError:

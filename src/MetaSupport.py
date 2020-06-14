@@ -115,7 +115,7 @@ class MetaList():
 
 	def getMetaDescription(self):
 		#TODO transform during read on init
-		if not PY3:
+		if not PY3: # FIXME
 			try:
 				self.meta[self.DESC].decode('utf-8')
 			except UnicodeDecodeError:

@@ -1503,7 +1503,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 		# E2 recordings are always in utf8
 		# User files can be in cp1252
 		#TODO Is there no other way?
-		if not PY3:
+		if not PY3: # FIXME
 			try:
 				path.decode('utf-8')
 			except UnicodeDecodeError:
