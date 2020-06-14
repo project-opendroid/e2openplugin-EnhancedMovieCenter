@@ -577,12 +577,17 @@ class CountSizeWorker(Thread):
 	def getListLength(self):
 		return len(self.__list)
 
+	def isStartedSet(self):
+		if PY3:
+			return self._started.is_set()
+		return self.__Thread__started.is_set()
+
 	def Cancel(self):
 		self.__running = False
 
 	def add(self, item):
 		self.__list.push(item)
-		if not self.__running and not self._Thread__started.is_set():
+		if not self.__running and not self.isStartedSet():
 			self.__running = True
 #			print'[EMC] CountSizeWorker Start'
 			self.start()
