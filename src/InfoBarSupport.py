@@ -299,7 +299,7 @@ class InfoBarSupport(	InfoBarBase, \
 		if seek is None:
 			return None
 		len = seek.getLength()
-		return long(len[1])
+		return int(len[1])
 
 	# Handle EOF
 	def doSeekEOF(self):

@@ -24,6 +24,7 @@ import os
 import struct
 import time
 import chardet
+import six
 
 from datetime import datetime
 
@@ -237,27 +238,27 @@ class EitList():
 					prev1_ISO_639_language_code = "x"
 					prev2_ISO_639_language_code = "x"
 					while pos < endpos:
-						rec = ord(data[pos])
+						rec = six.byte2int(data[pos])
 						if pos+1>=endpos:
 							break
-						length = ord(data[pos+1]) + 2
+						length = six.byte2int(data[pos+1]) + 2
 						#if pos+length>=endpos:
 						#	break
 						if rec == 0x4D:
-							descriptor_tag = ord(data[pos+1])
-							descriptor_length = ord(data[pos+2])
+							descriptor_tag = six.byte2int(data[pos+1])
+							descriptor_length = six.byte2int(data[pos+2])
 							ISO_639_language_code = str(data[pos+2:pos+5]).upper()
-							event_name_length = ord(data[pos+5])
+							event_name_length = six.byte2int(data[pos+5])
 							name_event_description = ""
 							for i in range (pos+6, pos+6+event_name_length):
 								try:
-									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
+									if str(six.byte2int(data[i]))=="10" or int(str(six.byte2int(data[i])))>31:
 										name_event_description += data[i]
 								except IndexError as e:
 									emcDebugOut("[META] Exception in readEitFile: " + str(e))
 							if not name_event_codepage:
 								try:
-									byte1 = str(ord(data[pos+6]))
+									byte1 = str(six.byte2int(data[pos+6]))
 								except:
 									byte1 = ''
 								if byte1=="1": name_event_codepage = 'iso-8859-5'
@@ -276,7 +277,7 @@ class EitList():
 							short_event_description = ""
 							if not short_event_codepage:
 								try:
-									byte1 = str(ord(data[pos+7+event_name_length]))
+									byte1 = str(six.byte2int(data[pos+7+event_name_length]))
 								except:
 									byte1 = ''
 								if byte1=="1": short_event_codepage = 'iso-8859-5'
@@ -294,7 +295,7 @@ class EitList():
 									emcDebugOut("[META] Found short_event encoding-type: " + short_event_codepage)
 							for i in range (pos+7+event_name_length, pos+length):
 								try:
-									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
+									if str(six.byte2int(data[i]))=="10" or int(str(six.byte2int(data[i])))>31:
 										short_event_description += data[i]
 								except IndexError as e:
 									emcDebugOut("[META] Exception in readEitFile: " + str(e))
@@ -316,7 +317,7 @@ class EitList():
 							extended_event_description = ""
 							if not extended_event_codepage:
 								try:
-									byte1 = str(ord(data[pos+8]))
+									byte1 = str(six.byte2int(data[pos+8]))
 								except:
 									byte1 = ''
 								if byte1=="1": extended_event_codepage = 'iso-8859-5'
@@ -334,7 +335,7 @@ class EitList():
 									emcDebugOut("[META] Found extended_event encoding-type: " + extended_event_codepage)
 							for i in range (pos+8, pos+length):
 								try:
-									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
+									if str(six.byte2int(data[i]))=="10" or int(str(six.byte2int(data[i])))>31:
 										extended_event_description += data[i]
 								except IndexError as e:
 									emcDebugOut("[META] Exception in readEitFile: " + str(e))

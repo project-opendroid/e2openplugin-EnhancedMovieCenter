@@ -430,7 +430,7 @@ class CutList():
 					while pos+12 <= len(data):
 						# Unpack
 						(pts, what) = struct.unpack('>QI', data[pos:pos+12])
-						self.__insort(long(pts), what)
+						self.__insort(int(pts), what)
 						# Next cut_list entry
 						pos += 12
 		else:
