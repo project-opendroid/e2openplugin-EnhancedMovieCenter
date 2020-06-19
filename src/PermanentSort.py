@@ -131,7 +131,10 @@ class PermanentSort():
 				list.append('</entry>\n')
 			list.append('</PermanentSort>\n')
 
-			f = open(XML_FILE, "wb")
+			if six.PY2:
+				f = open(XML_FILE, "wb")
+			else:
+				f = open(XML_FILE, "w")
 			for x in list:
 				f.write(x)
 		except Exception as e:
