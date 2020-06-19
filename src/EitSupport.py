@@ -24,6 +24,8 @@ import os
 import struct
 import time
 import chardet
+import sys
+import six
 
 from datetime import datetime
 
@@ -171,6 +173,15 @@ class EitList():
 
 		lang = (language_iso639_2to3(config.EMC.epglang.value.lower()[:2])).upper()
 
+		PY3 = sys.version_info[0] == 3
+
+
+		def _ord(val):
+			if PY3:
+				return val
+			else:
+				return ord(val)
+
 		if path and os.path.exists(path):
 			mtime = os.path.getmtime(path)
 			if self.eit_mtime == mtime:
@@ -197,7 +208,6 @@ class EitList():
 					if f is not None:
 						f.close()
 
-				#FIXME :PY3 data[x] is int and not str
 				# Parse the data
 				if data and 12 <= len(data):
 					# go through events
@@ -238,27 +248,31 @@ class EitList():
 					prev1_ISO_639_language_code = "x"
 					prev2_ISO_639_language_code = "x"
 					while pos < endpos:
-						rec = ord(data[pos])
+						rec = _ord(data[pos])
 						if pos+1>=endpos:
 							break
-						length = ord(data[pos+1]) + 2
+						length = _ord(data[pos+1]) + 2
 						#if pos+length>=endpos:
 						#	break
 						if rec == 0x4D:
-							descriptor_tag = ord(data[pos+1])
-							descriptor_length = ord(data[pos+2])
-							ISO_639_language_code = str(data[pos+2:pos+5]).upper()
-							event_name_length = ord(data[pos+5])
+							descriptor_tag = _ord(data[pos+1])
+							descriptor_length = _ord(data[pos+2])
+							ISO_639_language_code = six.ensure_str(data[pos+2:pos+5]).upper()
+							event_name_length = _ord(data[pos+5])
 							name_event_description = ""
-							for i in range (pos+6, pos+6+event_name_length):
+							for i in list(range (pos+6, pos+6+event_name_length)):
 								try:
-									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
-										name_event_description += data[i]
+									if PY3:
+										if data[i] == 10 or data[i]>31:
+											name_event_description += chr(data[i])
+									else:
+										if str(_ord(data[i]))=="10" or int(str(_ord(data[i])))>31:
+											name_event_description += data[i]
 								except IndexError as e:
 									emcDebugOut("[META] Exception in readEitFile: " + str(e))
 							if not name_event_codepage:
 								try:
-									byte1 = str(ord(data[pos+6]))
+									byte1 = str(_ord(data[pos+6]))
 								except:
 									byte1 = ''
 								if byte1=="1": name_event_codepage = 'iso-8859-5'
@@ -277,7 +291,7 @@ class EitList():
 							short_event_description = ""
 							if not short_event_codepage:
 								try:
-									byte1 = str(ord(data[pos+7+event_name_length]))
+									byte1 = str(_ord(data[pos+7+event_name_length]))
 								except:
 									byte1 = ''
 								if byte1=="1": short_event_codepage = 'iso-8859-5'
@@ -293,10 +307,14 @@ class EitList():
 								elif byte1=="21": short_event_codepage = 'utf-8'
 								if short_event_codepage:
 									emcDebugOut("[META] Found short_event encoding-type: " + short_event_codepage)
-							for i in range (pos+7+event_name_length, pos+length):
+							for i in list(range (pos+7+event_name_length, pos+length)):
 								try:
-									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
-										short_event_description += data[i]
+									if PY3:
+										if data[i] == 10 or data[i]>31:
+											short_event_description += chr(data[i])
+									else:
+										if str(_ord(data[i]))=="10" or int(str(_ord(data[i])))>31:
+											short_event_description += data[i]
 								except IndexError as e:
 									emcDebugOut("[META] Exception in readEitFile: " + str(e))
 							if ISO_639_language_code == lang:
@@ -311,13 +329,16 @@ class EitList():
 							prev1_ISO_639_language_code = ISO_639_language_code
 						elif rec == 0x4E:
 							ISO_639_language_code = ""
-							for i in range (pos+3, pos+6):
-								ISO_639_language_code += data[i]
+							for i in list(range (pos+3, pos+6)):
+								if PY3:
+									ISO_639_language_code += str(data[i])
+								else:
+									ISO_639_language_code += data[i]
 							ISO_639_language_code = ISO_639_language_code.upper()
 							extended_event_description = ""
 							if not extended_event_codepage:
 								try:
-									byte1 = str(ord(data[pos+8]))
+									byte1 = str(_ord(data[pos+8]))
 								except:
 									byte1 = ''
 								if byte1=="1": extended_event_codepage = 'iso-8859-5'
@@ -333,10 +354,14 @@ class EitList():
 								elif byte1=="21": extended_event_codepage = 'utf-8'
 								if extended_event_codepage:
 									emcDebugOut("[META] Found extended_event encoding-type: " + extended_event_codepage)
-							for i in range (pos+8, pos+length):
+							for i in list(range (pos+8, pos+length)):
 								try:
-									if str(ord(data[i]))=="10" or int(str(ord(data[i])))>31:
-										extended_event_description += data[i]
+									if PY3:
+										if data[i] == 10 or data[i]>31:
+											extended_event_description += chr(data[i])
+									else:
+										if str(_ord(data[i]))=="10" or int(str(_ord(data[i])))>31:
+											extended_event_description += data[i]
 								except IndexError as e:
 									emcDebugOut("[META] Exception in readEitFile: " + str(e))
 							if ISO_639_language_code == lang:
@@ -383,18 +408,23 @@ class EitList():
 						try:
 							if name_event_codepage:
 								if name_event_codepage != 'utf-8':
-									name_event_descriptor = name_event_descriptor.decode(name_event_codepage).encode("utf-8")
-								else:
+									if PY3: # TODO PY3 improve
+										name_event_descriptor = name_event_descriptor.encode("utf-8").decode(name_event_codepage)
+									else:
+										name_event_descriptor = name_event_descriptor.decode(name_event_codepage).encode("utf-8")
+								elif not PY3:
 									name_event_descriptor.decode('utf-8')
-							else:
+							else: #FIXME PY3
+								name_event_descriptor = six.ensure_binary(name_event_descriptor)
 								encdata = chardet.detect(name_event_descriptor)
 								enc = encdata['encoding'].lower()
 								confidence = str(encdata['confidence'])
 								emcDebugOut("[META] Detected name_event encoding-type: " + enc + " (" + confidence + ")")
-								if enc == "utf-8":
-									name_event_descriptor.decode(enc)
-								else:
-									name_event_descriptor = name_event_descriptor.decode(enc).encode('utf-8')
+								name_event_descriptor = six.ensure_str(name_event_descriptor, enc)
+#								if enc == "utf-8":
+#									name_event_descriptor.decode(enc)
+#								else:
+#									name_event_descriptor = name_event_descriptor.decode(enc).encode('utf-8')
 						except (UnicodeDecodeError, AttributeError) as e:
 							emcDebugOut("[META] Exception in readEitFile: " + str(e))
 					self.eit['name'] = name_event_descriptor
@@ -403,18 +433,23 @@ class EitList():
 						try:
 							if short_event_codepage:
 								if short_event_codepage != 'utf-8':
-									short_event_descriptor = short_event_descriptor.decode(short_event_codepage).encode("utf-8")
-								else:
+									if PY3: # TODO PY3 improve
+										short_event_descriptor = short_event_descriptor.encode("utf-8").decode(name_event_codepage)
+									else:
+										short_event_descriptor = short_event_descriptor.decode(short_event_codepage).encode("utf-8")
+								elif not PY3:
 									short_event_descriptor.decode('utf-8')
-							else:
+							else: #FIXME PY3
+								short_event_descriptor = six.ensure_binary(short_event_descriptor)
 								encdata = chardet.detect(short_event_descriptor)
 								enc = encdata['encoding'].lower()
 								confidence = str(encdata['confidence'])
 								emcDebugOut("[META] Detected short_event encoding-type: " + enc + " (" + confidence + ")")
-								if enc == "utf-8":
-									short_event_descriptor.decode(enc)
-								else:
-									short_event_descriptor = short_event_descriptor.decode(enc).encode('utf-8')
+								short_event_descriptor = six.ensure_str(short_event_descriptor, enc)
+#								if enc == "utf-8":
+#									short_event_descriptor.decode(enc)
+#								else:
+#									short_event_descriptor = short_event_descriptor.decode(enc).encode('utf-8')
 						except (UnicodeDecodeError, AttributeError) as e:
 							emcDebugOut("[META] Exception in readEitFile: " + str(e))
 					self.eit['short_description'] = short_event_descriptor
@@ -423,18 +458,23 @@ class EitList():
 						try:
 							if extended_event_codepage:
 								if extended_event_codepage != 'utf-8':
-									extended_event_descriptor = extended_event_descriptor.decode(extended_event_codepage).encode("utf-8")
-								else:
+									if PY3: # TODO PY3 improve
+										extended_event_descriptor = extended_event_descriptor.encode("utf-8").decode(name_event_codepage)
+									else:
+										extended_event_descriptor = extended_event_descriptor.decode(extended_event_codepage).encode("utf-8")
+								elif not PY3:
 									extended_event_descriptor.decode('utf-8')
-							else:
+							else: #FIXME PY3
+								extended_event_descriptor = six.ensure_binary(extended_event_descriptor)
 								encdata = chardet.detect(extended_event_descriptor)
 								enc = encdata['encoding'].lower()
 								confidence = str(encdata['confidence'])
 								emcDebugOut("[META] Detected extended_event encoding-type: " + enc + " (" + confidence + ")")
-								if enc == "utf-8":
-									extended_event_descriptor.decode(enc)
-								else:
-									extended_event_descriptor = extended_event_descriptor.decode(enc).encode('utf-8')
+								extended_event_descriptor = six.ensure_str(extended_event_descriptor, enc)
+#								if enc == "utf-8":
+#									extended_event_descriptor.decode(enc)
+#								else:
+#									extended_event_descriptor = extended_event_descriptor.decode(enc).encode('utf-8')
 						except (UnicodeDecodeError, AttributeError) as e:
 							emcDebugOut("[META] Exception in readEitFile: " + str(e))
 
