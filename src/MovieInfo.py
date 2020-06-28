@@ -204,7 +204,7 @@ def getTempTxt(txt):
 	if txt is not None:
 		try:
 			txtpath = "/tmp/previewTxt.txt"
-			file(txtpath, 'w').write(txt)
+			open(txtpath, 'w').write(txt)
 		except Exception as e:
 			print(('[EMC] MovieInfo getTempTxt exception failure: ', str(e)))
 

@@ -43,6 +43,7 @@ sz_w = getDesktop(0).size().width()
 import re, os, time, shutil, requests
 from six.moves.urllib.parse import quote
 from six.moves.urllib.request import urlopen, Request
+import six
 
 config.EMC.imdb = ConfigSubsection()
 #search/automatic
@@ -327,10 +328,12 @@ class EMCImdbScan(Screen):
 						if seasonEpisode:
 							(season, episode) = seasonEpisode[0]
 						name2 = re.sub('[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+', '', s_title, flags=re.S|re.I)
+						url = six.ensure_binary(url)
 						url = 'https://thetvdb.com/api/GetSeries.php?seriesname=%s&language=de' % name2.replace(' ', '%20')
 						urls.append(("serie", title, url, cover_path, season, episode))
 					else:
 						url = 'http://api.themoviedb.org/3/search/movie?api_key=8789cfd3fbab7dccf1269c3d7d867aff&query=%s&language=de' % m_title.replace(' ', '%20')
+						url = six.ensure_binary(url)
 						urls.append(("movie", title, url, cover_path, None, None))
 
 			if len(urls) != 0:
@@ -343,9 +346,11 @@ class EMCImdbScan(Screen):
 				self.showInfo()
 
 	def download(self, url):
+		url = six.ensure_binary(url)
 		return getPage(url, timeout=20, headers={'Accept': 'application/json'})
 
 	def parseWebpage(self, data, type, title, url, cover_path, season, episode):
+		data = six.ensure_str(data)
 		self.counting += 1
 		self.start_time = time.clock()
 		if type == "movie":
@@ -353,6 +358,7 @@ class EMCImdbScan(Screen):
 			list = re.findall('"poster_path":"\\\(.*?)".*?"original_title":"(.*?)"', data, re.S)
 			if list:
 				purl = "http://image.tmdb.org/t/p/%s%s" % (config.EMC.imdb.preferred_coversize.value, list[0][0])
+				purl = six.ensure_binary(purl)
 				self.counter_download += 1
 				self.end_time = time.clock()
 				elapsed = (self.end_time - self.start_time) * 1000
@@ -366,6 +372,7 @@ class EMCImdbScan(Screen):
 					idx = re.findall('"id":(.*?),', data, re.S)
 					if idx:
 						iurl = "http://api.themoviedb.org/3/movie/%s?api_key=8789cfd3fbab7dccf1269c3d7d867aff&language=de" % idx[0]
+						iurl = six.ensure_binary(iurl)
 						getPage(iurl, headers={'Content-Type':'application/x-www-form-urlencoded'}).addCallback(self.getInfos, id, type, cover_path).addErrback(self.dataError)
 			else:
 				self.counter_no_poster += 1
@@ -391,6 +398,7 @@ class EMCImdbScan(Screen):
 				if config.EMC.imdb.savetotxtfile.value:
 					if season and episode:
 						iurl = "https://www.thetvdb.com/api/2AAF0562E31BCEEC/series/%s/default/%s/%s/de.xml" % (list[0], str(int(season)), str(int(episode)))
+						iurl = six.ensure_binary(iurl)
 						getPage(iurl, headers={'Content-Type':'application/x-www-form-urlencoded'}).addCallback(self.getInfos, id, type, cover_path).addErrback(self.dataError)
 			else:
 				self.counter_no_poster += 1
@@ -415,6 +423,7 @@ class EMCImdbScan(Screen):
 			self.showInfo()
 
 	def getInfos(self, data, id, type, cover_path):
+		data = six.ensure_str(data)
 		if type == "movie":
 			infos = re.findall('"genres":\[(.*?)\].*?"overview":"(.*?)"', data, re.S)
 			if infos:
@@ -823,6 +832,7 @@ class getCover(Screen):
 			self.searchimdb(self.m_title)
 
 	def showCovers_adddetail_csfd(self, data, title):
+		data = six.ensure_str(data)
 		title_s = re.findall('<title>(.*?)\|', data, re.S)
 		if title_s:
 			if title_s[0] != "Vyhled\xc3\xa1v\xc3\xa1n\xc3\xad ":
@@ -862,7 +872,9 @@ class getCover(Screen):
 		part = getSearchList(title, config.EMC.imdb.singlesearch_filter.value)[0]
 		search_title = quote(part)
 		url = "http://www.csfd.cz/hledat/?q=%s" % search_title
+		url = six.ensure_binary(url)
 		data = yield getPage(url).addErrback(self.errorLoad, title)
+		data = six.ensure_str(data)
 		bild = re.findall('<img src=\"(//img.csfd.cz/files/images/film/posters/.*?|//img.csfd.cz/posters/.*?)\".*?<h3 class="subject"><a href="(.*?)" class="film c.">(.*?)</a>.*?</li>', data, re.DOTALL | re.IGNORECASE)
 		if bild:
 			for each in bild:
@@ -872,6 +884,7 @@ class getCover(Screen):
 				csfd_detail_url = "http://www.csfd.cz" + each[1]
 				csfd_url = "http:" + each[0]
 				self.menulist.append(self.showCoverlist(csfd_title, csfd_url, self.o_path, 'csfd: '))
+				csfd_detail_url = six.ensure_binary(csfd_detail_url)
 				data1 = yield getPage(csfd_detail_url).addErrback(self.errorLoad, csfd_title)
 				self.showCovers_adddetail_csfd(data1, csfd_title)
 				#self["info"].setText((_("found") + " %s " + _("covers")) % (self.cover_count))
@@ -894,8 +907,10 @@ class getCover(Screen):
 				if finish:
 					break
 				url = 'http://api.themoviedb.org/3/search/movie?api_key=8789cfd3fbab7dccf1269c3d7d867aff&query=%s&language=de' % item.replace(' ', '%20')
+				url = six.ensure_binary(url)
 				data = yield getPage(url).addErrback(self.errorLoad, title)
 				if data:
+					data = six.ensure_str(data)
 					bild = re.findall('"poster_path":"\\\(.*?)".*?"original_title":"(.*?)"', data, re.S)
 					if bild:
 						for each in bild:
@@ -916,8 +931,10 @@ class getCover(Screen):
 		else:
 			part = getSearchList(title, config.EMC.imdb.singlesearch_filter.value)[0]
 			url = 'http://api.themoviedb.org/3/search/movie?api_key=8789cfd3fbab7dccf1269c3d7d867aff&query=%s&language=de' % part.replace(' ', '%20')
+			url = six.ensure_binary(url)
 			data = yield getPage(url).addErrback(self.errorLoad, title)
 			if data:
+				data = six.ensure_str(data)
 				bild = re.findall('"poster_path":"\\\(.*?)".*?"original_title":"(.*?)"', data, re.S)
 				if bild:
 					for each in bild:
@@ -952,8 +969,10 @@ class getCover(Screen):
 				if finish:
 					break
 				url = "https://www.thetvdb.com/api/GetSeries.php?seriesname=%s&language=de" % item.replace(' ', '%20')
+				url = six.ensure_binary(url)
 				data = yield getPage(url).addErrback(self.errorLoad, title)
 				if data:
+					data = six.ensure_str(data)
 					id = re.findall('<seriesid>(.*?)</seriesid>.*?<SeriesName>(.*?)</SeriesName>', data, re.S)
 					if id:
 						for each in id:
@@ -989,8 +1008,10 @@ class getCover(Screen):
 		else:
 			part = getSearchList(title, config.EMC.imdb.singlesearch_filter.value)[0]
 			url = "https://www.thetvdb.com/api/GetSeries.php?seriesname=%s&language=de" % part.replace(' ', '%20')
+			url = six.ensure_binary(url)
 			data = yield getPage(url).addErrback(self.errorLoad, title)
 			if data:
+				data = six.ensure_str(data)
 				id = re.findall('<seriesid>(.*?)</seriesid>.*?<SeriesName>(.*?)</SeriesName>', data, re.S)
 				if id:
 					for each in id:
@@ -1028,8 +1049,10 @@ class getCover(Screen):
 				if finish:
 					break
 				url = 'http://m.imdb.com/find?q=%s' % item.replace(' ', '%20')
+				url = six.ensure_binary(url)
 				data = yield getPage(url).addErrback(self.errorLoad, title)
 				if data:
+					data = six.ensure_str(data)
 					bild = re.findall('<div class="poster.*?<img src="https://images-na.ssl-images-amazon.com/images(.*?)V1.*?<a href="/title/.*?">(.*?)</a>', data, re.S)
 					if bild:
 						for each in bild:
@@ -1050,8 +1073,10 @@ class getCover(Screen):
 		else:
 			part = getSearchList(title, config.EMC.imdb.singlesearch_filter.value)[0]
 			url = 'http://m.imdb.com/find?q=%s' % part.replace(' ', '%20')
+			url = six.ensure_binary(url)
 			data = yield getPage(url).addErrback(self.errorLoad, title)
 			if data:
+				data = six.ensure_str(data)
 				bild = re.findall('<div class="poster.*?<img src="https://images-na.ssl-images-amazon.com/images(.*?)V1.*?<a href="/title/.*?">(.*?)</a>', data, re.S)
 				if bild:
 					for each in bild:
