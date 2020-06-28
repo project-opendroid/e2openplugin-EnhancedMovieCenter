@@ -396,7 +396,7 @@ class CutList():
 		self.__readCutFileWithPath(self.cut_file, update)
 
 	def __readCutFileWithPath(self, path, update=False):
-		data = ""
+		data = b""
 		if path and os.path.exists(path):
 			mtime = os.path.getmtime(path)
 			if self.cut_mtime == mtime:
@@ -429,7 +429,7 @@ class CutList():
 					pos = 0
 					while pos+12 <= len(data):
 						# Unpack
-						(pts, what) = struct.unpack('>QI', data[pos:pos+12])
+						(pts, what) = struct.unpack(b'>QI', data[pos:pos+12])
 						self.__insort(int(pts), what)
 						# Next cut_list entry
 						pos += 12
@@ -438,14 +438,14 @@ class CutList():
 			self.cut_list = []
 
 	def __writeCutFile(self):
-		data = ""
+		data = b""
 		path = self.cut_file
 		if path:
 
 			# Generate and pack data
 			if self.cut_list:
 				for (pts, what) in self.cut_list:
-					data += struct.pack('>QI', pts, what)
+					data += struct.pack(b'>QI', pts, what)
 
 			# Write data to file
 			# OE1.6 with Pyton 2.6
