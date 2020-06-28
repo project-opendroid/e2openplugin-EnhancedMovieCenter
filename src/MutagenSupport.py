@@ -6,6 +6,7 @@ import time
 import datetime
 import base64
 from Tools.Directories import fileExists
+import six
 # we try to get mutagen if is installed
 isMutagen = False
 try:
@@ -151,7 +152,10 @@ def getAudioMetaData(service, ext):
 					except Exception as e:
 						emcDebugOut("[EMCMutagenSupport] Exception in Mp4-M4aEmbeddedCover: " + str(e))
 
-			return title.encode('utf-8'), genre.encode('utf-8'), artist.encode('utf-8'), album.encode('utf-8'), length.encode('utf-8')
+			if six.PY3:
+				return title, genre, artist, album, length
+			else:
+				return title.encode('utf-8'), genre.encode('utf-8'), artist.encode('utf-8'), album.encode('utf-8'), length.encode('utf-8')
 
 	return title, genre, artist, album, length
 

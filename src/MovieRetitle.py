@@ -1,6 +1,7 @@
 ﻿# -*- coding: utf-8 -*-
 from __future__ import print_function, absolute_import
 import os
+import six
 
 # for localized messages
 from . import _
@@ -192,7 +193,8 @@ class MovieRetitle(Screen, ConfigListScreenExt):
 			path = os.path.dirname(service.getPath())
 			file_name = os.path.basename(os.path.splitext(service.getPath())[0])
 			src = os.path.join(path, file_name)
-			dst = os.path.join(path, new_name.encode('utf-8'))
+			new_name = six.ensure_str(new_name)
+			dst = os.path.join(path, new_name)
 			import glob
 			for f in glob.glob(os.path.join(path, src + "*")):
 				os.rename(f, f.replace(src, dst))

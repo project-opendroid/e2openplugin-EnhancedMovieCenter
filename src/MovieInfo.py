@@ -26,7 +26,7 @@ import shutil
 
 from six.moves.urllib.parse import quote
 from six.moves.urllib.request import Request, urlopen
-
+import six
 
 config.EMC.movieinfo = ConfigSubsection()
 config.EMC.movieinfo.language = ConfigSelection(default='en', choices=[('en', _('English')), ('de', _('German')), ('it', _('Italian')), ('es', _('Spanish')), ('fr', _('French')), ('pt', _('Portuguese'))])
@@ -81,10 +81,10 @@ def getMovieInfo(id, cat, getAll=True, onlyPoster=False):
 
 	if cat == "movie":
 		if response is not None:
-			posterUrl = (str(response["poster_path"])).encode('utf-8')
+			posterUrl = six.ensure_str(str(response["poster_path"]))
 	if cat == "tvshows":
 		if response1 is not None:
-			posterUrl = (str(response1["poster_path"])).encode('utf-8')
+			posterUrl = six.ensure_str(str(response1["poster_path"]))
 	if posterUrl is not None:
 		getTempCover(posterUrl)
 	if onlyPoster:
@@ -92,22 +92,22 @@ def getMovieInfo(id, cat, getAll=True, onlyPoster=False):
 
 	if cat == "movie":
 		if response is not None:
-			blurb = (str(response["overview"])).encode('utf-8')
+			blurb = six.ensure_str(str(response["overview"]))
 
 			if config.EMC.movieinfo.ldruntime.value == '1':
-				runtime = str(response["runtime"]).encode('utf-8')
+				runtime = six.ensure_str(str(response["runtime"]))
 				if response["runtime"] == 0:
 					runtime = ""
 			else:
 				runtime = ""
 
 			if config.EMC.movieinfo.ldreleasedate.value  == '1':
-				releasedate = str(response["release_date"]).encode('utf-8')
+				releasedate = six.ensure_str(str(response["release_date"]))
 			else:
 				releasedate = ""
 
 			if config.EMC.movieinfo.ldvote.value  == '1':
-				vote = str(response["vote_average"]).encode('utf-8')
+				vote = six.ensure_str(str(response["vote_average"]))
 			else:
 				vote = ""
 
@@ -119,7 +119,7 @@ def getMovieInfo(id, cat, getAll=True, onlyPoster=False):
 						genres = i["name"]
 					else:
 						genres = genres + ", " + i["name"]
-				genres = genres.encode('utf-8')
+				genres = six.ensure_str(genres)
 			else:
 				genres = ""
 
@@ -131,7 +131,7 @@ def getMovieInfo(id, cat, getAll=True, onlyPoster=False):
 						countries = i["name"]
 					else:
 						countries = countries + ", " + i["name"]
-				countries = countries.encode('utf-8')
+				countries = six.ensure_str(countries)
 			else:
 				countries = ""
 
@@ -147,22 +147,22 @@ def getMovieInfo(id, cat, getAll=True, onlyPoster=False):
 
 	if cat == "tvshows":
 		if response1 is not None:
-			blurb = (str(response1["overview"])).encode('utf-8')
+			blurb = six.ensure_str(str(response1["overview"]))
 
 			if config.EMC.movieinfo.ldruntime.value == '1':
-				runtime = str(response1["episode_run_time"]).encode('utf-8')
+				runtime = six.ensure_str(str(response1["episode_run_time"]))
 				if response1["episode_run_time"] == 0:
 					runtime = _("unknown")
 			else:
 				runtime = ""
 
 			if config.EMC.movieinfo.ldreleasedate.value  == '1':
-				releasedate = str(response1["first_air_date"]).encode('utf-8')
+				releasedate = six.ensure_str(str(response1["first_air_date"]))
 			else:
 				releasedate = ""
 
 			if config.EMC.movieinfo.ldvote.value  == '1':
-				vote = str(response1["vote_average"]).encode('utf-8')
+				vote = six.ensure_str(str(response1["vote_average"]))
 			else:
 				vote = ""
 
@@ -174,7 +174,7 @@ def getMovieInfo(id, cat, getAll=True, onlyPoster=False):
 						genres = i["name"]
 					else:
 						genres = genres + ", " + i["name"]
-				genres = genres.encode('utf-8')
+				genres = six.ensure_str(genres)
 			else:
 				genres = ""
 
@@ -186,7 +186,7 @@ def getMovieInfo(id, cat, getAll=True, onlyPoster=False):
 						countries = i
 					else:
 						countries = countries + ", " + i
-				countries = countries.encode('utf-8')
+				countries = six.ensure_str(countries)
 			else:
 				countries = ""
 
@@ -215,6 +215,7 @@ def getTempCover(posterUrl):
 				os.remove("/tmp/previewCover.jpg")
 			coverpath = "/tmp/previewCover.jpg"
 			url = "http://image.tmdb.org/t/p/%s%s" % (config.EMC.movieinfo.coversize.value, posterUrl)
+			url = six.ensure_binary(url)
 			downloadPage(url, coverpath).addErrback(dataError)
 		except Exception as e:
 			print(('[EMC] MovieInfo getTempCover exception failure: ', str(e)))
