@@ -71,11 +71,12 @@ class EMCFileCache():
 		if path:
 			for k in self.cacheCountSizeList.keys():
 				if (k+"/").startswith(path+"/") or (path+"/").startswith(k+"/"): # drop dirs containing path, but not "a/bc" when path is "a/bcd/e", therefore append "/"
-					del self.cacheCountSizeList[k]
 					rescanPaths.append(k)
 					#print "EMC delcacheCountSizeListEntriesOnFileOp IS  deleting",k," due to OP on path ",path
 				#else:
 					#print "EMC delcacheCountSizeListEntriesOnFileOp NOT deleting",k," due to OP on path ",path
+			for k in rescanPaths:
+				del self.cacheCountSizeList[k]
 		return rescanPaths
 
 	def IsPathInCountSizeList(self, path):
