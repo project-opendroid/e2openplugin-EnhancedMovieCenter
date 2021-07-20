@@ -380,9 +380,9 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 						self.playcount -= 1
 				else:
 					if self.playcount == -1:
-						self.playlist = [ self.playall.next() ]
+						self.playlist = [next(self.playall)]
 					elif (self.playcount + 1) == len(self.playlist):
-						self.playlist.append(self.playall.next())
+						self.playlist.append(next(self.playall))
 						if len(self.playlist) > 25:
 							del self.playlist[0]
 							self.playcount -= 1
