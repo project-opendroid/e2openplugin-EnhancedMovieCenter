@@ -1558,6 +1558,7 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 					service = entry[0]
 					if not self.serviceBusy(service):
 						yield service
+		# TODO : allow also bookmark folders (cmtBME2)
 		elif self.list[idx][7] == cmtDir:
 			# Cursor marks a directory
 			#IDEA: Optionally play also the following movielist items (folders and movies)
