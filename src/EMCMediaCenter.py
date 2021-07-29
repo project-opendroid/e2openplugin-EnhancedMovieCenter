@@ -332,7 +332,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 					f = open("/proc/stb/video/policy", "w")
 					f.write(newChoice)
 					f.close()
-				except Exception, e:
+				except Exception as e:
 					print("[EMCMediaCenter] CoolAVSwitch exception:" + str(e))
 
 	def getCurrentEvent(self):

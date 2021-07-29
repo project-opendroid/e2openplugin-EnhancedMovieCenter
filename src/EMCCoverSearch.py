@@ -35,7 +35,6 @@ from enigma import eListboxPythonMultiContent, eListbox, gFont, getDesktop, load
 from Tools.BoundFunction import boundFunction
 from .DelayedFunction import DelayedFunction
 from time import time
-from urllib import quote
 
 from .MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, getNoPosterPath
 
