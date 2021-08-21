@@ -362,7 +362,7 @@ class CutList():
 			insort(self.cut_list, (pts, what))
 
 	def __appendSavedLast(self, pts):
-		if pts > 0 and pts < self.MOVIE_FINISHED:
+		if pts is not None and pts > 0 and pts < self.MOVIE_FINISHED:
 			self.__insort(pts, self.CUT_TYPE_MARK)
 			self.cut_list.append( (pts, self.CUT_TYPE_SAVEDLAST) )
 
@@ -371,7 +371,7 @@ class CutList():
 			for cp in self.cut_list[:]:
 				if cp[1] == self.CUT_TYPE_LENGTH:
 					self.cut_list.remove(cp)
-		if pts > 0:
+		if pts is not None and pts > 0:
 			self.__insort(pts, self.CUT_TYPE_LENGTH)
 
 	def __replaceLast(self, pts):
@@ -379,7 +379,7 @@ class CutList():
 			for cp in self.cut_list[:]:
 				if cp[1] == self.CUT_TYPE_LAST:
 					self.cut_list.remove(cp)
-		if pts > 0:
+		if pts is not None and pts > 0:
 			self.__insort(pts, self.CUT_TYPE_LAST)
 
 	def __removeSavedLast(self, pts):
