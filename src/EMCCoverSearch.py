@@ -302,13 +302,14 @@ class EMCImdbScan(Screen):
 			urls = []
 			for each in self.cm_list:
 				(title, path) = each
-				try:
-					title.decode('utf-8')
-				except UnicodeDecodeError:
+				if six.PY2: # FIXME
 					try:
-						title = title.decode("cp1252").encode("utf-8")
+						title.decode('utf-8')
 					except UnicodeDecodeError:
-						title = title.decode("iso-8859-1").encode("utf-8")
+						try:
+							title = title.decode("cp1252").encode("utf-8")
+						except UnicodeDecodeError:
+							title = title.decode("iso-8859-1").encode("utf-8")
 				title = getMovieNameWithoutExt(title)
 				cover_path = re.sub(self.file_format + "$", '.jpg', path, flags=re.IGNORECASE)
 				if os.path.exists(cover_path):
