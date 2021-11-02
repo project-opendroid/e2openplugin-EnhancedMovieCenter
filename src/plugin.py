@@ -144,9 +144,9 @@ class Autoselect639Language(ISO639Language):
 		return (choices_dict, choices_list, defaults)
 
 def langListEPG():
-	list = language.getLanguageList()
+	langs = language.getLanguageList()
 	newlist = []
-	for item in list:
+	for item in langs:
 		newlist.append((item[0][:5], item[1][0]))
 	return newlist
 
