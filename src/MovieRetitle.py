@@ -14,7 +14,7 @@ from Components.Sources.StaticText import StaticText
 from Components.Label import Label
 from Components.Pixmap import Pixmap
 
-from enigma import eServiceReference, iServiceInformation, getDesktop, ePoint
+from enigma import eServiceReference, iServiceInformation, ePoint
 
 # Plugin internal
 from .ServiceSupport import ServiceCenter
@@ -93,10 +93,9 @@ class MovieRetitle(Screen, ConfigListScreenExt):
 		if self["config"].getCurrent() is not None:
 			if isinstance(self["config"].getCurrent()[1], ConfigText) or isinstance(self["config"].getCurrent()[1], ConfigPassword):
 				self["VirtualKB"].setEnabled(True)
-				if self.has_key("HelpWindow"):
+				if "HelpWindow" in self:
 					if self["config"].getCurrent()[1].help_window.instance is not None:
 						helpwindowpos = self["HelpWindow"].getPosition()
-						from enigma import ePoint
 						self["config"].getCurrent()[1].help_window.instance.move(ePoint(helpwindowpos[0],helpwindowpos[1]))
 			else:
 				self["VirtualKB"].setEnabled(False)

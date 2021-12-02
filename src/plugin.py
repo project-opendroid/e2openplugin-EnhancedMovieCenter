@@ -21,10 +21,7 @@
 from __future__ import print_function, absolute_import
 from Components.config import *
 from Components.ActionMap import ActionMap
-from enigma import eActionMap
-from keyids import KEYIDS
 from Plugins.Plugin import PluginDescriptor
-from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 
 from Components.Sources import EMCCurrentService
@@ -53,18 +50,13 @@ class ConfigTextWOHelp(ConfigText):
 	def onDeselect(self, session):
 		ConfigText.onDeselect(self, None)
 
-yes_no_descriptions = {False: _("no"), True: _("yes")}
 
-class ConfigYesNo(ConfigBoolean):
-        def __init__(self, default = False):
-                ConfigBoolean.__init__(self, default = default, descriptions = yes_no_descriptions)
-
-class ConfigYesNoConfirm(ConfigBoolean):
+class ConfigYesNoConfirm(ConfigYesNo):
 	def __init__(self, text, key1, key2, default = False):
 		self.text = text
 		self.key1 = key1
 		self.key2 = key2
-		ConfigBoolean.__init__(self, default = default, descriptions = yes_no_descriptions)
+		ConfigYesNo.__init__(self, default=default)
 		self.session = None
 
 	def handleKey(self, key):
@@ -564,11 +556,8 @@ def menu_recordingsOpen(menuid, **kwargs):
 	return []
 
 def Plugins(**kwargs):
-	from .EnhancedMovieCenter import EMCVersion
 	descriptors = []
-
 	descriptors.append( PluginDescriptor(where = PluginDescriptor.WHERE_SESSIONSTART, fnc = autostart) )
-
 	show_p = [ PluginDescriptor.WHERE_PLUGINMENU ]
 	if config.EMC.extmenu_plugin.value:
 		show_p.append( PluginDescriptor.WHERE_EXTENSIONSMENU )
