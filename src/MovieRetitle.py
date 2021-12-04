@@ -95,9 +95,11 @@ class MovieRetitle(Screen, ConfigListScreenExt):
 				self["VirtualKB"].setEnabled(True)
 				if "HelpWindow" in self:
 					if self["config"].getCurrent()[1].help_window.instance is not None:
-						helpwindowpos = self["HelpWindow"].getPosition()
-						if helpwindowpos:
+						try:
+							helpwindowpos = self["HelpWindow"].getPosition()
 							self["config"].getCurrent()[1].help_window.instance.move(ePoint(helpwindowpos[0],helpwindowpos[1]))
+						except:
+							pass
 			else:
 				self["VirtualKB"].setEnabled(False)
 		else:
