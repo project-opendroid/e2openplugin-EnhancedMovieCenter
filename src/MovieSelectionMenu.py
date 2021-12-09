@@ -168,6 +168,12 @@ class MovieMenu(Screen, E2Bookmarks, EMCBookmarks):
 				if show_plugins:
 					# Only valid for ts files: CutListEditor, DVDBurn, ...
 					self.menu.extend([(p.description, boundFunction(self.execPlugin, p)) for p in plugins.getPlugins(PluginDescriptor.WHERE_MOVIELIST)])
+					# add new TagEditor
+					try:
+						from Screens.TagEditor import TagEditor
+						self.menu.append((_("Edit Tags"), boundFunction(self.do_tageditor, self.service)))
+					except ImportError:
+						pass
 
 			self.menu.append((_("Open E2 Bookmark path"), boundFunction(self.close, "openE2Bookmarks")))
 			if not self.isE2Bookmark(currentPath):
@@ -535,3 +541,10 @@ class MovieMenu(Screen, E2Bookmarks, EMCBookmarks):
 				emcTasker.shellExecute('rm -f "' + file + '"')
 				movieFileCache.delPathFromCache(os.path.dirname(self.service.getPath()))
 		self.close("reload")
+
+	def do_tageditor(self, service):
+		try:
+			from Screens.TagEditor import TagEditor
+			self.session.open(TagEditor, service=service)
+		except ImportError:
+			pass
