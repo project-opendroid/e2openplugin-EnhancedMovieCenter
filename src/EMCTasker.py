@@ -156,8 +156,9 @@ class EMCExecutioner:
 		except Exception as e:
 			emcDebugOut("[emcTasker] runFinished exception:\n" + str(e))
 
-	def dataAvail(self, string):
-		self.returnData += "\n" + "\n".replace("")
+	def dataAvail(self, data):
+		data = six.ensure_str(data)
+		self.returnData += "\n" + data.replace("\n","")
 
 
 class EMCTasker:
