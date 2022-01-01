@@ -25,7 +25,12 @@ from Components.config import *
 from Screens.Standby import *
 import Screens.Standby
 import os, sys, traceback
-from collections import Callable, deque
+try:
+	#Python >= 3.10
+	from collections.abc import Callable
+except ImportError:
+	from collections import Callable
+from collections import deque
 from pipes import quote
 
 import six
