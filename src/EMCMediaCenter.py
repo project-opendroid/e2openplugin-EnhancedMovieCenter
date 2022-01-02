@@ -420,7 +420,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 
 				if service and service.type == sidDVD:
 					# Only import DVDPlayer, if we want to play a DVDPlayer format
-					if fileExists("%so"%dvdPlayerPlg) or fileExists("%sc"%dvdPlayerPlg):
+					if fileExists(dvdPlayerPlg):
 						try:
 							from Plugins.Extensions.DVDPlayer import servicedvd # load c++ part of dvd player plugin
 						except:
@@ -1016,7 +1016,7 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 			self["SeekActions"].setEnabled(True)
 
 	def createSummary(self):
-		if self.service and self.service.type == sidDVD and (fileExists("%so"%dvdPlayerPlg) or fileExists("%sc"%dvdPlayerPlg)):
+		if self.service and self.service.type == sidDVD and fileExists(dvdPlayerPlg):
 			from Plugins.Extensions.DVDPlayer.plugin import DVDSummary
 			return DVDSummary
 		else:
@@ -1080,8 +1080,8 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 	# InfoBarNumberZap
 	def keyNumberGlobal(self, number):
 		if self.service and self.service.type == sidDVD:
-			if fileExists("%so"%dvdPlayerPlg) or fileExists("%sc"%dvdPlayerPlg):
-				if fileExists('/usr/lib/enigma2/python/Screens/DVD.pyo') or fileExists('/usr/lib/enigma2/python/Screens/DVD.pyc'):
+			if fileExists(dvdPlayerPlg):
+				if fileExists('/usr/lib/enigma2/python/Screens/DVD.py'):
 					from Screens.DVD import ChapterZap
 					self.session.openWithCallback(self.numberEntered, ChapterZap, "0")
 				else:
