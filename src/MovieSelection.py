@@ -1329,7 +1329,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 					if not os.path.isdir(pathe):
 						if e.endswith(".sh"):
 							list.append([e, pathe])
-						elif e.endswith(".py"):
+						elif e.endswith(".py") or e.endswith(".pyc"):
 							list.append([e, pathe])
 
 			if len(list) == 0:
@@ -2748,7 +2748,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 			if os.path.exists(result[1]):
 				if result[1].endswith(".sh"):
 					emcTasker.shellExecute("%s; sh %s %s %s" %(env, result[1], self.currentPath, current))
-				elif result[1].endswith(".py"):
+				elif result[1].endswith(".py") or result[1].endswith(".pyc"):
 					emcTasker.shellExecute("%s; python %s %s %s" %(env, result[1], self.currentPath, current))
 
 	def moveCB(self, service):
