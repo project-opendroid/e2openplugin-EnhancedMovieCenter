@@ -1603,8 +1603,8 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 		if self.list[idx][7] in extMedia:
 			# Cursor marks a movie
 			length = len(self.list)
-			shuffle = range(length)
-			random.shuffle( shuffle )
+			shuffle = list(range(length))
+			random.shuffle(shuffle)
 			for i in shuffle:
 				entry = self.list[i]
 				if entry and entry[7] in plyAll:
@@ -1631,8 +1631,8 @@ class MovieCenterData(VlcPluginInterfaceList, PermanentSort, E2Bookmarks, EMCBoo
 
 				if entries:
 					length = len(entries)
-					shuffle = range(length)
-					random.shuffle( shuffle )
+					shuffle = list(range(length))
+					random.shuffle(shuffle)
 					for i in shuffle:
 						entry = entries[i]
 						pathname = os.path.join(root, entry)
