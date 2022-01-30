@@ -229,6 +229,8 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 		self["MenuActions"].prio = 2
 		if "TeletextActions" in self:
 			self["TeletextActions"].prio = 2
+		else:
+			emcDebugOut("[EMCMediaCenter] teletext plugin not installed")
 		self["NumberActions"].prio = 2
 
 		# Cover Anzeige
@@ -432,7 +434,8 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 						self.session.open(MessageBox, _("No DVD-Player found!"), MessageBox.TYPE_ERROR, 10)
 						self.leavePlayer(True)
 						return
-					self["TeletextActions"].setEnabled(False)
+					if "TeletextActions" in self:
+						self["TeletextActions"].setEnabled(False)
 					self["DVDPlayerPlaybackActions"].setEnabled(True)
 				else:
 					if self.dvdScreen:
@@ -440,7 +443,8 @@ class EMCMediaCenter( CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBar
 						self.dvdScreen = None
 					else:
 						self.dvdScreen = None
-					self["TeletextActions"].setEnabled(True)
+					if "TeletextActions" in self:
+						self["TeletextActions"].setEnabled(True)
 					self["DVDPlayerPlaybackActions"].setEnabled(False)
 
 				# Check if the video preview is active and already running
