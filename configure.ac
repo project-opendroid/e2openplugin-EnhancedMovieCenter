@@ -11,7 +11,6 @@ src/script/Makefile
 src/img/Makefile
 src/img_fhd/Makefile
 src/CoolSkin/Makefile
-src/chardet/Makefile
 Components/Makefile
 Components/Converter/Makefile
 Components/Renderer/Makefile
