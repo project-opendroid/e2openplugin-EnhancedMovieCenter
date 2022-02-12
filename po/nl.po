@@ -149,7 +149,7 @@ msgid "Alpha sort ascending, Date descending (AZD-)"
 msgstr "Alfa oplopend, datum aflopend (AZD-)"
 
 msgid "Alpha sort date newest"
-msgstr "Alfabetisch nieuwste datum"
+msgstr "Alfa nieuwste datum "
 
 msgid "Alpha sort descending (ZA)"
 msgstr "Alfa aflopend (ZA)"
@@ -1812,7 +1812,7 @@ msgid "Production Countries:"
 msgstr "Productie land(en):"
 
 msgid "Progress sort"
-msgstr "Vooruitgang sorteren"
+msgstr "Op voortgang sorteren"
 
 msgid "Progress sort ascending (P+)"
 msgstr "Vooruitgang (P +) oplopend"
