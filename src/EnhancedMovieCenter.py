@@ -561,7 +561,7 @@ class EnhancedMovieCenterMenu(ConfigListScreenExt, Screen):
 			(  self.section, _("DEBUG"), None, None, 2, [], "", None, None ),
 			(  _("Enable EMC debug output"), config.EMC.debug, self.dbgChange, None, 2, [], _("HELP_Enable EMC debug output"), False, None ),
 			(  _("EMC output directory"), config.EMC.folder, self.validatePath, self.openLocationBox, 2, [-1], _("HELP_EMC output directory"), None, None ),
-			(  _("Debug output file name"), config.EMC.debugfile, self.validatePath, None, 2, [-2], _("HELP_Debug output file name"), None, None ),
+			(  _("Debug output file name"), config.EMC.debugfile, None, None, 2, [-2], _("HELP_Debug output file name"), None, None ),
 		]
 		)
 
