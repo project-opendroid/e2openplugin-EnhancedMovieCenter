@@ -36,7 +36,7 @@ from pipes import quote
 import six
 
 
-def emcDebugOut(outtxt, outfile=None, fmode="aw", forced=False):
+def emcDebugOut(outtxt, outfile=None, fmode="a", forced=False):
 	try:	# fails if called too early during Enigma startup
 		if config.EMC.debug.value or forced:
 			if not os.path.exists(config.EMC.folder.value):
