@@ -95,7 +95,7 @@ def getAudioMetaData(service, ext):
 							emcDebugOut("[EMCMutagenSupport] Exception in Mp3EmbeddedCover: " + str(e))
 			elif ext.lower() == ".flac":
 				try:
-                                	scover = audio.pictures
+					scover = audio.pictures
 				except:
 					scover = None
 				if scover:
@@ -107,7 +107,7 @@ def getAudioMetaData(service, ext):
 							emcDebugOut("[EMCMutagenSupport] Exception in FlacEmbeddedCover: " + str(e))
 			elif ext.lower() == ".ogg":
 				try:
-                                	scover = audio
+					scover = audio
 				except:
 					scover = None
 				if scover:
