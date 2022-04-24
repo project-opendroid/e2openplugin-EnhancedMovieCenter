@@ -338,7 +338,7 @@ class EMCImdbScan(Screen):
 						if seasonEpisode:
 							(season, episode) = seasonEpisode[0]
 						name2 = getMovieNameWithoutPhrases(s_title)
-						name2 = re.sub('[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+','', name2, flags=re.S | re.I)
+						name2 = re.sub('[Ss][0-9]+[Ee][0-9]+.*[a-zA-Z0-9_]+', '', name2, flags=re.S | re.I)
 						url = 'http://thetvdb.com/api/GetSeries.php?seriesname=%s&language=%s' % (quote(str(name2)), self.lang)
 						url = six.ensure_binary(url)
 						urls.append(("serie", title, url, cover_path, season, episode))
@@ -736,7 +736,7 @@ class imdbSetup(Screen, ConfigListScreenExt):
 		self.configlist.append(getConfigListEntry(_("Single Search:"), config.EMC.imdb.singlesearch, True))
 		self.configlist.append(getConfigListEntry(_("Search filter for matching existing terms in the title:"), config.EMC.imdb.singlesearch_filter, False))
 		itext = ""
-		if config.EMC.imdb.singlesearch.value not in ('0','4'):
+		if config.EMC.imdb.singlesearch.value not in ('0', '4'):
 			itext = _(" (without counting cover range)")
 			self.configlist.append(getConfigListEntry(_("thetvdb cover range per title:"), config.EMC.imdb.singlesearch_tvdbcoverrange, False))
 		self.configlist.append(getConfigListEntry(_("Search Results per Search Site%s:") % itext, config.EMC.imdb.singlesearch_siteresults, False))
@@ -929,7 +929,7 @@ class getCover(Screen):
 		print("EMC IMDB: Cover Select - %s" % title)
 		templist = []
 		coverlist = []
-		coversize = config.EMC.imdb.preferred_coversize.value.replace('w','SX')
+		coversize = config.EMC.imdb.preferred_coversize.value.replace('w', 'SX')
 		finish = False
 		siteresults = int(config.EMC.imdb.singlesearch_siteresults.value)
 		part = getSearchList(title, config.EMC.imdb.singlesearch_filter.value)
@@ -986,7 +986,7 @@ class getCover(Screen):
 				print("EMC iMDB: Download Poster - %s" % m_url)
 				try:
 					req = requests.session()
-					r = req.get(m_url, headers={'User-Agent':agent})
+					r = req.get(m_url, headers={'User-Agent': agent})
 					f = open(self.path, 'wb')
 					for chunk in r.iter_content(chunk_size=512 * 1024):
 						if chunk:

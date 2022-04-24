@@ -316,7 +316,7 @@ def getMovieNameWithoutExt(moviename=""):
 				moviename = moviename[:-len(rem)]
 				break
 		for rem in extVideo:
-			rem = rem.replace(".","")
+			rem = rem.replace(".", "")
 			if moviename.lower().endswith("[" + rem + "]"):
 				moviename = moviename[:-len("[" + rem + "]")].strip()
 				break

@@ -224,7 +224,7 @@ class EMCMediaCenter(CutList, Screen, HelpableScreen, InfoBarTimeshift, InfoBarS
 				"nextTitle": (self.nextTitle, _("jump forward to the next title")),
 				"prevTitle": (self.prevTitle, _("jump back to the previous title")),
 				"movieInfo": (self.infoMovie, _("Movie information")),
-			},-2) # default priority
+			}, -2) # default priority
 
 		self["MenuActions"].prio = 2
 		if "TeletextActions" in self:

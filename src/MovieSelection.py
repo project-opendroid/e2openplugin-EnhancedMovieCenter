@@ -99,7 +99,7 @@ except:
 	boxmodel = ''
 
 # Move all trashcan operations to a separate file / class
-def purgeExpired(currentPath=None,postFileOp=None,emptyTrash=False):
+def purgeExpired(currentPath=None, postFileOp=None, emptyTrash=False):
 	try:
 		movie_trashpath = config.EMC.movie_trashcan_path.value
 		movie_homepath = os.path.realpath(config.EMC.movie_homepath.value)
@@ -2220,7 +2220,7 @@ class EMCSelection(Screen, HelpableScreen, SelectionEventInfo, VlcPluginInterfac
 					if exist == "":
 						mes = _("Files added to current Playlist.")
 					elif exist != "" and add != "":
-						mes = _("Files added to current Playlist:\n%(add)s\n\nFiles exists in current Playlist:\n%(exist)s" % {'add':add, 'exist':exist})
+						mes = _("Files added to current Playlist:\n%(add)s\n\nFiles exists in current Playlist:\n%(exist)s" % {'add': add, 'exist': exist})
 					elif exist != "" and add == "":
 						mes = _("Files exists in current Playlist:\n%s") % exist
 				self.checkHideMiniTV_beforeFullscreen()

@@ -166,7 +166,7 @@ class EMCExecutioner:
 
 	def dataAvail(self, data):
 		data = six.ensure_str(data)
-		self.returnData += "\n" + data.replace("\n","")
+		self.returnData += "\n" + data.replace("\n", "")
 
 
 class EMCTasker:

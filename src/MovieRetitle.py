@@ -97,7 +97,7 @@ class MovieRetitle(Screen, ConfigListScreenExt):
 					if self["config"].getCurrent()[1].help_window.instance is not None:
 						try:
 							helpwindowpos = self["HelpWindow"].getPosition()
-							self["config"].getCurrent()[1].help_window.instance.move(ePoint(helpwindowpos[0],helpwindowpos[1]))
+							self["config"].getCurrent()[1].help_window.instance.move(ePoint(helpwindowpos[0], helpwindowpos[1]))
 						except:
 							pass
 			else:
