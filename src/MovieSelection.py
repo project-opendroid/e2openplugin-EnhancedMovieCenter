@@ -86,14 +86,6 @@ from . import PY3
 
 global extList, extVideo, extMedia, extDir, plyAll, plyDVD, plyVideo, cmtBME2, cmtBMEMC, cmtDir, plyDVB, extPlaylist, extAudio
 
-# we try to get mutagen if is installed
-isMutagen = False
-try:
-	from mutagen.mp3 import MP3
-	isMutagen = True
-except Exception as e:
-	print("[EMCMS] python-mutagen is not available:", e)
-
 try:
 	from enigma import eMediaDatabase
 	isDreamOS = True
@@ -360,7 +352,7 @@ class SelectionEventInfo:
 		isExtHDDSleeping = config.EMC.limit_fileops_noscan.value and service and mountPoints.isExtHDDSleeping(service.getPath(), self["list"])
 		if not isExtHDDSleeping:
 			self["Service"].newService(service)
-			if isMutagen and config.EMC.mutagen_show.value:
+			if config.EMC.mutagen_show.value:
 				if service:
 					ext = os.path.splitext(service.getPath())[1].lower()
 					exts = [".mp3", ".flac", ".m4a", ".mp4", ".aac", ".ogg"]
@@ -432,7 +424,7 @@ class SelectionEventInfo:
 			ext = os.path.splitext(service.getPath())[1].lower()
 			exts = [".mp3", ".flac", ".m4a", ".mp4", ".aac", ".ogg"]
 			if ext.lower() in exts:
-				if isMutagen and config.EMC.mutagen_show.value and not os.path.exists(jpgpath):
+				if config.EMC.mutagen_show.value and not os.path.exists(jpgpath):
 					if fileExists("/tmp/.emcAudioTag.jpg"):
 						jpgpath = "/tmp/.emcAudioTag.jpg"
 					elif fileExists("/tmp/.emcAudioTag.jpeg"):

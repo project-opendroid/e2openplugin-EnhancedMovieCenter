@@ -7,27 +7,16 @@ import datetime
 import base64
 from Tools.Directories import fileExists
 import six
-# we try to get mutagen if is installed
-isMutagen = False
-try:
-	from mutagen.mp3 import MP3
-	from mutagen.easyid3 import EasyID3
-	from mutagen.id3 import ID3
-	from mutagen.flac import FLAC, Picture, error as FLACError
-	from mutagen.oggvorbis import OggVorbis
-	from mutagen.easymp4 import EasyMP4
-	from mutagen.mp4 import MP4, MP4Cover
-	from mutagen.apev2 import APEv2File
-	isMutagen = True
-except Exception as e:
-	print("[EMCMutagenSupport] python-mutagen is not available:", e)
-# we try to get new mutagen aac-support - version 1.27 and higher
-isMutagenAAC = False
-try:
-	from mutagen.aac import AAC
-	isMutagenAAC = True
-except Exception as e:
-	print("[EMCMutagenSupport] new mutagen aac-support is not available:", e)
+
+from mutagen.mp3 import MP3
+from mutagen.easyid3 import EasyID3
+from mutagen.id3 import ID3
+from mutagen.flac import FLAC, Picture, error as FLACError
+from mutagen.oggvorbis import OggVorbis
+from mutagen.easymp4 import EasyMP4
+from mutagen.mp4 import MP4
+from mutagen.apev2 import APEv2File
+from mutagen.aac import AAC
 
 from .EMCTasker import emcDebugOut
 
@@ -81,11 +70,8 @@ def getAudioMetaData(service, ext):
 			if ext.lower() != ".aac":
 				length = str(datetime.timedelta(seconds=int(audio.info.length)))
 			else:
-				if isMutagenAAC:
-					getlength = AAC(os.path.join(path))
-					length = str(datetime.timedelta(seconds=int(getlength.info.length)))
-				else:
-					length = str(datetime.timedelta(seconds=int(audio._Info.length)))
+				getlength = AAC(os.path.join(path))
+				length = str(datetime.timedelta(seconds=int(getlength.info.length)))
 			title = audio.get('title', [service.getPath()])[0]
 			try:
 				genre = audio.get('genre', [''])[0]
