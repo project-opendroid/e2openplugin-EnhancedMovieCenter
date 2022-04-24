@@ -26,7 +26,7 @@ class ConfigListExt(GUIComponent):
 		self.timer = eTimer()
 		self._headers = []
 		self.list = list
-		self.onSelectionChanged = [ ]
+		self.onSelectionChanged = []
 		self.current = None
 		self.session = session
 
@@ -198,8 +198,8 @@ class ConfigListScreenExt:
 			"deleteForward": self.keyDelete,
 			"deleteBackward": self.keyBackspace,
 			"toggleOverwrite": self.keyToggleOW,
-			"nextBouquet" : self.keyPreviousSection,
-			"prevBouquet" : self.keyNextSection,
+			"nextBouquet": self.keyPreviousSection,
+			"prevBouquet": self.keyNextSection,
 			"1": self.keyNumberGlobal,
 			"2": self.keyNumberGlobal,
 			"3": self.keyNumberGlobal,

@@ -40,8 +40,8 @@ def parseMJD(MJD):
 	# Parse 16 bit unsigned int containing Modified Julian Date,
 	# as per DVB-SI spec
 	# returning year,month,day
-	YY = int( (MJD - 15078.2) / 365.25 )
-	MM = int( (MJD - 14956.1 - int(YY*365.25) ) / 30.6001 )
+	YY = int((MJD - 15078.2) / 365.25)
+	MM = int((MJD - 14956.1 - int(YY*365.25)) / 30.6001)
 	D  = MJD - 14956 - int(YY*365.25) - int(MM * 30.6001)
 	K=0
 	if MM == 14 or MM == 15:
@@ -261,7 +261,7 @@ class EitList():
 							ISO_639_language_code = six.ensure_str(data[pos+2:pos+5]).upper()
 							event_name_length = _ord(data[pos+5])
 							name_event_description = ""
-							for i in list(range (pos+6, pos+6+event_name_length)):
+							for i in list(range(pos+6, pos+6+event_name_length)):
 								try:
 									if PY3:
 										if data[i] == 10 or data[i]>31:
@@ -330,7 +330,7 @@ class EitList():
 									short_event_codepage = 'utf-8'
 								if short_event_codepage:
 									emcDebugOut("[META] Found short_event encoding-type: " + short_event_codepage)
-							for i in list(range (pos+7+event_name_length, pos+length)):
+							for i in list(range(pos+7+event_name_length, pos+length)):
 								try:
 									if PY3:
 										if data[i] == 10 or data[i]>31:
@@ -352,7 +352,7 @@ class EitList():
 							prev1_ISO_639_language_code = ISO_639_language_code
 						elif rec == 0x4E:
 							ISO_639_language_code = ""
-							for i in list(range (pos+3, pos+6)):
+							for i in list(range(pos+3, pos+6)):
 								if PY3:
 									ISO_639_language_code += str(data[i])
 								else:
@@ -388,7 +388,7 @@ class EitList():
 									extended_event_codepage = 'utf-8'
 								if extended_event_codepage:
 									emcDebugOut("[META] Found extended_event encoding-type: " + extended_event_codepage)
-							for i in list(range (pos+8, pos+length)):
+							for i in list(range(pos+8, pos+length)):
 								try:
 									if PY3:
 										if data[i] == 10 or data[i]>31:

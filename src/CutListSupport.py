@@ -236,13 +236,13 @@ class CutList():
 
 	# Wrapper in seconds
 	def getCutListLast(self):
-		return self.__ptsToSeconds( self.__getCutListLast() )
+		return self.__ptsToSeconds(self.__getCutListLast())
 
 	def getCutListLength(self):
-		return self.__ptsToSeconds( self.__getCutListLength() )
+		return self.__ptsToSeconds(self.__getCutListLength())
 
 	def getCutListSavedLast(self):
-		return self.__ptsToSeconds( self.__getCutListSavedLast() )
+		return self.__ptsToSeconds(self.__getCutListSavedLast())
 
 	# Internal from cutlist in pts
 	def __getCutListLast(self):
@@ -274,7 +274,7 @@ class CutList():
 	# Calculate in seconds
 	# A modification will always be written immediately
 	def toggleLastCutList(self, toggle=0):
-		self.__toggleLast( toggle)
+		self.__toggleLast(toggle)
 		#print "toggleLastCutList " + str(toggle) + " cutlist " + str(self.cut_list)
 		self.__writeCutFile()
 
@@ -284,11 +284,11 @@ class CutList():
 		if config.EMC.movie_save_lastplayed.value is True:
 			self.__saveOldLast()
 		#print "CUTSTEST2 ", self.cut_list
-		self.__removeSavedLast( self.__getCutListSavedLast() )
+		self.__removeSavedLast(self.__getCutListSavedLast())
 		#print "CUTSTEST3 ", self.cut_list
-		self.__replaceLast( play )
+		self.__replaceLast(play)
 		#print "CUTSTEST4 ", self.cut_list
-		self.__replaceLength( length )
+		self.__replaceLength(length)
 		#print "CUTSTEST5 ", self.cut_list
 		self.uploadCuesheet()
 
@@ -356,7 +356,7 @@ class CutList():
 				if clwhat == what:
 					if clpts-self.INSORT_SCOPE < pts < clpts+self.INSORT_SCOPE:
 						# Found a conflicting entry, replace it to avoid doubles and short jumps
-						self.cut_list.remove( (clpts, clwhat) )
+						self.cut_list.remove((clpts, clwhat))
 			insort(self.cut_list, (pts, what))
 		else:
 			insort(self.cut_list, (pts, what))
@@ -364,7 +364,7 @@ class CutList():
 	def __appendSavedLast(self, pts):
 		if pts is not None and pts > 0 and pts < self.MOVIE_FINISHED:
 			self.__insort(pts, self.CUT_TYPE_MARK)
-			self.cut_list.append( (pts, self.CUT_TYPE_SAVEDLAST) )
+			self.cut_list.append((pts, self.CUT_TYPE_SAVEDLAST))
 
 	def __replaceLength(self, pts):
 		if self.cut_list:
