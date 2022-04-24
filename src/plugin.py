@@ -522,10 +522,14 @@ def autostart(reason, **kwargs):
 				try:
 					from Screens.InfoBar import InfoBar
 					value = config.EMC.movie_launch.value
-					if value == "showMovies":	InfoBar.showMovies = showMoviesNew
-					elif value == "showTv":		InfoBar.showTv = showMoviesNew
-					elif value == "showRadio":	InfoBar.showRadio = showMoviesNew
-					elif value == "showWWW":	InfoBar.showPORTAL = showMoviesNew
+					if value == "showMovies":
+						InfoBar.showMovies = showMoviesNew
+					elif value == "showTv":
+						InfoBar.showTv = showMoviesNew
+					elif value == "showRadio":
+						InfoBar.showRadio = showMoviesNew
+					elif value == "showWWW":
+						InfoBar.showPORTAL = showMoviesNew
 					# not working on ATV
 					#elif value == "openQuickbutton":	InfoBar.openQuickbutton = showMoviesNew
 					#elif value == "timeshiftStart":		InfoBar.startTimeshift = showMoviesNew
