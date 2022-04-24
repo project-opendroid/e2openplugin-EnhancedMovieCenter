@@ -19,7 +19,8 @@
 #	<http://www.gnu.org/licenses/>.
 #
 from __future__ import absolute_import
-import pickle, os
+import pickle
+import os
 from collections import defaultdict
 
 from Components.config import config

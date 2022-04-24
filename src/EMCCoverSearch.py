@@ -40,7 +40,11 @@ from .MovieCenter import getMovieNameWithoutExt, getMovieNameWithoutPhrases, get
 
 sz_w = getDesktop(0).size().width()
 
-import re, os, time, shutil, requests
+import re
+import os
+import time
+import shutil
+import requests
 from six.moves.urllib.parse import quote
 from six.moves.urllib.request import urlopen, Request
 import six

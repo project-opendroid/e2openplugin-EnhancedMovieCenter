@@ -20,7 +20,8 @@
 #	<http://www.gnu.org/licenses/>.
 #
 from __future__ import absolute_import
-import os, pickle
+import os
+import pickle
 import six
 
 from collections import defaultdict

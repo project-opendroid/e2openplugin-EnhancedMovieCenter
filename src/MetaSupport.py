@@ -20,7 +20,8 @@
 #	<http://www.gnu.org/licenses/>.
 #
 from __future__ import absolute_import
-import os, re
+import os
+import re
 
 from datetime import datetime
 

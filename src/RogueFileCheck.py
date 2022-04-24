@@ -20,7 +20,8 @@
 #
 
 from __future__ import absolute_import
-import os, sys
+import os
+import sys
 
 from glob import glob
 from Components.config import *

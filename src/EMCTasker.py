@@ -24,7 +24,9 @@ from enigma import eTimer, eConsoleAppContainer
 from Components.config import *
 from Screens.Standby import *
 import Screens.Standby
-import os, sys, traceback
+import os
+import sys
+import traceback
 try:
 	#Python >= 3.10
 	from collections.abc import Callable
