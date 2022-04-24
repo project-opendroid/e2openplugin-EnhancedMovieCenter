@@ -255,7 +255,7 @@ class EnhancedMovieCenterMenu(ConfigListScreenExt, Screen):
 
 		self.list = []
 		self.EMCConfig = []
-		ConfigListScreenExt.__init__(self, self.list, on_change = self.changedEntry)
+		ConfigListScreenExt.__init__(self, self.list, on_change=self.changedEntry)
 		self.needsRestartFlag = False
 		self.defineConfig()
 		self.createConfig()
@@ -290,7 +290,7 @@ class EnhancedMovieCenterMenu(ConfigListScreenExt, Screen):
 		self["config"].onSelectionChanged.append(self.updateHelp)
 
 		#Todo Remove if there is another solution, maybe thinkabout xml
-		config.EMC.movie_finished_clean.addNotifier(self.changedEntry, initial_call = False, immediate_feedback = True)
+		config.EMC.movie_finished_clean.addNotifier(self.changedEntry, initial_call=False, immediate_feedback=True)
 
 	def defineConfig(self):
 
@@ -664,7 +664,7 @@ class EnhancedMovieCenterMenu(ConfigListScreenExt, Screen):
 						# execute value changed -function
 						if entry[2](entry[1]) is not None:
 							# Stop exiting, user has to correct the config
-							config.EMC.movie_finished_clean.addNotifier(self.changedEntry, initial_call = False, immediate_feedback = True)
+							config.EMC.movie_finished_clean.addNotifier(self.changedEntry, initial_call=False, immediate_feedback=True)
 							return
 					# Check parent entries
 					for parent in entry[5]:
@@ -673,7 +673,7 @@ class EnhancedMovieCenterMenu(ConfigListScreenExt, Screen):
 								# execute parent value changed -function
 								if self.list[i+parent][2](self.EMCConfig[i+parent][1]) is not None:
 									# Stop exiting, user has to correct the config
-									config.EMC.movie_finished_clean.addNotifier(self.changedEntry, initial_call = False, immediate_feedback = True)
+									config.EMC.movie_finished_clean.addNotifier(self.changedEntry, initial_call=False, immediate_feedback=True)
 									return
 						except:
 							continue
@@ -711,14 +711,14 @@ class EnhancedMovieCenterMenu(ConfigListScreenExt, Screen):
 				self.session.openWithCallback(
 					self.dirSelected,
 					LocationBox,
-						windowTitle = _("Select Location"),
-						text = _("Choose directory"),
-						currDir = str(path)+"/",
-						bookmarks = config.movielist.videodirs,
-						autoAdd = False,
-						editDir = True,
-						inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys", "/var"],
-						minFree = 100 )
+						windowTitle=_("Select Location"),
+						text=_("Choose directory"),
+						currDir=str(path)+"/",
+						bookmarks=config.movielist.videodirs,
+						autoAdd=False,
+						editDir=True,
+						inhibitDirs=["/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys", "/var"],
+						minFree=100 )
 		except:
 			pass
 
