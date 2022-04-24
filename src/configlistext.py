@@ -12,6 +12,7 @@ try:
 except:
 	isDreamOS = False
 
+
 class ConfigListExt(GUIComponent):
 	def __init__(self, list, session=None):
 		GUIComponent.__init__(self)
@@ -182,6 +183,7 @@ class ConfigListExt(GUIComponent):
 				is_changed |= x[1].isChanged()
 
 		return is_changed
+
 
 class ConfigListScreenExt:
 	def __init__(self, list, session=None, on_change=None):

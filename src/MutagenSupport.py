@@ -145,11 +145,13 @@ def getAudioMetaData(service, ext):
 
 	return title, genre, artist, album, length
 
+
 def writeTmpCover(data, ext):
 	tmpCover = "/tmp/.emcAudioTag" + ext
 	Cover = open(tmpCover, 'wb')
 	Cover.write(data)
 	Cover.close()
+
 
 def getAudioFileSize(path):
 	size = 0
@@ -162,6 +164,7 @@ def getAudioFileSize(path):
 	except Exception as e:
 		emcDebugOut("[EMCMutagenSupport] Exception in getFileSize: " + str(e))
 	return size
+
 
 def getAudioFileDate(path):
 	date = ""

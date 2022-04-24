@@ -38,6 +38,7 @@ instance = None
 
 from . import PY3
 
+
 class ServiceCenter:
 	def __init__(self):
 		global instance
@@ -53,6 +54,7 @@ class ServiceCenter:
 
 	def info(self, service):
 		return ServiceInfo(service)
+
 
 class ServiceInfo:
 	def __init__(self, service):

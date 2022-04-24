@@ -64,10 +64,13 @@ sz_w = getDesktop(0).size().width()
 EMCVersion = "git20210126"
 EMCAbout = "Enhanced Movie Center " + EMCVersion + "\n\n(c) 2012-2021 by\nCoolman, betonme, Swiss-MAD & the many other volunteers."
 
+
 def setEPGLanguage(dummyself=None, dummy=None):
 	if config.EMC.epglang.value:
 		emcDebugOut("Setting EPG language: " + str(config.EMC.epglang.value))
 		eServiceEvent.setEPGLanguage(config.EMC.epglang.value)
+
+
 language.addCallback(setEPGLanguage)
 DelayedFunction(5000, setEPGLanguage)
 
@@ -86,8 +89,10 @@ def setupKeyResponseValues(dummyself=None, dummy=None):
 	os.close(e1)
 	os.close(e2)
 
+
 # Only one trashclean instance is allowed
 trashCleanCall = None
+
 
 def cleanupSetup(dummy=None):
 	try:
@@ -139,6 +144,7 @@ def EMCStartup(session):
 			Notifications.AddNotification(Screens.Standby.Standby)
 			emcTasker.shellExecute("rm -f " + flag)
 
+
 # Predefined settings:
 #  Index 0: Custom should always be the first one:           User edited vlues in the config
 #  Index 1: Default should always be the second one:         Default values stored within the ConfigElement
@@ -157,19 +163,23 @@ predefined_settings = OrderedDict([(_("Custom"), (None, "")),
 					(_("Information"), (8, "I"))
 				])
 
+
 def get_predefined_columns():
 	return [v[0] for k, v in six.iteritems(predefined_settings) if v[0] is not None]
+
 
 def get_predefined_nameid(column):
 	for k, v in six.iteritems(predefined_settings):
 		if v[0] == column:
 			return k, v[1]
 
+
 def get_predefined_value(key):
 	if key in predefined_settings:
 		return predefined_settings[key]
 	else:
 		return predefined_settings[next_predefined_settings()]
+
 
 def next_predefined_settings(key=""):
 	if key not in predefined_settings:
@@ -182,6 +192,7 @@ def next_predefined_settings(key=""):
 				key = k
 			else:
 				return k
+
 
 class EnhancedMovieCenterMenu(ConfigListScreenExt, Screen):
 	if sz_w == 1920:

@@ -32,6 +32,8 @@ from . import PY3
 # Meta File support class
 # Description
 # http://git.opendreambox.org/?p=enigma2.git;a=blob;f=doc/FILEFORMAT
+
+
 class MetaList():
 
 	SERVICE = 0
@@ -215,6 +217,7 @@ class MetaList():
 		else:
 			# No path or no file clear all
 			self.meta = ["", "", "", "", "", "", ""]
+
 
 def getInfoFile(path, exts=""):
 	from .MovieCenter import extMedia

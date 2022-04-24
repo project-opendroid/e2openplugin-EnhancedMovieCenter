@@ -25,6 +25,7 @@ from Components.config import *
 
 from .EMCTasker import emcTasker, emcDebugOut
 
+
 class E2Bookmarks():
 	def __init__(self):
 		pass
