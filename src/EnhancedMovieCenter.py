@@ -70,33 +70,6 @@ def setEPGLanguage(dummyself=None, dummy=None):
 language.addCallback(setEPGLanguage)
 DelayedFunction(5000, setEPGLanguage)
 
-# lets see if mutagen is installed
-def hasMutagen():
-	try:
-		from mutagen.mp3 import MP3
-		hasMutagen = True
-	except:
-		hasMutagen = False
-	return hasMutagen
-
-# lets see if mutagen is available
-def checkMutagen():
-	if hasMutagen():
-		return False
-	try:
-		import commands
-		if not isDreamOS:
-			result = commands.getoutput('opkg update && opkg list|grep mutagen')
-			print(result)
-		else:
-			result = commands.getoutput('apt-get update && apt-cache search mutagen')
-			print(result)
-		if "python-mutagen -" in result:
-			return True
-		else:
-			return False
-	except:
-		print("[EMC] checkMutagen Exception:", e)
 
 def setupKeyResponseValues(dummyself=None, dummy=None):
 	# currently not working on DM500/DM600, wrong input dev files?
@@ -542,15 +515,7 @@ class EnhancedMovieCenterMenu(ConfigListScreenExt, Screen):
 		]
 		)
 
-		if not hasMutagen():
-			self.EMCConfig.extend(
-		[
-			(  _("Install Mutagen-package for audio metadata"), config.EMC.mutagen_install, self.installMutagen, None, 0, [], _("HELP_Install Mutagen-package for audio metadata"), None, None ),
-		]
-		)
-
-		if hasMutagen():
-			self.EMCConfig.extend(
+		self.EMCConfig.extend(
 		[
 			(  _("Show audio metadata"), config.EMC.mutagen_show, None, None, 0, [], _("HELP_Show audio metadata"), None, None ),
 		]
@@ -564,18 +529,6 @@ class EnhancedMovieCenterMenu(ConfigListScreenExt, Screen):
 			(  _("Debug output file name"), config.EMC.debugfile, None, None, 2, [-2], _("HELP_Debug output file name"), None, None ),
 		]
 		)
-
-	def installMutagen(self, element):
-		if element.value == True and checkMutagen():
-			cmd = "opkg update && opkg install python-mutagen"
-			cmd2 = "apt-get update && apt-get install python-mutagen"
-			from Screens.Console import Console
-			if not isDreamOS:
-				self.session.open(Console, _("Installing Mutagen-package"), [cmd])
-			else:
-				self.session.open(Console, _("Installing Mutagen-package"), [cmd2])
-		else:
-			self.session.open(MessageBox, _("The python-mutagen package is not available on the feed."), MessageBox.TYPE_ERROR, 5)
 
 	def createConfig(self):
 		list = []
