@@ -139,18 +139,22 @@ class Autoselect639Language(ISO639Language):
 		return (choices_dict, choices_list, defaults)
 
 
-def langListEPG():
-	langs = language.getLanguageList()
-	newlist = []
-	for item in langs:
-		newlist.append((item[0][:5], item[1][0]))
-	return newlist
-
-
 def langList():
 	iso639 = Autoselect639Language()
 	newlist = iso639.getTranslatedChoicesDictAndSortedListAndDefaults()[1]
 	return newlist
+
+try:
+	from Components.International import international
+	def langListEPG():
+		langs = international.getLocaleList()
+		newlist = []
+		for item in langs:
+			newlist.append((item, international.getLanguageNative(item)))
+		return newlist
+except ImportError:
+	print("International module is missing / use the old langList")
+	langListEPG = langList
 
 
 launch_choices = [("None", _("No override")),
